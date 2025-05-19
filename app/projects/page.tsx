@@ -14,7 +14,7 @@ export default function ProjectsPage() {
       <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
         <h1 className="text-4xl font-bold mb-8 text-center">项目案例</h1>
         <p className="text-lg text-muted-foreground mb-12 text-center max-w-3xl mx-auto">
-          以下是我参与的部分重点项目，展示了我在水利工程与信息技术融合领域的专业能力与创新思维。
+          以下是参与的部分重点项目，展示了我在水利工程与信息技术融合领域的专业能力与创新思维。
         </p>
         <ProjectGrid />
       </div>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { ChevronDown, ChevronUp, GraduationCap, Briefcase } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useInView } from "react-intersection-observer"
 
 const timelineData = [
   {
@@ -60,6 +61,10 @@ const timelineData = [
 
 export default function Timeline() {
   const [timeline, setTimeline] = useState(timelineData)
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  })
 
   const toggleExpand = (index: number) => {
     setTimeline(timeline.map((item, i) => (i === index ? { ...item, expanded: !item.expanded } : item)))
@@ -67,11 +72,23 @@ export default function Timeline() {
 
   return (
     <section className="mb-16">
-      <h2 className="text-3xl font-bold mb-8">我的历程与技能沉淀</h2>
+      <h2 className={cn(
+        "text-3xl font-bold mb-8",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+        "transition-all duration-700 ease-out"
+      )}>我的历程与技能沉淀</h2>
 
-      <div className="relative pl-12 border-l-2 border-secondary space-y-12">
+      <div className="relative pl-12 border-l-2 border-secondary space-y-12" ref={ref}>
         {timeline.map((item, index) => (
-          <div key={index} className="relative">
+          <div 
+            key={index} 
+            className={cn(
+              "relative",
+              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20",
+              "transition-all duration-700 ease-out",
+              `delay-[${index * 150}ms]`
+            )}
+          >
             <div className="absolute top-0 left-0 w-12 flex items-center justify-center">
               <div className="bg-accent rounded-full w-8 h-8 flex items-center justify-center absolute transform -translate-x-[3rem]">
                 <item.icon className="h-4 w-4 text-background" />

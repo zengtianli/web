@@ -9,10 +9,16 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Send, Loader2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
+import { useInView } from "react-intersection-observer"
+import { cn } from "@/lib/utils"
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -33,12 +39,23 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="bg-secondary/20 rounded-lg p-8 border border-secondary">
+    <div 
+      className={cn(
+        "bg-secondary/20 rounded-lg p-8 border border-secondary",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+        "transition-all duration-700 ease-out delay-300"
+      )}
+      ref={ref}
+    >
       <h2 className="text-2xl font-bold mb-6">发送消息</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
+          <div className={cn(
+            "space-y-2",
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+            "transition-all duration-700 ease-out delay-400"
+          )}>
             <Label htmlFor="name">姓名 *</Label>
             <Input
               id="name"
@@ -49,7 +66,11 @@ export default function ContactForm() {
             />
           </div>
 
-          <div className="space-y-2">
+          <div className={cn(
+            "space-y-2",
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+            "transition-all duration-700 ease-out delay-500"
+          )}>
             <Label htmlFor="email">邮箱 *</Label>
             <Input
               id="email"
@@ -62,7 +83,11 @@ export default function ContactForm() {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className={cn(
+          "space-y-2",
+          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+          "transition-all duration-700 ease-out delay-600"
+        )}>
           <Label htmlFor="subject">主题</Label>
           <Input
             id="subject"
@@ -72,7 +97,11 @@ export default function ContactForm() {
           />
         </div>
 
-        <div className="space-y-2">
+        <div className={cn(
+          "space-y-2",
+          inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+          "transition-all duration-700 ease-out delay-700"
+        )}>
           <Label htmlFor="message">内容 *</Label>
           <Textarea
             id="message"
@@ -84,7 +113,15 @@ export default function ContactForm() {
           />
         </div>
 
-        <Button type="submit" disabled={isSubmitting} className="w-full">
+        <Button 
+          type="submit" 
+          disabled={isSubmitting} 
+          className={cn(
+            "w-full",
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+            "transition-all duration-700 ease-out delay-800"
+          )}
+        >
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
