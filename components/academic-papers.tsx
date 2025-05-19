@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, ChevronUp, ExternalLink } from "lucide-react"
+import { ChevronDown, ChevronUp, ExternalLink, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
@@ -70,7 +70,7 @@ export default function AcademicPapers() {
           <Card
             key={index}
             className={cn(
-              "border-secondary",
+              "card-hover border-secondary",
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
               "transition-all duration-700 ease-out",
               `delay-${index * 200}`,
@@ -78,27 +78,34 @@ export default function AcademicPapers() {
           >
             <CardContent className="p-6">
               <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-bold mb-1">{paper.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    {paper.journal}, {paper.year}
-                  </p>
-                  <p className="text-sm mb-2">
-                    作者:{" "}
-                    {paper.authors.split(", ").map((author, i, arr) => (
-                      <span key={i}>
-                        {author.includes("曾田力") || author.includes("Zeng T.") ? <strong>{author}</strong> : author}
-                        {i < arr.length - 1 ? ", " : ""}
-                      </span>
-                    ))}
-                  </p>
+                <div className="flex items-start">
+                  <div className="mr-4 mt-1 hidden sm:block">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                      <FileText className="h-5 w-5 text-accent" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold mb-1">{paper.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {paper.journal}, {paper.year}
+                    </p>
+                    <p className="text-sm mb-2">
+                      作者:{" "}
+                      {paper.authors.split(", ").map((author, i, arr) => (
+                        <span key={i}>
+                          {author.includes("曾田力") || author.includes("Zeng T.") ? <strong>{author}</strong> : author}
+                          {i < arr.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
                 </div>
                 {paper.link && (
                   <a
                     href={paper.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-accent hover:text-accent/80"
+                    className="text-accent hover:text-accent/80 ml-4 flex-shrink-0"
                   >
                     <ExternalLink className="h-5 w-5" />
                   </a>

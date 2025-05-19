@@ -3,11 +3,12 @@ import Footer from "@/components/footer"
 import SoftwareCopyrights from "@/components/software-copyrights"
 import AcademicPapers from "@/components/academic-papers"
 import Awards from "@/components/awards"
+import Patents from "@/components/patents"
 
 export const metadata = {
   title: "学术与成果 | 曾田力",
   description:
-    "曾田力的学术成果、软件著作权和荣誉奖项展示，包括水资源优化调度模型软件、学术论文和国家留学基金委公派留学奖学金等。",
+    "曾田力的学术成果、专利发明、软件著作权和荣誉奖项展示，包括水资源优化调度模型软件、学术论文和国家留学基金委公派留学奖学金等。",
 }
 
 export default function ResearchPage() {
@@ -22,6 +23,7 @@ export default function ResearchPage() {
 
         <div className="space-y-16">
           <SoftwareCopyrights />
+          <Patents />
           <AcademicPapers />
           <Awards />
         </div>
