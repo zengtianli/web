@@ -23,7 +23,7 @@ const papers = [
     title: "基于主要驱动因子筛选法和深度学习算法的浙江省动态需水量预测",
     journal: "水科学进展",
     year: "2024",
-    authors: "许月萍 曾田力 周欣磊 章鲁琪 王贝 王冬",
+    authors: "许月萍, 曾田力, 周欣磊, 章鲁琪, 王贝, 王冬",
     abstract:
       "收集了浙江省2000—2020年各用水行业需水量数据，采用基于Spearman秩相关分析的主要驱动因子筛选法筛选了影响各行业需水量的主要驱动因子，进而构造了改进的长短时记忆(LSTM)神经网络需水量预测模型，对各行业需水量进行动态滚动预测，并将改进LSTM模型的预测结果与传统单变量LSTM预测模型、卷积神经网络模型、支持向量回归模型的预测结果进行了对比。结果表明，基于主要驱动因子筛选法改进的LSTM模型能实时动态滚动预测各行业每年需水量，且预测结果精度高于其他3种模型。",
     link: "https://kns.cnki.net/kcms2/article/abstract?v=_uHp55J8LtC_mPiTawHQ9mpKIlwshslTSNShnIcGRsxqthitU7rSE04BPCT3mDcFidsQ2wKfaTjQ--9xh1DwHprtPjOFrjH1jnjBoMJU2Ijhfje8MjHIYKz5QxTUZv2jJcMAR1MHz_90iwhpIOwP_YQnMkjelU1_giF4MKNQWlhxqgEAllptmw==&uniplatform=NZKPT&language=CHS",
@@ -33,7 +33,7 @@ const papers = [
     title: "考虑侧向出沙的河网非均匀沙输移",
     journal: "水利学报",
     year: "2016",
-    authors: "孙志林 杨恩尚 曾田力 祝丽丽",
+    authors: "孙志林, 杨恩尚, 曾田力, 祝丽丽",
     abstract:
       "引水进入河网可快速地改善水质，同时也会造成泥沙淤积问题。水流在主干河道行进时将挟带泥沙向连通支流扩散，因而计算河网泥沙输移时应考虑侧向出沙问题。根据作者在杭州西部河网若干测站进行的全年实时水位-流量和逐日泥沙实测资料，建立了适用河网的对数型非均匀沙挟沙能力公式，进而结合侧问出流首次导出了考虑时变侧向出沙的河网非均匀沙输移计算方法，据此改进了一维河网输沙微分方程和离散计算模式。经实测资料验证，计算与实测值符合良好。对杭州西部河网进行的输沙计算显示，侧向出沙约占淤积总量的11%，这意味者河网模型不考虑侧向出沙会造成较大的误差。",
     link: "https://kns.cnki.net/kcms2/article/abstract?v=_uHp55J8LtB5eEDlmNyi_reK8VnRnJKjnkK7cPVS-t3k2JBcTuZe57BBOTit3pKCCpDGAndcBsXBiOPHa-SvFB6dc_WukJ31v-K5TkB1LudqOwDOPgfykoPcprUrkj4zxRzYuEDwat_K1WOm-lyxIWsR9LV_dTqjXPbOQ0vfyVYjpkhRiT0-LQ==&uniplatform=NZKPT&language=CHS",

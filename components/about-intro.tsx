@@ -15,7 +15,7 @@ export default function AboutIntro() {
         <div>
           <h2 className="text-2xl font-bold mb-2">曾田力 (Zeng Tianli)</h2>
           <p className="text-lg mb-6">
-            浙江大学水利工程专业博士，专注于水利工程与信息技术的融合创新。十余年来，我致力于将机器学习、数据分析等前沿技术应用于水资源管理、水文预测和水利工程规划领域，开发了多款专业软件系统，发表多篇高质量学术论文。
+            浙江大学水利工程专业博士。专注 <span className="text-accent font-medium">水利信息化</span>、<span className="text-accent font-medium">数字孪生</span> 与 <span className="text-accent font-medium">智慧水利</span> 研究。深耕机器学习在水资源管理、水文预测领域的应用，研发多款专业软件系统，发表核心期刊论文。
           </p>
           <p className="text-xl font-medium text-accent">驱动创新，智绘水利。</p>
         </div>
