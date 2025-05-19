@@ -8,24 +8,24 @@ import { cn } from "@/lib/utils"
 const awards = [
   {
     title: "国家留学基金委公派留学奖学金",
-    year: "2019",
+    year: "2016",
     organization: "国家留学基金管理委员会",
   },
   {
     title: "三好研究生",
-    year: "2015-2019",
+    year: "2013-2016",
     organization: "浙江大学",
     note: "多次获得",
   },
   {
     title: "优秀研究生",
-    year: "2014-2018",
+    year: "2013-2016",
     organization: "浙江大学",
     note: "多次获得",
   },
   {
     title: "优秀团干部",
-    year: "2016",
+    year: "2012",
     organization: "浙江大学",
   },
   {
@@ -37,7 +37,7 @@ const awards = [
     title: "优秀学生一等奖学金",
     year: "2010-2012",
     organization: "浙江大学",
-    note: "连续三年获得",
+    note: "多次获得",
   },
 ]
 

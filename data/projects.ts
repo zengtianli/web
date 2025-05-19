@@ -4,7 +4,7 @@ export const projects = [
     title: "数字孪生浙东引水",
     brief: "利用机器学习和多源数据融合技术，构建数字孪生模型，实现精准预测与决策支持。",
     role: "技术骨干",
-    image: "/placeholder.svg?height=450&width=800",
+    image: "/images/compressed-images/浙东引水工程总体布置图.png",
     tags: ["机器学习", "降雨特征分析", "智能模拟", "多源数据融合", "可视化决策"],
     background:
       "浙东引水工程是浙江省重要的跨流域调水工程，面临水资源调度优化、水质安全保障等挑战。本项目旨在构建数字孪生模型，提供精准的水资源态势预测与决策支持。",
@@ -25,8 +25,8 @@ export const projects = [
     slug: "water-carrying-capacity",
     title: "绍兴水资源承载力评价",
     brief: "基于多准则决策方法，开发水资源承载力评价系统，为区域水资源管理提供科学依据。",
-    role: "项目负责人",
-    image: "/placeholder.svg?height=450&width=800",
+    role: "技术负责人",
+    image: "/images/compressed-images/绍兴水资源承载力评价.png",
     tags: ["AHP", "CRITIC", "TOPSIS", "软件系统开发", "水资源承载力"],
     background:
       "绍兴市经济快速发展，水资源需求不断增长，亟需科学评估区域水资源承载能力，为可持续发展提供支撑。本项目旨在构建科学的水资源承载力评价体系与软件系统。",
@@ -48,7 +48,7 @@ export const projects = [
     title: "钱塘江岸线规划",
     brief: "结合GIS空间分析技术，开发岸线分级分类系统，提升岸线资源管理水平。",
     role: "技术负责人",
-    image: "/placeholder.svg?height=450&width=800",
+    image: "/images/compressed-images/钱塘江岸线规划.png",
     tags: ["GIS空间分析", "岸线分级分类", "管理信息系统", "空间规划"],
     background:
       "钱塘江岸线资源珍贵，面临开发与保护的双重压力。本项目旨在通过科学的岸线分级分类与规划，实现岸线资源的可持续利用与生态保护。",
@@ -70,7 +70,7 @@ export const projects = [
     title: "浙江省用水量变化研究",
     brief: "应用时间序列分析与深度学习方法，研究区域用水量变化规律，提供精准预测。",
     role: "核心研究人员",
-    image: "/placeholder.svg?height=450&width=800",
+    image: "/images/compressed-images/浙江省用水量变化研究.png",
     tags: ["MannKendall", "TheilSen", "LSTM", "ARIMA", "Informer"],
     background:
       "准确把握区域用水量变化规律与影响因素，对水资源规划与管理至关重要。本研究旨在分析浙江省用水量时空变化特征，构建高精度预测模型。",
