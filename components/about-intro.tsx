@@ -8,7 +8,7 @@ export default function AboutIntro() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="flex justify-center">
           <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-accent/30 shadow-[0_0_25px_rgba(100,255,218,0.3)]">
-            <Image src="/placeholder.svg?height=256&width=256" alt="曾田力" fill className="object-cover" />
+            <Image src="/images/zengtianli.jpg" alt="曾田力" fill className="object-cover" />
           </div>
         </div>
 

@@ -37,7 +37,7 @@ const timelineData = [
     expanded: false,
   },
   {
-    period: "2020.07 - 至今",
+    period: "2023.09 - 至今",
     title: "工程师 | 浙江省水利水电规划设计院",
     icon: Briefcase,
     description:
