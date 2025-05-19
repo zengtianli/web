@@ -11,29 +11,39 @@ const timelineData = [
     title: "本科 | 浙江大学 - 水资源与海洋工程",
     icon: GraduationCap,
     description:
-      "系统学习水利工程基础理论与专业知识，掌握水文学、水力学、水工建筑物等核心课程。初步接触MATLAB编程与水利模型应用。",
+      "系统学习水利工程基础理论与专业知识，掌握水文学、水力学等核心课程。学术成绩：GPA3.65/4.0（专业排名2/22）。",
     skills: ["水文学", "水力学", "MATLAB入门", "工程制图"],
     honors: ["优秀学生一等奖学金", "坤和奖学金二等奖"],
     expanded: false,
   },
   {
-    period: "2013.09 - 2016.06",
-    title: "硕士 | 浙江大学 - 水利工程",
+    period: "2013.09 - 2021.06",
+    title: "直博研究生 | 浙江大学 - 港口航道与近海工程",
     icon: GraduationCap,
     description:
-      "深入研究水资源管理与水文模拟，开始探索机器学习在水文预测中的应用。参与多个水利工程实践项目，提升专业技能与研究能力。",
+      "研究课程成绩：88.6/100。深入研究水资源管理与水文模拟，开始探索机器学习在水文预测中的应用。参与多个水利工程实践项目，提升专业技能与研究能力。核心研究包括高速摄像测定非均匀沙沉速研究、秀山大桥海域潮流数学模型（Delft3D模拟）等。",
     skills: ["水资源系统分析", "Delft3D", "Python基础", "GIS应用"],
     honors: ["三好研究生", "优秀研究生", "优秀团干部"],
     expanded: false,
   },
   {
-    period: "2016.09 - 2020.06",
-    title: "博士 | 浙江大学 - 水利工程",
+    period: "2016.08 - 2018.01",
+    title: "联培 | 美国克拉克森大学 - 水利工程",
     icon: GraduationCap,
     description:
-      "专注于深度学习在水资源预测与管理中的应用研究，开发智能水资源模型与决策支持系统。发表多篇高质量学术论文，获得国家留学基金委公派留学资格。",
-    skills: ["Python (PyTorch/TensorFlow)", "深度学习", "时间序列分析", "水资源优化"],
-    honors: ["国家留学基金委公派留学奖学金", "三好研究生", "优秀研究生"],
+      "获《国家留学基金委公派留学奖学金》支持。研究成果《A Depth Averaged 2D Physically Based Model of Cohesive Dam/Levee Breach Processes》被ASCE环境水资源大会收录并进行报告。",
+    skills: ["物理模型", "大坝/堤防决口过程", "国际学术交流"],
+    honors: ["国家留学基金委公派留学奖学金"],
+    expanded: false,
+  },
+  {
+    period: "2021.09 - 2023.09",
+    title: "硕士研究生 | 浙江大学 - 水利工程",
+    icon: GraduationCap,
+    description:
+      "核心研究项目：浙江省用水量变化及水资源可持续利用评价指标体系研究。应用MannKendall检验、TheilSen方法和信息熵方法分析用水结构时空变化。基于LSTM深度学习构建多因子用水量预测模型对比ARIMA、LSTM和Informer模型在日尺度用水量预测的表现。",
+    skills: ["MannKendall检验", "TheilSen方法", "LSTM", "ARIMA", "Informer"],
+    honors: ["三好研究生", "优秀研究生", "优秀团干部"],
     expanded: false,
   },
   {
@@ -59,11 +69,13 @@ export default function Timeline() {
     <section className="mb-16">
       <h2 className="text-3xl font-bold mb-8">我的历程与技能沉淀</h2>
 
-      <div className="relative pl-8 border-l-2 border-secondary space-y-12">
+      <div className="relative pl-12 border-l-2 border-secondary space-y-12">
         {timeline.map((item, index) => (
           <div key={index} className="relative">
-            <div className="timeline-dot">
-              <item.icon className="h-4 w-4 text-background absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute top-0 left-0 w-12 flex items-center justify-center">
+              <div className="bg-accent rounded-full w-8 h-8 flex items-center justify-center absolute transform -translate-x-[3rem]">
+                <item.icon className="h-4 w-4 text-background" />
+              </div>
             </div>
 
             <div className="mb-2 text-sm text-muted-foreground">{item.period}</div>
