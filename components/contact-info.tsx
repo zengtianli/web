@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react"
+import { Mail, Phone, MapPin, Linkedin, Github, MessageCircle } from "lucide-react"
 import Link from "next/link"
 
 export default function ContactInfo() {
@@ -47,11 +47,11 @@ export default function ContactInfo() {
           <div>
             <h3 className="font-bold mb-1">LinkedIn</h3>
             <Link
-              href="https://www.linkedin.com/in/your-profile"
+              href="https://www.linkedin.com/in/tianli-zeng-4068a7190/"
               target="_blank"
               className="text-muted-foreground hover:text-accent transition-colors"
             >
-              linkedin.com/in/your-profile
+              linkedin.com/in/tianlizeng
             </Link>
           </div>
         </div>
@@ -63,12 +63,22 @@ export default function ContactInfo() {
           <div>
             <h3 className="font-bold mb-1">GitHub</h3>
             <Link
-              href="https://github.com/your-username"
+              href="https://github.com/zengtianli"
               target="_blank"
               className="text-muted-foreground hover:text-accent transition-colors"
             >
-              github.com/your-username
+              github.com/zengtianli
             </Link>
+          </div>
+        </div>
+
+        <div className="flex items-start">
+          <div className="h-6 w-6 flex justify-center text-accent mr-4 mt-1">
+            <MessageCircle className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="font-bold mb-1">微信</h3>
+            <p className="text-muted-foreground">zengtracy</p>
           </div>
         </div>
       </div>

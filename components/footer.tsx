@@ -19,13 +19,13 @@ export default function Footer() {
               下载完整简历 (PDF)
             </Button>
 
-            <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://www.linkedin.com/in/tianli-zeng-4068a7190/" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-accent">
                 <Linkedin className="h-5 w-5" />
               </Button>
             </Link>
 
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/zengtianli" target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-accent">
                 <Github className="h-5 w-5" />
               </Button>
