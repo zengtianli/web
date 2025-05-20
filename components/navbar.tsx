@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
+import { SearchDialog } from "@/components/search-dialog"
 
 const navItems = [
   { name: "首页", path: "/" },
@@ -73,12 +74,22 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <div className={cn(
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3",
+            "transition-all duration-500",
+            `delay-${navItems.length * 100}`,
+          )}>
+            <SearchDialog />
+          </div>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+        {/* Mobile Menu */}
+        <div className="md:hidden flex items-center gap-2">
+          <SearchDialog />
+          <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
