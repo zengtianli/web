@@ -7,8 +7,11 @@ import Image from "next/image"
 import { projects } from "@/data/projects"
 import { notFound } from "next/navigation"
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const project = projects.find((p) => p.slug === params.slug)
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  // Next.js 15中需要特殊处理params对象
+  const safeParams = await Promise.resolve(params);
+  const slug = safeParams.slug;
+  const project = projects.find((p) => p.slug === slug)
 
   if (!project) {
     return {
@@ -28,8 +31,11 @@ export function generateStaticParams() {
   }))
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = projects.find((p) => p.slug === params.slug)
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+  // Next.js 15中需要特殊处理params对象
+  const safeParams = await Promise.resolve(params);
+  const slug = safeParams.slug;
+  const project = projects.find((p) => p.slug === slug)
 
   if (!project) {
     notFound()
