@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
+import { SearchDialog } from "@/components/search-dialog"
 
 const navItems = [
   { name: "首页", path: "/" },
@@ -73,6 +74,13 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <div className={cn(
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3",
+            "transition-all duration-500",
+            `delay-${navItems.length * 100}`,
+          )}>
+            <SearchDialog />
+          </div>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -99,6 +107,9 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <div className="w-full flex justify-center py-4 animate-fade-in animate-delay-500">
+            <SearchDialog />
+          </div>
         </div>
       )}
     </header>

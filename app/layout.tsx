@@ -1,6 +1,7 @@
 import type React from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Inter, Montserrat, Exo_2, Orbitron } from "next/font/google"
+// import Search from "@/components/Search"; // Remove this import
 import "./globals.css"
 
 const inter = Inter({
@@ -50,7 +51,11 @@ export default function RootLayout({
         className={`${inter.variable} ${montserrat.variable} ${exo2.variable} ${orbitron.variable} font-sans antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
+          {/* <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem' }}>
+            <Search />
+          </div> */}
+          {/* Search component removed, will be handled by Navbar */}
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "intro",
+    "title": "项目介绍与目录结构",
+    "url": "/",
+    "content": "# 项目目录结构说明\n\n## 文件\n- `components.json` - 组件库配置文件，可能用于自定义UI组件库设置\n- `next-env.d.ts` - Next.js的TypeScript声明文件，提供类型支持\n- `next.config.mjs` - Next.js配置文件，自定义Next.js应用行为\n- `package.json` - 项目依赖和脚本配置文件\n- `pnpm-lock.yaml` - pnpm包管理器的依赖锁定文件，确保依赖版本一致性\n- `postcss.config.mjs` - PostCSS配置文件，用于CSS转换和处理\n- `tailwind.config.ts` - Tailwind CSS框架的配置文件\n- `tsconfig.json` - TypeScript编译器配置文件\n\n## 文件夹\n- `.git` - Git版本控制系统的仓库数据\n- `.next` - Next.js自动生成的构建输出目录，包含编译后的代码和资源\n- `app` - Next.js的App Router目录，包含应用的路由和页面组件\n- `components` - 可复用的React组件存放目录\n- `data` - 静态数据或数据模型存放目录\n- `hooks` - 自定义React Hooks函数存放目录\n- `lib` - 通用的工具函数和库代码\n- `node_modules` - 存放项目依赖的第三方包和库\n- `public` - 静态资源存放目录，如图片、字体等，可直接通过URL访问\n- `styles` - 样式文件存放目录，如CSS、SCSS文件等\n\n## 应用结构\n该项目是一个使用Next.js框架构建的Web应用，采用TypeScript作为开发语言，Tailwind CSS作为样式框架。项目使用了现代化的App Router路由系统，可能是一个个人作品集（portfolio）网站，包含多个页面如about、contact、projects和research等。 ",
+    "type": "page"
+  },
+  {
+    "id": "project-digital-twin-water-diversion",
+    "title": "数字孪生浙东引水",
+    "url": "/projects/digital-twin-water-diversion",
+    "content": "数字孪生浙东引水 利用机器学习和多源数据融合技术，构建数字孪生模型，实现精准预测与决策支持。 机器学习 降雨特征分析 智能模拟 多源数据融合 可视化决策 浙东引水工程是浙江省重要的跨流域调水工程，面临水资源调度优化、水质安全保障等挑战。本项目旨在构建数字孪生模型，提供精准的水资源态势预测与决策支持。 负责降雨特征分析与预测模型开发，采用深度学习算法提高预测精度 设计多源数据融合架构，整合气象、水文、水质等数据 开发可视化决策支持系统，提供直观的数据展示与分析工具 优化模型参数，提高预测准确性与计算效率 实现15天水资源态势精准预测，平均误差控制在5%以内 开发的数据融合方法提高了模型稳定性，减少了异常值影响 可视化决策系统显著提升了管理效率，获得用户高度评价 相关技术方法已在多个水利工程中推广应用",
+    "tags": [
+      "机器学习",
+      "降雨特征分析",
+      "智能模拟",
+      "多源数据融合",
+      "可视化决策"
+    ],
+    "type": "project"
+  },
+  {
+    "id": "project-water-carrying-capacity",
+    "title": "绍兴水资源承载力评价",
+    "url": "/projects/water-carrying-capacity",
+    "content": "绍兴水资源承载力评价 基于多准则决策方法，开发水资源承载力评价系统，为区域水资源管理提供科学依据。 AHP CRITIC TOPSIS 软件系统开发 水资源承载力 绍兴市经济快速发展，水资源需求不断增长，亟需科学评估区域水资源承载能力，为可持续发展提供支撑。本项目旨在构建科学的水资源承载力评价体系与软件系统。 主导项目整体规划与技术方案设计 构建多维度水资源承载力评价指标体系 开发基于AHP、CRITIC、TOPSIS的综合评价模型 设计并实现水资源承载力评价软件系统 成功获得软件著作权《浙水设计水资源承载力模型软件》 评价结果为绍兴市水资源规划提供了科学依据 开发的评价方法被省水利厅采纳，在多个地区推广应用 相关研究成果发表于核心期刊，获得同行认可",
+    "tags": [
+      "AHP",
+      "CRITIC",
+      "TOPSIS",
+      "软件系统开发",
+      "水资源承载力"
+    ],
+    "type": "project"
+  },
+  {
+    "id": "project-qiantang-river-shoreline",
+    "title": "钱塘江岸线规划",
+    "url": "/projects/qiantang-river-shoreline",
+    "content": "钱塘江岸线规划 结合GIS空间分析技术，开发岸线分级分类系统，提升岸线资源管理水平。 GIS空间分析 岸线分级分类 管理信息系统 空间规划 钱塘江岸线资源珍贵，面临开发与保护的双重压力。本项目旨在通过科学的岸线分级分类与规划，实现岸线资源的可持续利用与生态保护。 负责技术路线设计与关键技术攻关 开发基于GIS的岸线资源评价方法 构建岸线分级分类技术体系 设计岸线管理信息系统架构与功能 建立了钱塘江岸线资源数据库，包含空间与属性数据 开发的岸线分级分类方法被纳入地方标准 岸线管理信息系统显著提升了管理效率与决策水平 项目成果为钱塘江岸线保护与利用规划提供了技术支撑",
+    "tags": [
+      "GIS空间分析",
+      "岸线分级分类",
+      "管理信息系统",
+      "空间规划"
+    ],
+    "type": "project"
+  },
+  {
+    "id": "project-water-consumption-prediction",
+    "title": "浙江省用水量变化研究",
+    "url": "/projects/water-consumption-prediction",
+    "content": "浙江省用水量变化研究 应用时间序列分析与深度学习方法，研究区域用水量变化规律，提供精准预测。 MannKendall TheilSen LSTM ARIMA Informer 准确把握区域用水量变化规律与影响因素，对水资源规划与管理至关重要。本研究旨在分析浙江省用水量时空变化特征，构建高精度预测模型。 负责用水量时间序列趋势分析，采用MannKendall与TheilSen方法 开发基于LSTM、ARIMA、Informer的用水量预测模型 分析气候变化、社会经济等因素对用水量的影响 构建多情景下的用水量预测方案 揭示了浙江省用水量的时空变化规律与影响机制 开发的深度学习预测模型精度显著高于传统方法 研究成果发表于《水科学进展》等核心期刊 预测结果为浙江省水资源规划提供了科学依据",
+    "tags": [
+      "MannKendall",
+      "TheilSen",
+      "LSTM",
+      "ARIMA",
+      "Informer"
+    ],
+    "type": "project"
+  },
+  {
+    "id": "about",
+    "title": "关于我",
+    "url": "/about",
+    "content": "use client ref inView useInView triggerOnce threshold 0 1 关于我 My Journey 曾田力 Zeng Tianli 浙江大学水利工程专业博士 专注 水利信息化 数字孪生 与 智慧水利 研究 深耕机器学习在水资源管理 水文预测领域的应用 研发多款专业软件系统 发表核心期刊论文 驱动创新 智绘水利 use client timelineData period 2009 09 2013 06 title 本科 浙江大学 水资源与海洋工程 icon GraduationCap description 系统学习水利工程基础理论与专业知识 掌握水文学 水力学等核心课程 学术成绩 GPA3 65 4 0 专业排名2 22 skills 水文学 水力学 MATLAB入门 工程制图 honors 优秀学生一等奖学金 坤和奖学金二等奖 expanded period 2013 09 2021 06 title 直博研究生 浙江大学 港口航道与近海工程 icon GraduationCap description 研究课程成绩 88 6 100 深入研究水资源管理与水文模拟 开始探索机器学习在水文预测中的应用 参与多个水利工程实践项目 提升专业技能与研究能力 核心研究包括高速摄像测定非均匀沙沉速研究 秀山大桥海域潮流数学模型 Delft3D模拟 等 skills 水资源系统分析 Delft3D Python基础 GIS应用 honors 三好研究生 优秀研究生 优秀团干部 expanded period 2016 08 2018 01 title 联培 美国克拉克森大学 水利工程 icon GraduationCap description 获 国家留学基金委公派留学奖学金 支持 研究成果 A Depth Averaged 2D Physically Based Model Cohesive Dam Levee Breach Processes 被ASCE环境水资源大会收录并进行报告 skills 物理模型 大坝 堤防决口过程 国际学术交流 honors 国家留学基金委公派留学奖学金 expanded period 2021 09 2023 09 title 硕士研究生 浙江大学 水利工程 icon GraduationCap description 核心研究项目 浙江省用水量变化及水资源可持续利用评价指标体系研究 应用MannKendall检验 TheilSen方法和信息熵方法分析用水结构时空变化 基于LSTM深度学习构建多因子用水量预测模型对比ARIMA LSTM和Informer模型在日尺度用水量预测的表现 skills MannKendall检验 TheilSen方法 LSTM ARIMA Informer honors 三好研究生 优秀研究生 优秀团干部 expanded period 2023 09 至今 title 工程师 浙江省水利水电规划设计院 icon Briefcase description 负责水利工程规划设计与技术创新工作 主导多个重点项目的技术方案制定与实施 将AI技术与传统水利工程相结合 开发多款专业软件系统 提升工程效率与决策水平 skills AHP CRITIC TOPSIS React Vue js Fortran OpenMP 高性能计算 软件系统开发 honors expanded timeline setTimeline useState timelineData ref inView useInView triggerOnce threshold 0 1 toggleExpand index number setTimeline timeline map item i i index item expanded item expanded item 我的历程与技能沉淀 timeline map item index item period item title item description substring 0 item expanded 100 item expanded item description length 100 item skills length 0 核心技能 item skills map skill skillIndex skill item honors length 0 荣誉 item honors map honor honorIndex honor item description length 100 item skills length 0 item honors length 0 toggleExpand index item expanded 收起 展开 关于我的信息，技术栈，经验等。专业背景、技能和经历。融合水利工程专业智慧与前沿信息技术，致力于解决复杂水资源挑战。",
+    "type": "page"
+  },
+  {
+    "id": "contact",
+    "title": "联系方式",
+    "url": "/contact",
+    "content": "如何联系我，邮箱，社交媒体等。",
+    "type": "page"
+  },
+  {
+    "id": "projects",
+    "title": "项目列表",
+    "url": "/projects",
+    "content": "我的项目经验列表展示。",
+    "type": "page"
+  },
+  {
+    "id": "research",
+    "title": "研究方向与成果",
+    "url": "/research",
+    "content": "我的研究方向和兴趣领域以及学术成果。",
+    "type": "page"
+  }
+]
