@@ -65,6 +65,13 @@ export default function AcademicPapers({ data = defaultPapersData }: AcademicPap
     triggerOnce: true,
     threshold: 0.1,
   })
+  
+  // 根据items数量确定每行显示的卡片数
+  const getGridCols = (itemCount: number) => {
+    if (itemCount % 3 === 0) return "md:grid-cols-3"
+    if (itemCount % 2 === 0) return "md:grid-cols-2"
+    return "md:grid-cols-3" // 默认为3列
+  }
 
   const toggleExpand = (index: number) => {
     setPapersList(papersList.map((paper, i) => (i === index ? { ...paper, expanded: !paper.expanded } : paper)))
@@ -74,7 +81,7 @@ export default function AcademicPapers({ data = defaultPapersData }: AcademicPap
     <section>
       <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
 
-      <div ref={ref} className="space-y-4">
+      <div ref={ref} className={`grid grid-cols-1 ${getGridCols(data.items.length)} gap-4`}>
         {papersList.map((paper: PaperWithState, index: number) => (
           <Card
             key={index}
