@@ -89,6 +89,70 @@ export interface ProjectIndexContent {
   description: string;
 }
 
+// 研究页面概要内容类型
+export interface ResearchIndexContent {
+  title: string;
+  description: string;
+}
+
+// 软件著作权内容类型
+export interface SoftwareCopyright {
+  title: string;
+  description: string;
+  icon: string;
+  pdfLink: string;
+}
+
+// 软件著作权集合类型
+export interface SoftwareCopyrightsContent {
+  title: string;
+  items: SoftwareCopyright[];
+}
+
+// 专利内容类型
+export interface Patent {
+  title: string;
+  inventors: string;
+  description: string;
+  year: string;
+}
+
+// 专利集合类型
+export interface PatentsContent {
+  title: string;
+  items: Patent[];
+}
+
+// 论文内容类型
+export interface Paper {
+  title: string;
+  journal: string;
+  year: string;
+  authors: string;
+  abstract: string;
+  link?: string;
+}
+
+// 论文集合类型
+export interface PapersContent {
+  title: string;
+  items: Paper[];
+}
+
+// 奖项内容类型
+export interface Award {
+  title: string;
+  year: string;
+  organization: string;
+  note?: string;
+}
+
+// 奖项集合类型
+export interface AwardsContent {
+  title: string;
+  items: Award[];
+}
+
 /**
  * 获取指定内容的元数据和正文
  */
@@ -214,4 +278,39 @@ export async function getAllProjects(): Promise<ProjectContent[]> {
  */
 export async function getProjectBySlug(slug: string): Promise<ContentItem<ProjectContent> | null> {
   return getContent<ProjectContent>(`projects/items/${slug}`);
+}
+
+/**
+ * 获取研究页面概要信息
+ */
+export async function getResearchIndex(): Promise<ResearchIndexContent | null> {
+  return getNestedContent<ResearchIndexContent>('research/_index');
+}
+
+/**
+ * 获取软件著作权信息
+ */
+export async function getSoftwareCopyrights(): Promise<SoftwareCopyrightsContent | null> {
+  return getNestedContent<SoftwareCopyrightsContent>('research/software-copyrights');
+}
+
+/**
+ * 获取专利信息
+ */
+export async function getPatents(): Promise<PatentsContent | null> {
+  return getNestedContent<PatentsContent>('research/patents');
+}
+
+/**
+ * 获取学术论文信息
+ */
+export async function getAcademicPapers(): Promise<PapersContent | null> {
+  return getNestedContent<PapersContent>('research/academic-papers');
+}
+
+/**
+ * 获取荣誉奖项信息
+ */
+export async function getAwards(): Promise<AwardsContent | null> {
+  return getNestedContent<AwardsContent>('research/awards');
 }

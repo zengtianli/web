@@ -4,44 +4,54 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Award } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
+import { AwardsContent } from "@/lib/content"
 
-const awards = [
-  {
-    title: "国家留学基金委公派留学奖学金",
-    year: "2016",
-    organization: "国家留学基金管理委员会",
-  },
-  {
-    title: "三好研究生",
-    year: "2013-2016",
-    organization: "浙江大学",
-    note: "多次获得",
-  },
-  {
-    title: "优秀研究生",
-    year: "2013-2016",
-    organization: "浙江大学",
-    note: "多次获得",
-  },
-  {
-    title: "优秀团干部",
-    year: "2012",
-    organization: "浙江大学",
-  },
-  {
-    title: "坤和奖学金二等奖",
-    year: "2012",
-    organization: "浙江大学",
-  },
-  {
-    title: "优秀学生一等奖学金",
-    year: "2010-2012",
-    organization: "浙江大学",
-    note: "多次获得",
-  },
-]
+// 组件接口定义
+interface AwardsProps {
+  data?: AwardsContent;
+}
 
-export default function Awards() {
+// 默认奖项数据
+const defaultAwardsData: AwardsContent = {
+  title: "荣誉奖项",
+  items: [
+    {
+      title: "国家留学基金委公派留学奖学金",
+      year: "2016",
+      organization: "国家留学基金管理委员会",
+    },
+    {
+      title: "三好研究生",
+      year: "2013-2016",
+      organization: "浙江大学",
+      note: "多次获得",
+    },
+    {
+      title: "优秀研究生",
+      year: "2013-2016",
+      organization: "浙江大学",
+      note: "多次获得",
+    },
+    {
+      title: "优秀团干部",
+      year: "2012",
+      organization: "浙江大学",
+    },
+    {
+      title: "坤和奖学金二等奖",
+      year: "2012",
+      organization: "浙江大学",
+    },
+    {
+      title: "优秀学生一等奖学金",
+      year: "2010-2012",
+      organization: "浙江大学",
+      note: "多次获得",
+    },
+  ]
+}
+
+export default function Awards({ data = defaultAwardsData }: AwardsProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -49,10 +59,10 @@ export default function Awards() {
 
   return (
     <section>
-      <h2 className="text-2xl font-bold mb-6">荣誉奖项</h2>
+      <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
 
       <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {awards.map((award, index) => (
+        {data.items.map((award: { title: string; year: string; organization: string; note?: string }, index: number) => (
           <Card
             key={index}
             className={cn(
