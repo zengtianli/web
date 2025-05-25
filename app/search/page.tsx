@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -13,7 +13,8 @@ import Footer from "@/components/footer"
 import { searchContent, type SearchResult } from "@/lib/search"
 import { cn } from "@/lib/utils"
 
-export default function SearchPage() {
+// 分离出需要使用useSearchParams的组件
+function SearchContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get("q") || ""
   const [searchQuery, setSearchQuery] = useState(query)
@@ -54,66 +55,82 @@ export default function SearchPage() {
       setIsSearching(false)
     })
   }
+  
+  return (
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-8">搜索结果</h1>
+      
+      <form onSubmit={handleSearch} className="mb-8">
+        <div className="flex gap-2">
+          <div className="flex-1 flex items-center border border-input rounded-md overflow-hidden">
+            <Search className="h-4 w-4 mx-3 text-foreground/50" />
+            <Input
+              type="search"
+              placeholder="搜索网站内容..."
+              className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <Button type="submit" disabled={isSearching}>
+            {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : "搜索"}
+          </Button>
+        </div>
+      </form>
 
+      {isSearching ? (
+        <div className="flex justify-center py-16">
+          <Loader2 className="h-8 w-8 animate-spin text-accent" />
+        </div>
+      ) : query ? (
+        <>
+          <p className="text-sm text-foreground/70 mb-6">
+            找到 {results.length} 条与 "{query}" 相关的结果
+          </p>
+
+          {results.length > 0 ? (
+            <div className="grid gap-6">
+              {results.map((result) => (
+                <SearchResultCard key={`${result.type}-${result.id}`} result={result} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <Search className="h-12 w-12 mx-auto text-foreground/30 mb-4" />
+              <h2 className="text-xl font-semibold mb-2">未找到相关内容</h2>
+              <p className="text-foreground/70">
+                尝试使用不同的关键词，或者浏览网站的其他部分。
+              </p>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="text-center py-16">
+          <Search className="h-12 w-12 mx-auto text-foreground/30 mb-4" />
+          <h2 className="text-xl font-semibold mb-2">请输入搜索关键词</h2>
+          <p className="text-foreground/70">您可以搜索项目、研究成果和网站页面。</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// 主搜索页面组件
+export default function SearchPage() {
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex-grow container mx-auto px-4 py-16 mt-16">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">搜索结果</h1>
-          
-          <form onSubmit={handleSearch} className="mb-8">
-            <div className="flex gap-2">
-              <div className="flex-1 flex items-center border border-input rounded-md overflow-hidden">
-                <Search className="h-4 w-4 mx-3 text-foreground/50" />
-                <Input
-                  type="search"
-                  placeholder="搜索网站内容..."
-                  className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <Button type="submit" disabled={isSearching}>
-                {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : "搜索"}
-              </Button>
-            </div>
-          </form>
-
-          {isSearching ? (
+        <Suspense fallback={
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold mb-8">搜索结果</h1>
             <div className="flex justify-center py-16">
               <Loader2 className="h-8 w-8 animate-spin text-accent" />
             </div>
-          ) : query ? (
-            <>
-              <p className="text-sm text-foreground/70 mb-6">
-                找到 {results.length} 条与 "{query}" 相关的结果
-              </p>
-
-              {results.length > 0 ? (
-                <div className="grid gap-6">
-                  {results.map((result) => (
-                    <SearchResultCard key={`${result.type}-${result.id}`} result={result} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-16">
-                  <Search className="h-12 w-12 mx-auto text-foreground/30 mb-4" />
-                  <h2 className="text-xl font-semibold mb-2">未找到相关内容</h2>
-                  <p className="text-foreground/70">
-                    尝试使用不同的关键词，或者浏览网站的其他部分。
-                  </p>
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center py-16">
-              <Search className="h-12 w-12 mx-auto text-foreground/30 mb-4" />
-              <h2 className="text-xl font-semibold mb-2">请输入搜索关键词</h2>
-              <p className="text-foreground/70">您可以搜索项目、研究成果和网站页面。</p>
-            </div>
-          )}
-        </div>
+          </div>
+        }>
+          <SearchContent />
+        </Suspense>
       </div>
       <Footer />
     </main>
