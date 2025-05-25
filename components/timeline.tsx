@@ -1,66 +1,48 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChevronDown, ChevronUp, GraduationCap, Briefcase } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useInView } from "react-intersection-observer"
+import { TimelineContent, TimelineItem } from "@/lib/content"
+import { Card, CardContent } from "@/components/ui/card"
 
-const timelineData = [
-  {
-    period: "2009.09 - 2013.06",
-    title: "本科 | 浙江大学 - 水资源与海洋工程",
-    icon: GraduationCap,
-    description:
-      "系统学习水利工程基础理论与专业知识，掌握水文学、水力学等核心课程。学术成绩：GPA3.65/4.0（专业排名2/22）。",
-    skills: ["水文学", "水力学", "MATLAB入门", "工程制图"],
-    honors: ["优秀学生一等奖学金", "坤和奖学金二等奖"],
-    expanded: false,
-  },
-  {
-    period: "2013.09 - 2021.06",
-    title: "直博研究生 | 浙江大学 - 港口航道与近海工程",
-    icon: GraduationCap,
-    description:
-      "研究课程成绩：88.6/100。深入研究水资源管理与水文模拟，开始探索机器学习在水文预测中的应用。参与多个水利工程实践项目，提升专业技能与研究能力。核心研究包括高速摄像测定非均匀沙沉速研究、秀山大桥海域潮流数学模型（Delft3D模拟）等。",
-    skills: ["水资源系统分析", "Delft3D", "Python基础", "GIS应用"],
-    honors: ["三好研究生", "优秀研究生", "优秀团干部"],
-    expanded: false,
-  },
-  {
-    period: "2016.08 - 2018.01",
-    title: "联培 | 美国克拉克森大学 - 水利工程",
-    icon: GraduationCap,
-    description:
-      "获《国家留学基金委公派留学奖学金》支持。研究成果《A Depth Averaged 2D Physically Based Model of Cohesive Dam/Levee Breach Processes》被ASCE环境水资源大会收录并进行报告。",
-    skills: ["物理模型", "大坝/堤防决口过程", "国际学术交流"],
-    honors: ["国家留学基金委公派留学奖学金"],
-    expanded: false,
-  },
-  {
-    period: "2021.09 - 2023.09",
-    title: "硕士研究生 | 浙江大学 - 水利工程",
-    icon: GraduationCap,
-    description:
-      "核心研究项目：浙江省用水量变化及水资源可持续利用评价指标体系研究。应用MannKendall检验、TheilSen方法和信息熵方法分析用水结构时空变化。基于LSTM深度学习构建多因子用水量预测模型对比ARIMA、LSTM和Informer模型在日尺度用水量预测的表现。",
-    skills: ["MannKendall检验", "TheilSen方法", "LSTM", "ARIMA", "Informer"],
-    honors: ["三好研究生", "优秀研究生", "优秀团干部"],
-    expanded: false,
-  },
-  {
-    period: "2023.09 - 至今",
-    title: "工程师 | 浙江省水利水电规划设计院",
-    icon: Briefcase,
-    description:
-      "负责水利工程规划设计与技术创新工作，主导多个重点项目的技术方案制定与实施。将AI技术与传统水利工程相结合，开发多款专业软件系统，提升工程效率与决策水平。",
-    skills: ["AHP/CRITIC/TOPSIS", "React/Vue.js", "Fortran/OpenMP", "高性能计算", "软件系统开发"],
-    honors: [],
-    expanded: false,
-  },
-]
+// 图标映射表
+const iconMap = {
+  GraduationCap,
+  Briefcase,
+};
 
-export default function Timeline() {
-  const [timeline, setTimeline] = useState(timelineData)
+// 组件属性类型
+interface TimelineProps {
+  content: TimelineContent;
+}
+
+// 扩展的时间线项目类型
+interface TimelineItemWithState extends Omit<TimelineItem, 'icon'> {
+  expanded: boolean;
+  icon: React.ComponentType<any>;
+  iconName: string; // 保留原始图标名称
+}
+
+export default function Timeline({ content }: TimelineProps) {
+  // 处理内容数据，转换为组件所需格式
+  const [timeline, setTimeline] = useState<TimelineItemWithState[]>([]);
+  
+  // 当content变化时，处理时间线数据
+  useEffect(() => {
+    if (content?.items) {
+      const processedItems = content.items.map(item => ({
+        ...item,
+        expanded: false,
+        iconName: item.icon, // 保存原始图标名称
+        icon: iconMap[item.icon as keyof typeof iconMap] || GraduationCap,
+      }));
+      setTimeline(processedItems);
+    }
+  }, [content]);
+  
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -70,81 +52,101 @@ export default function Timeline() {
     setTimeline(timeline.map((item, i) => (i === index ? { ...item, expanded: !item.expanded } : item)))
   }
 
+  if (timeline.length === 0) {
+    return null; // 如果没有数据，不渲染组件
+  }
+
   return (
-    <section className="mb-16">
+    <section id={content.anchor || "Timeline"} className="mb-16" ref={ref}>
       <h2 className={cn(
         "text-3xl font-bold mb-8",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         "transition-all duration-700 ease-out"
-      )}>我的历程与技能沉淀</h2>
+      )}>{content.title}</h2>
+      
+      {/* 时间线说明 */}
+      <p className="text-lg text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
+        我的学习和职业发展旅程，展示了我在水利工程领域的成长与技能沉淀。
+      </p>
 
-      <div className="relative pl-12 border-l-2 border-secondary space-y-12" ref={ref}>
-        {timeline.map((item, index) => (
-          <div 
-            key={index} 
-            className={cn(
-              "relative",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20",
-              "transition-all duration-700 ease-out",
-              `delay-[${index * 150}ms]`
-            )}
-          >
-            <div className="absolute top-0 left-0 w-12 flex items-center justify-center">
-              <div className="bg-accent rounded-full w-8 h-8 flex items-center justify-center absolute transform -translate-x-[3rem]">
-                <item.icon className="h-4 w-4 text-background" />
-              </div>
-            </div>
-
-            <div className="mb-2 text-sm text-muted-foreground">{item.period}</div>
-
-            <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-
-            <p className="text-muted-foreground mb-3">
-              {item.description.substring(0, item.expanded ? undefined : 100)}
-              {!item.expanded && item.description.length > 100 && "..."}
-            </p>
-
-            <div className={cn("overflow-hidden transition-all duration-300", item.expanded ? "max-h-96" : "max-h-0")}>
-              {item.skills.length > 0 && (
-                <div className="mb-3">
-                  <p className="font-medium mb-1">核心技能:</p>
-                  <div className="flex flex-wrap">
-                    {item.skills.map((skill, skillIndex) => (
-                      <span key={skillIndex} className="skill-tag">
-                        {skill}
-                      </span>
-                    ))}
+      {/* 时间线网格卡片 */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {timeline.map((item, index) => {
+          // 获取对应的图标组件
+          const IconComponent = item.icon;
+          
+          return (
+            <Card
+              key={index}
+              className={cn(
+                "border-secondary bg-secondary/20 card-hover overflow-hidden",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "transition-all duration-700 ease-out",
+                `delay-${index * 150}ms`
+              )}
+            >
+              <CardContent className="p-6">
+                {/* 时期和图标头部 */}
+                <div className="flex items-center mb-4">
+                  <div className="bg-accent rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <IconComponent className="h-5 w-5 text-background" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">{item.period}</div>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                 </div>
-              )}
-
-              {item.honors.length > 0 && (
-                <div>
-                  <p className="font-medium mb-1">荣誉:</p>
-                  <ul className="list-disc list-inside text-muted-foreground">
-                    {item.honors.map((honor, honorIndex) => (
-                      <li key={honorIndex}>{honor}</li>
-                    ))}
-                  </ul>
+                
+                {/* 描述文本 */}
+                <div className="mb-4">
+                  <p className="text-muted-foreground">
+                    {item.expanded ? item.description : `${item.description.substring(0, 100)}${item.description.length > 100 ? '...' : ''}`}
+                  </p>
                 </div>
-              )}
-            </div>
-
-            {item.description.length > 100 || item.skills.length > 0 || item.honors.length > 0 ? (
-              <Button variant="ghost" size="sm" className="mt-2 text-accent" onClick={() => toggleExpand(index)}>
-                {item.expanded ? (
-                  <>
-                    收起 <ChevronUp className="ml-1 h-4 w-4" />
-                  </>
-                ) : (
-                  <>
-                    展开 <ChevronDown className="ml-1 h-4 w-4" />
-                  </>
+                
+                {/* 展开部分的技能和荣誉 */}
+                <div className={cn("overflow-hidden transition-all duration-300", item.expanded ? "max-h-96" : "max-h-0")}>
+                  {/* 技能标签 */}
+                  {item.skills.length > 0 && (
+                    <div className="mb-3">
+                      <p className="font-medium mb-1">核心技能:</p>
+                      <div className="flex flex-wrap">
+                        {item.skills.map((skill, skillIndex) => (
+                          <span key={skillIndex} className="skill-tag">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* 荣誉列表 */}
+                  {item.honors.length > 0 && (
+                    <div>
+                      <p className="font-medium mb-1">荣誉:</p>
+                      <ul className="list-disc list-inside text-muted-foreground">
+                        {item.honors.map((honor, honorIndex) => (
+                          <li key={honorIndex}>{honor}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                
+                {/* 展开/收起按钮 */}
+                {(item.description.length > 100 || item.skills.length > 0 || item.honors.length > 0) && (
+                  <Button variant="ghost" size="sm" className="mt-3 text-accent" onClick={() => toggleExpand(index)}>
+                    {item.expanded ? (
+                      <>收起 <ChevronUp className="ml-1 h-4 w-4" /></>
+                    ) : (
+                      <>展开 <ChevronDown className="ml-1 h-4 w-4" /></>
+                    )}
+                  </Button>
                 )}
-              </Button>
-            ) : null}
-          </div>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </section>
   )

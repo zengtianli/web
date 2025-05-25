@@ -110,6 +110,9 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <div className="w-full flex justify-center py-4 animate-fade-in animate-delay-500">
+            <SearchDialog />
+          </div>
         </div>
       )}
     </header>

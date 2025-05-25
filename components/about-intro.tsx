@@ -3,43 +3,68 @@
 import Image from "next/image"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
+import { useMemo } from "react"
+import { AboutIntroContent } from "@/lib/content"
+import { Card, CardContent } from "@/components/ui/card"
 
-export default function AboutIntro() {
+interface AboutIntroProps {
+  content: AboutIntroContent & {
+    anchor?: string; // 锚点ID
+  };
+}
+
+export default function AboutIntro({ content }: AboutIntroProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
+  const { title, subtitle, description, slogan, profileImage } = content;
+
+  // 处理描述中的强调文本
+  const formattedDescription = useMemo(() => {
+    return description.replace(
+      /\*\*(.*?)\*\*/g,
+      '<span class="text-accent font-medium">$1</span>'
+    );
+  }, [description]);
+
   return (
-    <section className="mb-16" ref={ref}>
+    <section id={content.anchor || "AboutIntro"} className="mb-16" ref={ref}>
       <h1 className={cn(
         "text-4xl font-bold mb-8 text-center",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         "transition-all duration-700 ease-out"
-      )}>关于我 | My Journey</h1>
+      )}>{title}</h1>
 
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className={cn(
-          "flex justify-center",
-          inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10",
-          "transition-all duration-700 ease-out delay-200"
-        )}>
-          <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-accent/30 shadow-[0_0_25px_rgba(100,255,218,0.3)]">
-            <Image src="/images/zengtianli.jpg" alt="曾田力" fill className="object-cover" />
+      <Card className={cn(
+        "border-secondary bg-secondary/20 card-hover overflow-hidden",
+        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+        "transition-all duration-700 ease-out delay-100"
+      )}>
+        <CardContent className="p-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center py-4">
+            <div className={cn(
+              "flex justify-center",
+              inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10",
+              "transition-all duration-700 ease-out delay-200"
+            )}>
+              <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-accent/30 shadow-[0_0_25px_rgba(100,255,218,0.3)]">
+                <Image src={profileImage} alt={subtitle} fill className="object-cover" />
+              </div>
+            </div>
+
+            <div className={cn(
+              inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10",
+              "transition-all duration-700 ease-out delay-300"
+            )}>
+              <h2 className="text-2xl font-bold mb-2">{subtitle}</h2>
+              <p className="text-lg mb-6" dangerouslySetInnerHTML={{ __html: formattedDescription }} />
+              <p className="text-xl font-medium text-accent">{slogan}</p>
+            </div>
           </div>
-        </div>
-
-        <div className={cn(
-          inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10",
-          "transition-all duration-700 ease-out delay-300"
-        )}>
-          <h2 className="text-2xl font-bold mb-2">曾田力 (Zeng Tianli)</h2>
-          <p className="text-lg mb-6">
-            浙江大学水利工程专业博士。专注 <span className="text-accent font-medium">水利信息化</span>、<span className="text-accent font-medium">数字孪生</span> 与 <span className="text-accent font-medium">智慧水利</span> 研究。深耕机器学习在水资源管理、水文预测领域的应用，研发多款专业软件系统，发表核心期刊论文。
-          </p>
-          <p className="text-xl font-medium text-accent">驱动创新，智绘水利。</p>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </section>
   )
 }

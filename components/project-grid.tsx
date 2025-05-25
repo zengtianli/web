@@ -6,9 +6,13 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
-import { projects } from "@/data/projects"
+import { ProjectContent } from "@/lib/content"
 
-export default function ProjectGrid() {
+interface ProjectGridProps {
+  projects: ProjectContent[];
+}
+
+export default function ProjectGrid({ projects }: ProjectGridProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -16,7 +20,7 @@ export default function ProjectGrid() {
 
   return (
     <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {projects.map((project, index) => (
+      {projects.map((project: ProjectContent, index: number) => (
         <Card
           key={project.slug}
           className={cn(
@@ -39,7 +43,7 @@ export default function ProjectGrid() {
             </div>
 
             <div className="flex flex-wrap gap-1 mb-4">
-              {project.tags.slice(0, 3).map((tag) => (
+              {project.tags.slice(0, 3).map((tag: string) => (
                 <span key={tag} className="skill-tag">
                   {tag}
                 </span>
