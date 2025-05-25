@@ -115,4 +115,15 @@ export async function searchContent(query: string): Promise<SearchResult[]> {
   })
 
   return results
+}
+
+// 调试搜索函数 - 用于debug-search API路由
+export async function debugSearch(query: string) {
+  const results = await searchContent(query)
+  
+  return {
+    manualMatches: results.length,
+    searchTerms: query.toLowerCase().split(/\s+/).filter(Boolean),
+    results
+  }
 } 
