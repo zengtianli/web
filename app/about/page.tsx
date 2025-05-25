@@ -4,7 +4,7 @@ import AboutIntro from "@/components/about-intro"
 import Timeline from "@/components/timeline"
 import SkillsVisual from "@/components/skills-visual"
 import FutureOutlook from "@/components/future-outlook"
-import { getContent, getNestedContent, AboutIntroContent, TimelineContent } from "@/lib/content"
+import { getContent, getNestedContent, AboutIntroContent, TimelineContent, SkillsContent, FutureContent } from "@/lib/content"
 
 export const metadata = {
   title: "关于我 | 曾田力",
@@ -26,14 +26,32 @@ const defaultTimelineContent: TimelineContent = {
   items: []
 };
 
+// 默认的技能内容
+const defaultSkillsContent: SkillsContent = {
+  title: "技能图谱",
+  description: "我的核心技能与专业领域，涵盖水利工程专业技能和信息技术能力",
+  categories: []
+};
+
+// 默认的未来展望内容
+const defaultFutureContent: FutureContent = {
+  title: "未来展望",
+  description: "我对未来水利行业发展的思考与个人职业规划",
+  visionPoints: []
+};
+
 export default async function AboutPage() {
-  // 从内容文件中加载数据
+  // 从内容文件中加载所有数据
   const introContentResult = await getContent<AboutIntroContent>('about/intro');
   const timelineContentResult = await getNestedContent<TimelineContent>('about/timeline');
+  const skillsContentResult = await getNestedContent<SkillsContent>('about/skills');
+  const futureContentResult = await getNestedContent<FutureContent>('about/future');
   
   // 确保即使内容文件加载失败也有默认值
   const introContent = introContentResult?.metadata || defaultAboutIntroContent;
   const timelineContent = timelineContentResult || defaultTimelineContent;
+  const skillsContent = skillsContentResult || defaultSkillsContent;
+  const futureContent = futureContentResult || defaultFutureContent;
   
   return (
     <main className="min-h-screen flex flex-col">
@@ -41,8 +59,8 @@ export default async function AboutPage() {
       <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
         <AboutIntro content={introContent} />
         <Timeline content={timelineContent} />
-        <SkillsVisual />
-        <FutureOutlook />
+        <SkillsVisual content={skillsContent} />
+        <FutureOutlook content={futureContent} />
       </div>
       <Footer />
     </main>

@@ -56,7 +56,7 @@ export default function Timeline({ content }: TimelineProps) {
   }
 
   return (
-    <section id="Timeline" className="mb-16" ref={ref}>
+    <section id={content.anchor || "Timeline"} className="mb-16" ref={ref}>
       <h2 className={cn(
         "text-3xl font-bold mb-8",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",

@@ -4,8 +4,17 @@ import { useEffect, useRef } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
+import { SkillsContent } from "@/lib/content"
 
-const skillCategories = [
+// 组件属性类型
+interface SkillsVisualProps {
+  content: SkillsContent & {
+    anchor?: string; // 页面锚点ID
+  };
+}
+
+// 默认的技能数据，当内容文件加载失败时使用
+const defaultSkillCategories = [
   {
     name: "领域专长",
     skills: [
@@ -35,13 +44,16 @@ const skillCategories = [
   },
 ]
 
-export default function SkillsVisual() {
+export default function SkillsVisual({ content }: SkillsVisualProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   })
 
   const progressRefs = useRef<(HTMLDivElement | null)[]>([])
+  
+  // 使用内容文件中的数据或默认数据
+  const skillCategories = content.categories || defaultSkillCategories;
 
   useEffect(() => {
     if (inView) {
@@ -56,11 +68,17 @@ export default function SkillsVisual() {
         }
       })
     }
-  }, [inView])
+  }, [inView, skillCategories])
 
   return (
-    <section id="SkillsVisual" className="mb-16" ref={ref}>
-      <h2 className="text-3xl font-bold mb-8">技能图谱</h2>
+    <section id={content.anchor || "SkillsVisual"} className="mb-16" ref={ref}>
+      <h2 className="text-3xl font-bold mb-8">{content.title || "技能图谱"}</h2>
+      
+      {content.description && (
+        <p className="text-lg text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
+          {content.description}
+        </p>
+      )}
 
       <div className="grid md:grid-cols-3 gap-8">
         {skillCategories.map((category, catIndex) => (

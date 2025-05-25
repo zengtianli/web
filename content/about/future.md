@@ -1,6 +1,7 @@
 ---
 title: "未来发展与展望"
 description: "我对未来水利行业发展的思考与个人职业规划"
+anchor: "FutureOutlook"  # 锚点标识，用于URL定位
 visionPoints:
   - title: "数字孪生水利"
     description: "深入推进数字孪生技术在水利工程全生命周期的应用，构建虚实融合的智能决策系统。"

@@ -1,5 +1,6 @@
 ---
 title: "我的历程与技能沉淀"
+anchor: "Timeline"  # 锚点标识，用于URL定位
 items:
   - period: "2009.09 - 2013.06"
     title: "本科 | 浙江大学 - 水资源与海洋工程"

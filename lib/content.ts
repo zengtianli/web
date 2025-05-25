@@ -14,13 +14,31 @@ export interface ContentItem<T = Record<string, any>> {
   rawContent: string; // 原始Markdown内容
 }
 
-// 关于页面内容类型
+// 我的内容类型
 export interface AboutIntroContent {
   title: string;
   subtitle: string;
-  description: string;
+  description: string; // 描述必须存在
   slogan: string;
   profileImage: string;
+}
+
+// 技能内容类型
+export interface SkillsContent {
+  title: string;
+  description?: string;
+  categories: SkillCategory[];
+}
+
+// 未来展望内容类型
+export interface FutureContent {
+  title: string;
+  description?: string;
+  visionPoints: {
+    title: string;
+    description: string;
+    icon?: string;
+  }[];
 }
 
 // 时间线项目类型
@@ -36,6 +54,7 @@ export interface TimelineItem {
 // 时间线内容类型
 export interface TimelineContent {
   title: string;
+  anchor?: string; // 页面锚点ID
   items: TimelineItem[];
 }
 
@@ -49,24 +68,6 @@ export interface Skill {
 export interface SkillCategory {
   name: string;
   skills: Skill[];
-}
-
-// 技能内容类型
-export interface SkillsContent {
-  title: string;
-  description: string;
-  categories: SkillCategory[];
-}
-
-// 未来展望内容类型
-export interface FutureOutlookContent {
-  title: string;
-  description: string;
-  visionPoints: {
-    title: string;
-    description: string;
-    icon: string;
-  }[];
 }
 
 // 项目内容类型

@@ -1,6 +1,7 @@
 ---
 title: "技能与专长"
 description: "我的核心技能与专业领域，涵盖水利工程专业技能和信息技术能力"
+anchor: "SkillsVisual"  # 锚点标识，用于URL定位
 categories:
   - name: "水利工程"
     skills:
