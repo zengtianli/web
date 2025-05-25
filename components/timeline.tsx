@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useInView } from "react-intersection-observer"
 import { TimelineContent, TimelineItem } from "@/lib/content"
+import { Card, CardContent } from "@/components/ui/card"
 
 // 图标映射表
 const iconMap = {
@@ -62,74 +63,90 @@ export default function Timeline({ content }: TimelineProps) {
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         "transition-all duration-700 ease-out"
       )}>{content.title}</h2>
+      
+      {/* 时间线说明 */}
+      <p className="text-lg text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
+        我的学习和职业发展旅程，展示了我在水利工程领域的成长与技能沉淀。
+      </p>
 
-      <div className="relative pl-12 border-l-2 border-secondary space-y-12">
-        {timeline.map((item, index) => (
-          <div 
-            key={index} 
-            className={cn(
-              "relative",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20",
-              "transition-all duration-700 ease-out",
-              `delay-[${index * 150}ms]`
-            )}
-          >
-            <div className="absolute top-0 left-0 w-12 flex items-center justify-center">
-              <div className="bg-accent rounded-full w-8 h-8 flex items-center justify-center absolute transform -translate-x-[3rem]">
-                <item.icon className="h-4 w-4 text-background" />
-              </div>
-            </div>
-
-            <div className="mb-2 text-sm text-muted-foreground">{item.period}</div>
-
-            <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-
-            <p className="text-muted-foreground mb-3">
-              {item.description.substring(0, item.expanded ? undefined : 100)}
-              {!item.expanded && item.description.length > 100 && "..."}
-            </p>
-
-            <div className={cn("overflow-hidden transition-all duration-300", item.expanded ? "max-h-96" : "max-h-0")}>
-              {item.skills.length > 0 && (
-                <div className="mb-3">
-                  <p className="font-medium mb-1">核心技能:</p>
-                  <div className="flex flex-wrap">
-                    {item.skills.map((skill, skillIndex) => (
-                      <span key={skillIndex} className="skill-tag">
-                        {skill}
-                      </span>
-                    ))}
+      {/* 时间线网格卡片 */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {timeline.map((item, index) => {
+          // 获取对应的图标组件
+          const IconComponent = item.icon;
+          
+          return (
+            <Card
+              key={index}
+              className={cn(
+                "border-secondary bg-secondary/20 card-hover overflow-hidden",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "transition-all duration-700 ease-out",
+                `delay-${index * 150}ms`
+              )}
+            >
+              <CardContent className="p-6">
+                {/* 时期和图标头部 */}
+                <div className="flex items-center mb-4">
+                  <div className="bg-accent rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <IconComponent className="h-5 w-5 text-background" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">{item.period}</div>
+                    <h3 className="text-xl font-bold">{item.title}</h3>
                   </div>
                 </div>
-              )}
-
-              {item.honors.length > 0 && (
-                <div>
-                  <p className="font-medium mb-1">荣誉:</p>
-                  <ul className="list-disc list-inside text-muted-foreground">
-                    {item.honors.map((honor, honorIndex) => (
-                      <li key={honorIndex}>{honor}</li>
-                    ))}
-                  </ul>
+                
+                {/* 描述文本 */}
+                <div className="mb-4">
+                  <p className="text-muted-foreground">
+                    {item.expanded ? item.description : `${item.description.substring(0, 100)}${item.description.length > 100 ? '...' : ''}`}
+                  </p>
                 </div>
-              )}
-            </div>
-
-            {item.description.length > 100 || item.skills.length > 0 || item.honors.length > 0 ? (
-              <Button variant="ghost" size="sm" className="mt-2 text-accent" onClick={() => toggleExpand(index)}>
-                {item.expanded ? (
-                  <>
-                    收起 <ChevronUp className="ml-1 h-4 w-4" />
-                  </>
-                ) : (
-                  <>
-                    展开 <ChevronDown className="ml-1 h-4 w-4" />
-                  </>
+                
+                {/* 展开部分的技能和荣誉 */}
+                <div className={cn("overflow-hidden transition-all duration-300", item.expanded ? "max-h-96" : "max-h-0")}>
+                  {/* 技能标签 */}
+                  {item.skills.length > 0 && (
+                    <div className="mb-3">
+                      <p className="font-medium mb-1">核心技能:</p>
+                      <div className="flex flex-wrap">
+                        {item.skills.map((skill, skillIndex) => (
+                          <span key={skillIndex} className="skill-tag">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* 荣誉列表 */}
+                  {item.honors.length > 0 && (
+                    <div>
+                      <p className="font-medium mb-1">荣誉:</p>
+                      <ul className="list-disc list-inside text-muted-foreground">
+                        {item.honors.map((honor, honorIndex) => (
+                          <li key={honorIndex}>{honor}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                
+                {/* 展开/收起按钮 */}
+                {(item.description.length > 100 || item.skills.length > 0 || item.honors.length > 0) && (
+                  <Button variant="ghost" size="sm" className="mt-3 text-accent" onClick={() => toggleExpand(index)}>
+                    {item.expanded ? (
+                      <>收起 <ChevronUp className="ml-1 h-4 w-4" /></>
+                    ) : (
+                      <>展开 <ChevronDown className="ml-1 h-4 w-4" /></>
+                    )}
+                  </Button>
                 )}
-              </Button>
-            ) : null}
-          </div>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </section>
   )

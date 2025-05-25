@@ -3,6 +3,8 @@
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
 import { FutureContent } from "@/lib/content"
+import { Card, CardContent } from "@/components/ui/card"
+import { Sparkles, Brain, Workflow } from "lucide-react"
 
 // 组件属性类型
 interface FutureOutlookProps {
@@ -11,11 +13,34 @@ interface FutureOutlookProps {
   };
 }
 
+// 图标映射表
+const iconMap = {
+  Sparkles,
+  Brain,
+  Workflow,
+};
+
 // 默认的未来展望内容，当内容文件加载失败时使用
 const defaultFutureContent: FutureContent = {
   title: "未来展望",
-  description: "我期待继续深耕水利工程与信息技术的融合创新领域，探索AI、大数据、数字孪生等前沿技术在水资源管理中的应用。未来，我将致力于构建更智能、更精准的水资源决策支持系统，推动水利行业数字化转型，为水资源可持续利用与水环境保护贡献专业力量。同时，我也希望能够与更多志同道合的专业人士合作，共同应对全球水资源挑战，创造更美好的水生态环境。",
-  visionPoints: []
+  description: "我对未来水利行业发展的思考与个人职业规划",
+  visionPoints: [
+    {
+      title: "数字孪生水利",
+      description: "深入推进数字孪生技术在水利工程全生命周期的应用，构建虚实融合的智能决策系统。",
+      icon: "Sparkles"
+    },
+    {
+      title: "水利人工智能",
+      description: "探索深度学习、强化学习等前沿AI技术在水文预测、工程管理中的创新应用。",
+      icon: "Brain"
+    },
+    {
+      title: "跨学科融合",
+      description: "促进水利工程与信息技术、环境科学、生态学等学科的深度融合，培养复合型创新人才。",
+      icon: "Workflow"
+    }
+  ]
 };
 
 export default function FutureOutlook({ content = defaultFutureContent }: FutureOutlookProps) {
@@ -32,33 +57,39 @@ export default function FutureOutlook({ content = defaultFutureContent }: Future
         "transition-all duration-700 ease-out"
       )}>{content.title}</h2>
 
-      <div className={cn(
-        "bg-secondary/20 border border-secondary rounded-lg p-6 card-hover",
-        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-        "transition-all duration-700 ease-out delay-200"
-      )}>
-        <p className="text-lg">
+      {content.description && (
+        <p className="text-lg text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
           {content.description}
         </p>
-        
-        {content.visionPoints && content.visionPoints.length > 0 && (
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            {content.visionPoints.map((point, index) => (
-              <div 
-                key={index}
-                className={cn(
-                  "p-4 border border-accent rounded-lg",
-                  inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                  "transition-all duration-700 ease-out",
-                  `delay-${300 + index * 100}`
-                )}
-              >
-                <h3 className="text-xl font-semibold mb-2">{point.title}</h3>
-                <p>{point.description}</p>
-              </div>
-            ))}
-          </div>
-        )}
+      )}
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {content.visionPoints && content.visionPoints.map((point, index) => {
+          // 获取对应的图标组件
+          const IconComponent = iconMap[point.icon as keyof typeof iconMap] || Sparkles;
+          
+          return (
+            <Card
+              key={index}
+              className={cn(
+                "border-secondary bg-secondary/20 card-hover",
+                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "transition-all duration-700 ease-out",
+                `delay-${index * 200}`,
+              )}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center mb-3">
+                  <div className="bg-accent/20 rounded-full p-2 mr-3">
+                    <IconComponent className="h-5 w-5 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-bold">{point.title}</h3>
+                </div>
+                <p className="text-muted-foreground">{point.description}</p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </section>
   )
