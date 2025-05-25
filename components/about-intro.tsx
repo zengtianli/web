@@ -11,7 +11,7 @@ export default function AboutIntro() {
   })
 
   return (
-    <section className="mb-16" ref={ref}>
+    <section id="AboutIntro" className="mb-16" ref={ref}>
       <h1 className={cn(
         "text-4xl font-bold mb-8 text-center",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",

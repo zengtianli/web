@@ -62,10 +62,31 @@
     "type": "project"
   },
   {
-    "id": "about",
-    "title": "关于我",
-    "url": "/about",
-    "content": "use client ref inView useInView triggerOnce threshold 0 1 关于我 My Journey 曾田力 Zeng Tianli 浙江大学水利工程专业博士 专注 水利信息化 数字孪生 与 智慧水利 研究 深耕机器学习在水资源管理 水文预测领域的应用 研发多款专业软件系统 发表核心期刊论文 驱动创新 智绘水利 use client timelineData period 2009 09 2013 06 title 本科 浙江大学 水资源与海洋工程 icon GraduationCap description 系统学习水利工程基础理论与专业知识 掌握水文学 水力学等核心课程 学术成绩 GPA3 65 4 0 专业排名2 22 skills 水文学 水力学 MATLAB入门 工程制图 honors 优秀学生一等奖学金 坤和奖学金二等奖 expanded period 2013 09 2021 06 title 直博研究生 浙江大学 港口航道与近海工程 icon GraduationCap description 研究课程成绩 88 6 100 深入研究水资源管理与水文模拟 开始探索机器学习在水文预测中的应用 参与多个水利工程实践项目 提升专业技能与研究能力 核心研究包括高速摄像测定非均匀沙沉速研究 秀山大桥海域潮流数学模型 Delft3D模拟 等 skills 水资源系统分析 Delft3D Python基础 GIS应用 honors 三好研究生 优秀研究生 优秀团干部 expanded period 2016 08 2018 01 title 联培 美国克拉克森大学 水利工程 icon GraduationCap description 获 国家留学基金委公派留学奖学金 支持 研究成果 A Depth Averaged 2D Physically Based Model Cohesive Dam Levee Breach Processes 被ASCE环境水资源大会收录并进行报告 skills 物理模型 大坝 堤防决口过程 国际学术交流 honors 国家留学基金委公派留学奖学金 expanded period 2021 09 2023 09 title 硕士研究生 浙江大学 水利工程 icon GraduationCap description 核心研究项目 浙江省用水量变化及水资源可持续利用评价指标体系研究 应用MannKendall检验 TheilSen方法和信息熵方法分析用水结构时空变化 基于LSTM深度学习构建多因子用水量预测模型对比ARIMA LSTM和Informer模型在日尺度用水量预测的表现 skills MannKendall检验 TheilSen方法 LSTM ARIMA Informer honors 三好研究生 优秀研究生 优秀团干部 expanded period 2023 09 至今 title 工程师 浙江省水利水电规划设计院 icon Briefcase description 负责水利工程规划设计与技术创新工作 主导多个重点项目的技术方案制定与实施 将AI技术与传统水利工程相结合 开发多款专业软件系统 提升工程效率与决策水平 skills AHP CRITIC TOPSIS React Vue js Fortran OpenMP 高性能计算 软件系统开发 honors expanded timeline setTimeline useState timelineData ref inView useInView triggerOnce threshold 0 1 toggleExpand index number setTimeline timeline map item i i index item expanded item expanded item 我的历程与技能沉淀 timeline map item index item period item title item description substring 0 item expanded 100 item expanded item description length 100 item skills length 0 核心技能 item skills map skill skillIndex skill item honors length 0 荣誉 item honors map honor honorIndex honor item description length 100 item skills length 0 item honors length 0 toggleExpand index item expanded 收起 展开 关于我的信息，技术栈，经验等。专业背景、技能和经历。融合水利工程专业智慧与前沿信息技术，致力于解决复杂水资源挑战。",
+    "id": "about#AboutIntro",
+    "title": "关于我 | My Journey",
+    "url": "/about#AboutIntro",
+    "content": "曾田力 （Zeng Tianli） 浙江大学水利工程专业博士。专注水利信息化、数字李生 与 智慧水利研究。深耕机器学习在水资源管理、水文预测领域的应用，研发多款专业软件系统，发表核心期刊论文。 驱动创新，智绘水利。",
+    "type": "page"
+  },
+  {
+    "id": "about#Timeline",
+    "title": "我的历程与技能沉淀",
+    "url": "/about#Timeline",
+    "content": "2009.09 - 2013.06 本科 | 浙江大学 - 水资源与海洋工程 系统学习水利工程基础理论与专业知识，掌握水文学、水力学等核心课程。学术成绩：GPA3.65/4.0（专业排名2/22）。 水文学 水力学 MATLAB入门 工程制图 优秀学生一等奖学金 坤和奖学金二等奖 2013.09 - 2021.06 直博研究生 | 浙江大学 - 港口航道与近海工程 研究课程成绩：88.6/100。深入研究水资源管理与水文模拟，开始探索机器学习在水文预测中的应用。参与多个水利工程实践项目，提升专业技能与研究能力。核心研究包括高速摄像测定非均匀沙沉速研究、秀山大桥海域潮流数学模型（Delft3D模拟）等。 水资源系统分析 Delft3D Python基础 GIS应用 三好研究生 优秀研究生 优秀团干部 2016.08 - 2018.01 联培 | 美国克拉克森大学 - 水利工程 获《国家留学基金委公派留学奖学金》支持。研究成果《A Depth Averaged 2D Physically Based Model of Cohesive Dam/Levee Breach Processes》被ASCE环境水资源大会收录并进行报告。 物理模型 大坝/堤防决口过程 国际学术交流 国家留学基金委公派留学奖学金 2021.09 - 2023.09 硕士研究生 | 浙江大学 - 水利工程 核心研究项目：浙江省用水量变化及水资源可持续利用评价指标体系研究。应用MannKendall检验、TheilSen方法和信息熵方法分析用水结构时空变化。基于LSTM深度学习构建多因子用水量预测模型对比ARIMA、LSTM和Informer模型在日尺度用水量预测的表现。 MannKendall检验 TheilSen方法 LSTM ARIMA Informer 三好研究生 优秀研究生 优秀团干部 2023.09 - 至今 工程师 | 浙江省水利水电规划设计院 负责水利工程规划设计与技术创新工作，主导多个重点项目的技术方案制定与实施。将AI技术与传统水利工程相结合，开发多款专业软件系统，提升工程效率与决策水平。 AHP/CRITIC/TOPSIS React/Vue.js Fortran/OpenMP 高性能计算 软件系统开发",
+    "type": "page"
+  },
+  {
+    "id": "about#SkillsVisual",
+    "title": "技能展示",
+    "url": "/about#SkillsVisual",
+    "content": "  {\n    name: \"领域专长\",\n    skills: [\n      { name: \"水资源管理与规划\", level: 95 },\n      { name: \"水文预测与模拟\", level: 90 },\n      { name: \"水利工程设计\", level: 85 },\n      { name: \"水资源承载力评价\", level: 95 },\n    ],\n  },\n  {\n    name: \"技术核心\",\n    skills: [\n      { name: \"机器学习/深度学习\", level: 85 },\n      { name: \"数据分析与可视化\", level: 90 },\n      { name: \"水文模型开发\", level: 95 },\n      { name: \"GIS空间分析\", level: 80 },\n    ],\n  },\n  {\n    name: \"编程语言\",\n    skills: [\n      { name: \"Python\", level: 90 },\n      { name: \"MATLAB\", level: 85 },\n      { name: \"Fortran\", level: 75 },\n      { name: \"JavaScript/TypeScript\", level: 70 },\n    ],\n  },",
+    "type": "page"
+  },
+  {
+    "id": "about#FutureOutlook",
+    "title": "未来展望",
+    "url": "/about#FutureOutlook",
+    "content": "我期待继续深耕水利工程与信息技术的融合创新领域，探索AI、大数据、数字孪生等前沿技术在水资源管理中的应用。未来，我将致力于构建更智能、更精准的水资源决策支持系统，推动水利行业数字化转型，为水资源可持续利用与水环境保护贡献专业力量。同时，我也希望能够与更多志同道合的专业人士合作，共同应对全球水资源挑战，创造更美好的水生态环境。",
     "type": "page"
   },
   {

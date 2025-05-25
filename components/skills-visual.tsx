@@ -59,7 +59,7 @@ export default function SkillsVisual() {
   }, [inView])
 
   return (
-    <section className="mb-16" ref={ref}>
+    <section id="SkillsVisual" className="mb-16" ref={ref}>
       <h2 className="text-3xl font-bold mb-8">技能图谱</h2>
 
       <div className="grid md:grid-cols-3 gap-8">

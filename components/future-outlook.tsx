@@ -10,7 +10,7 @@ export default function FutureOutlook() {
   })
   
   return (
-    <section className="mb-16" ref={ref}>
+    <section id="FutureOutlook" className="mb-16" ref={ref}>
       <h2 className={cn(
         "text-3xl font-bold mb-4",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",

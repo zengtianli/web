@@ -99,9 +99,18 @@ export function SearchDialog() {
       console.error('Error: URL is undefined or not a string. Navigation aborted.', selectedUrl);
       return;
     }
-    router.push(selectedUrl);
+    
     setIsOpen(false);
     setQuery('');
+    
+    // 处理带有锚点的URL
+    if (selectedUrl.includes('#')) {
+      // 使用window.location直接处理锚点导航，保留完整URL包括锚点
+      window.location.href = selectedUrl;
+    } else {
+      // 正常导航
+      router.push(selectedUrl);
+    }
   };
 
   return (
@@ -143,7 +152,7 @@ export function SearchDialog() {
                 return (
                   <CommandItem
                     key={item.id}
-                    value={`${item.title} ${item.url || ''}`} // Use item.url
+                    value={`${item.title} ${item.content || ''} ${item.url || ''}`} // 添加content字段进行匹配
                     onSelect={() => handleSelectResult(item.url)} // Pass item.url
                     className="cursor-pointer"
                   >

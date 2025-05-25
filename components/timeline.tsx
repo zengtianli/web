@@ -71,14 +71,14 @@ export default function Timeline() {
   }
 
   return (
-    <section className="mb-16">
+    <section id="Timeline" className="mb-16" ref={ref}>
       <h2 className={cn(
         "text-3xl font-bold mb-8",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         "transition-all duration-700 ease-out"
       )}>我的历程与技能沉淀</h2>
 
-      <div className="relative pl-12 border-l-2 border-secondary space-y-12" ref={ref}>
+      <div className="relative pl-12 border-l-2 border-secondary space-y-12">
         {timeline.map((item, index) => (
           <div 
             key={index} 
