@@ -85,7 +85,7 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
           <Card
             key={catIndex}
             className={cn(
-              "border-secondary bg-secondary/20",
+              "border-secondary bg-secondary/20 card-hover",
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
               "transition-all duration-700 ease-out",
               `delay-${catIndex * 200}`,

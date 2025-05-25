@@ -33,7 +33,7 @@ export default function FutureOutlook({ content = defaultFutureContent }: Future
       )}>{content.title}</h2>
 
       <div className={cn(
-        "bg-secondary/20 border border-secondary rounded-lg p-6",
+        "bg-secondary/20 border border-secondary rounded-lg p-6 card-hover",
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         "transition-all duration-700 ease-out delay-200"
       )}>

@@ -9,9 +9,9 @@ categories:
         level: 90
       - name: "水资源规划"
         level: 85
-      - name: "防洪评价"
+      - name: "水源地评价"
         level: 80
-      - name: "河道治理"
+      - name: "生态流量"
         level: 75
       - name: "水工结构"
         level: 70
@@ -35,7 +35,7 @@ categories:
         level: 80
       - name: "Fortran"
         level: 85
-      - name: "GIS开发"
+      - name: "GIS/QGIS开发"
         level: 75
       - name: "数据库设计"
         level: 70
