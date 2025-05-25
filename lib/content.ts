@@ -83,6 +83,12 @@ export interface ProjectContent {
   outcomes?: string[];
 }
 
+// 项目概要内容类型
+export interface ProjectIndexContent {
+  title: string;
+  description: string;
+}
+
 /**
  * 获取指定内容的元数据和正文
  */
@@ -168,4 +174,44 @@ export async function getNestedContent<T = Record<string, any>>(contentPath: str
     console.error(`读取内容文件时出错: ${fullPath}`, error);
     return null;
   }
+}
+
+/**
+ * 获取项目概要信息
+ */
+export async function getProjectIndex(): Promise<ProjectIndexContent | null> {
+  return getNestedContent<ProjectIndexContent>('projects/_index');
+}
+
+/**
+ * 获取所有项目列表
+ */
+export async function getAllProjects(): Promise<ProjectContent[]> {
+  try {
+    const contentDir = path.join(contentDirectory, 'projects/items');
+    const filenames = fs.readdirSync(contentDir);
+    
+    const projects = await Promise.all(
+      filenames
+        .filter(filename => filename.endsWith('.md'))
+        .map(async (filename) => {
+          const slug = filename.replace(/\.md$/, '');
+          const result = await getContent<ProjectContent>(`projects/items/${slug}`);
+          return result?.metadata || null;
+        })
+    );
+    
+    // 过滤掉空值
+    return projects.filter((project): project is ProjectContent => project !== null);
+  } catch (error) {
+    console.error('加载项目列表出错:', error);
+    return [];
+  }
+}
+
+/**
+ * 获取单个项目内容
+ */
+export async function getProjectBySlug(slug: string): Promise<ContentItem<ProjectContent> | null> {
+  return getContent<ProjectContent>(`projects/items/${slug}`);
 }
