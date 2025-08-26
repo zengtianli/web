@@ -145,9 +145,11 @@ export default async function ResumePage() {
                           在线预览
                         </Link>
                       </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Download className="h-4 w-4 mr-2" />
-                        下载PDF
+                      <Button variant="outline" size="sm" className="flex-1" asChild>
+                        <a href="/zengtianli-cv.pdf" download={`${resume.filename}.pdf`}>
+                          <Download className="h-4 w-4 mr-2" />
+                          下载PDF
+                        </a>
                       </Button>
                     </div>
                   </div>

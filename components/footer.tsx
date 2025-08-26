@@ -30,9 +30,11 @@ export default function Footer() {
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
             "transition-all duration-700 ease-out delay-200"
           )}>
-            <Button variant="outline" size="sm" className="text-accent border-accent hover:bg-accent/10">
-              <FileDown className="mr-2 h-4 w-4" />
-              下载完整简历 (PDF)
+            <Button variant="outline" size="sm" className="text-accent border-accent hover:bg-accent/10" asChild>
+              <a href="/zengtianli-cv.pdf" download="曾田力-简历.pdf">
+                <FileDown className="mr-2 h-4 w-4" />
+                下载完整简历 (PDF)
+              </a>
             </Button>
 
             <Link href="https://www.linkedin.com/in/tianli-zeng-4068a7190/" target="_blank" rel="noopener noreferrer">

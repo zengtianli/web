@@ -1,10 +1,11 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Download, Share2 } from "lucide-react"
+import { ArrowLeft, Share2 } from "lucide-react"
 import Link from "next/link"
 import { getContent } from "@/lib/content"
 import { notFound } from "next/navigation"
+import DownloadPDFButton from "@/components/download-pdf-button"
 
 interface ResumeViewPageProps {
   params: {
@@ -77,15 +78,12 @@ export default async function ResumeViewPage({ params }: ResumeViewPageProps) {
             </div>
           </div>
           
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 no-print">
             <Button variant="outline" size="sm">
               <Share2 className="h-4 w-4 mr-2" />
               分享
             </Button>
-            <Button size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              下载PDF
-            </Button>
+            <DownloadPDFButton filename={resume.filename} />
           </div>
         </div>
 
@@ -94,80 +92,12 @@ export default async function ResumeViewPage({ params }: ResumeViewPageProps) {
           <div className="bg-card border border-border rounded-lg shadow-sm overflow-hidden">
             <div className="p-8 md:p-12">
               <div 
-                className="prose prose-neutral dark:prose-invert max-w-none
-                  prose-headings:font-bold prose-headings:tracking-tight
-                  prose-h1:text-3xl prose-h1:mb-6 prose-h1:border-b prose-h1:border-border prose-h1:pb-3
-                  prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border/50 prose-h2:pb-2
-                  prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
-                  prose-h4:text-lg prose-h4:mt-4 prose-h4:mb-2
-                  prose-p:leading-relaxed prose-p:mb-4
-                  prose-ul:my-4 prose-li:my-1
-                  prose-strong:text-foreground prose-strong:font-semibold
-                  prose-em:text-muted-foreground
-                  prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-                  prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic
-                  print:prose-h1:text-black print:prose-h2:text-black print:prose-h3:text-black
-                  print:prose-p:text-black print:prose-li:text-black print:prose-strong:text-black
-                "
+                className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-h1:text-3xl prose-h1:mb-6 prose-h1:border-b prose-h1:border-border prose-h1:pb-3 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border/50 prose-h2:pb-2 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-4 prose-h4:mb-2 prose-p:leading-relaxed prose-p:mb-4 prose-ul:my-4 prose-li:my-1 prose-strong:text-foreground prose-strong:font-semibold prose-em:text-muted-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic print:prose-h1:text-black print:prose-h2:text-black print:prose-h3:text-black print:prose-p:text-black print:prose-li:text-black print:prose-strong:text-black"
                 dangerouslySetInnerHTML={{ __html: contentResult.content }}
               />
             </div>
           </div>
         </div>
-
-        {/* Print Styles */}
-        <style jsx global>{`
-          @media print {
-            body {
-              -webkit-print-color-adjust: exact;
-              color-adjust: exact;
-            }
-            
-            .prose {
-              font-size: 12px;
-              line-height: 1.4;
-            }
-            
-            .prose h1 {
-              font-size: 18px;
-              margin-bottom: 12px;
-              border-bottom: 1px solid #333;
-              padding-bottom: 6px;
-            }
-            
-            .prose h2 {
-              font-size: 16px;
-              margin-top: 16px;
-              margin-bottom: 8px;
-              border-bottom: 1px solid #666;
-              padding-bottom: 4px;
-            }
-            
-            .prose h3 {
-              font-size: 14px;
-              margin-top: 12px;
-              margin-bottom: 6px;
-            }
-            
-            .prose h4 {
-              font-size: 13px;
-              margin-top: 8px;
-              margin-bottom: 4px;
-            }
-            
-            .prose p {
-              margin-bottom: 8px;
-            }
-            
-            .prose ul {
-              margin: 8px 0;
-            }
-            
-            .prose li {
-              margin: 2px 0;
-            }
-          }
-        `}</style>
       </div>
       <Footer />
     </main>
