@@ -4,6 +4,7 @@ import AboutIntro from "@/components/about-intro"
 import Timeline from "@/components/timeline"
 import SkillsVisual from "@/components/skills-visual"
 import FutureOutlook from "@/components/future-outlook"
+import SportsAchievementComponent, { SportsAchievementContent } from "@/components/sports-achievement"
 import { getContent, getNestedContent, AboutIntroContent, TimelineContent, SkillsContent, FutureContent } from "@/lib/content"
 
 export const metadata = {
@@ -40,18 +41,34 @@ const defaultFutureContent: FutureContent = {
   visionPoints: []
 };
 
+// 默认的体育成就内容
+const defaultSportsContent: SportsAchievementContent = {
+  title: "体育成就",
+  subtitle: "2024年12月荣获\"规划数字事业部年度运动之星\"称号",
+  totalChampionships: 5,
+  officialHonor: {
+    title: "规划数字事业部2024年度运动之星",
+    year: "2024年12月",
+    organization: "规划数字事业部团总支",
+    description: "全面发展的体育运动爱好者，在各项赛事中表现突出"
+  },
+  categories: []
+};
+
 export default async function AboutPage() {
   // 从内容文件中加载所有数据
   const introContentResult = await getContent<AboutIntroContent>('about/intro');
   const timelineContentResult = await getNestedContent<TimelineContent>('about/timeline');
   const skillsContentResult = await getNestedContent<SkillsContent>('about/skills');
   const futureContentResult = await getNestedContent<FutureContent>('about/future');
+  const sportsContentResult = await getNestedContent<SportsAchievementContent>('about/sports');
   
   // 确保即使内容文件加载失败也有默认值
   const introContent = introContentResult?.metadata || defaultAboutIntroContent;
   const timelineContent = timelineContentResult || defaultTimelineContent;
   const skillsContent = skillsContentResult || defaultSkillsContent;
   const futureContent = futureContentResult || defaultFutureContent;
+  const sportsContent = sportsContentResult || defaultSportsContent;
   
   return (
     <main className="min-h-screen flex flex-col">
@@ -60,6 +77,7 @@ export default async function AboutPage() {
         <AboutIntro content={introContent} />
         <Timeline content={timelineContent} />
         <SkillsVisual content={skillsContent} />
+        <SportsAchievementComponent content={sportsContent} />
         <FutureOutlook content={futureContent} />
       </div>
       <Footer />
