@@ -112,3 +112,95 @@
   height: 100%;
   z-index: -1;
 }
+
+/* Markdown 内容样式优化 */
+.markdown-content {
+  line-height: 1.7;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  @apply font-montserrat font-bold mt-8 mb-4 first:mt-0;
+}
+
+.markdown-content h1 {
+  @apply text-3xl border-b pb-2;
+}
+
+.markdown-content h2 {
+  @apply text-2xl;
+}
+
+.markdown-content h3 {
+  @apply text-xl;
+}
+
+.markdown-content p {
+  @apply mb-4;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  @apply mb-4 ml-6;
+}
+
+.markdown-content li {
+  @apply mb-1;
+}
+
+/* 代码块样式优化 */
+.markdown-content pre {
+  @apply rounded-lg border bg-muted/50 p-4 overflow-x-auto text-sm;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+.markdown-content code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
+
+.markdown-content :not(pre) > code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
+}
+
+/* 表格样式 */
+.markdown-content table {
+  @apply w-full border-collapse border border-border rounded-lg overflow-hidden my-6;
+}
+
+.markdown-content th {
+  @apply border border-border bg-muted px-4 py-2 text-left font-semibold;
+}
+
+.markdown-content td {
+  @apply border border-border px-4 py-2;
+}
+
+/* 引用块样式 */
+.markdown-content blockquote {
+  @apply border-l-4 border-l-primary bg-muted/30 pl-6 py-4 my-6 italic;
+}
+
+/* Mermaid 图表容器样式 */
+.mermaid-container {
+  @apply bg-card border rounded-lg p-4;
+}
+
+.mermaid-container svg {
+  @apply mx-auto max-w-full h-auto;
+}
+
+/* 响应式表格 */
+@media (max-width: 768px) {
+  .markdown-content table {
+    @apply text-sm;
+  }
+  
+  .markdown-content th,
+  .markdown-content td {
+    @apply px-2 py-1;
+  }
+}

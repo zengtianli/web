@@ -5,8 +5,9 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { ExternalLink, Github, GitBranch, Star, ChevronDown, ChevronUp } from "lucide-react"
+import { ExternalLink, Github, GitBranch, Star, ChevronDown, ChevronUp, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import MarkdownRenderer from "@/components/markdown-renderer"
 
 interface Tool {
   id: string
@@ -26,6 +27,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [content, setContent] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const loadContent = async () => {
     if (content) {
@@ -34,21 +36,26 @@ export default function ToolCard({ tool }: ToolCardProps) {
     }
 
     setIsLoading(true)
+    setError(null)
+    
     try {
-      // 这里应该从 content/tools/ 读取 Markdown 内容
-      // 暂时使用占位内容
-      const response = await fetch(`${tool.contentFile}`)
+      // 调用新的 API 端点
+      const response = await fetch(`/api/tools/${tool.id}`)
+      
       if (response.ok) {
-        const text = await response.text()
-        setContent(text)
+        const data = await response.json()
+        setContent(data.content)
+        setIsExpanded(true)
       } else {
-        setContent("内容加载失败，请访问 GitHub 查看完整文档。")
+        const errorData = await response.json()
+        throw new Error(errorData.error || '加载失败')
       }
-    } catch (error) {
-      setContent("内容加载失败，请访问 GitHub 查看完整文档。")
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : '内容加载失败'
+      setError(errorMessage)
+      console.error('加载工具内容失败:', err)
     } finally {
       setIsLoading(false)
-      setIsExpanded(true)
     }
   }
 
@@ -136,59 +143,69 @@ export default function ToolCard({ tool }: ToolCardProps) {
       </CardHeader>
 
       {/* 展开的详细内容 */}
-      {isExpanded && (
+      {(isExpanded || error) && (
         <>
           <Separator />
           <CardContent className="pt-6">
-            <div className="prose prose-slate dark:prose-invert max-w-none">
-              {content ? (
-                <div className="space-y-4">
-                  {/* 这里需要实现 Markdown 渲染 */}
-                  <div className="bg-muted/50 rounded-lg p-4">
-                    <p className="text-sm text-muted-foreground mb-2">
-                      📝 完整文档内容
-                    </p>
-                    <pre className="text-sm whitespace-pre-wrap font-mono">
-                      {content.substring(0, 1000)}...
-                    </pre>
-                  </div>
-                  <div className="flex gap-4 pt-4">
-                    <Button asChild>
-                      <a href={tool.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-2" />
-                        在 GitHub 上查看完整文档
-                      </a>
-                    </Button>
-                    <Button variant="outline" asChild>
-                      <a href={tool.gitee} target="_blank" rel="noopener noreferrer">
-                        <GitBranch className="h-4 w-4 mr-2" />
-                        在 Gitee 上查看
-                      </a>
-                    </Button>
+            {error ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+                  <AlertCircle className="h-5 w-5 text-destructive" />
+                  <div>
+                    <p className="text-destructive font-medium">加载失败</p>
+                    <p className="text-sm text-muted-foreground">{error}</p>
                   </div>
                 </div>
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-muted-foreground">
-                    详细使用文档请访问：
+                <div className="text-center py-4">
+                  <p className="text-muted-foreground mb-4">
+                    请访问 GitHub 或 Gitee 查看完整文档：
                   </p>
-                  <div className="flex gap-4 justify-center mt-4">
+                  <div className="flex gap-4 justify-center">
                     <Button asChild>
                       <a href={tool.github} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4 mr-2" />
-                        GitHub
+                        GitHub 完整文档
                       </a>
                     </Button>
                     <Button variant="outline" asChild>
                       <a href={tool.gitee} target="_blank" rel="noopener noreferrer">
                         <GitBranch className="h-4 w-4 mr-2" />
-                        Gitee
+                        Gitee 完整文档
                       </a>
                     </Button>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            ) : content ? (
+              <div className="space-y-6">
+                {/* 使用 MarkdownRenderer 渲染内容 */}
+                <MarkdownRenderer 
+                  content={content}
+                  className="max-w-none"
+                />
+                
+                {/* 底部操作按钮 */}
+                <div className="border-t pt-6">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button size="lg" asChild>
+                      <a href={tool.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="h-4 w-4 mr-2" />
+                        查看 GitHub 仓库
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="lg" asChild>
+                      <a href={tool.gitee} target="_blank" rel="noopener noreferrer">
+                        <GitBranch className="h-4 w-4 mr-2" />
+                        查看 Gitee 仓库
+                      </a>
+                    </Button>
+                  </div>
+                  <p className="text-center text-sm text-muted-foreground mt-4">
+                    ⭐ 如果对你有帮助，欢迎给个 Star 支持！
+                  </p>
+                </div>
+              </div>
+            ) : null}
           </CardContent>
         </>
       )}
