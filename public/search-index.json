@@ -57,6 +57,45 @@
     ]
   },
   {
+    "id": "tools",
+    "title": "开发工具",
+    "path": "/tools",
+    "content": "我的开源开发工具集合，涵盖了 macOS 自动化、编辑器配置、命令行环境等各个方面，旨在提升开发效率和体验。"
+  },
+  {
+    "id": "tool-execute",
+    "title": "📖 Execute - macOS 效率工具集合",
+    "path": "/tools#execute",
+    "content": "📖 Execute - macOS 效率工具集合 > 一套完整的 macOS 自动化工具集合，通过 Raycast 集成提供强大的文件处理、窗口管理、宏录制等功能，让你的 macOS 使用体验更加高效。 # 📖 Execute - macOS 效率工具集合\n\n> 一套完整的 macOS 自动化工具集合，通过 Raycast 集成提供强大的文件处理、窗口管理、宏录制等功能，让你的 macOS 使用体验更加高效。\n\n## 🚀 快速开始\n\n```bash\n# 1. 克隆项目\ngit clone https://github.com/zengtianli/execute\ncd execute\n\n# 2. 安装依赖\npip3 install -r scripts_ray/requirements.txt\nbrew install fzf pandoc\n\n# 3. 配置Raycast\n# 将 raycast/ 目录添加到 Raycast 扩展目录\n# 在 Raycast 中刷新扩展列表\n\n# 4. 开始使用\n# 在 Finder 中选择文件，然后在 Raycast 中运行相应命令\n```\n\n## 💡 核心功能概览\n\n### 🎯 6大功能模块\n\n| 模块 | 功能描述 | 脚本数量 | 主要用途 |\n|------|----------|----------|----------|\n| 📱",
+    "tags": [
+      "开发工具",
+      "开源",
+      "execute"
+    ]
+  },
+  {
+    "id": "tool-neovim",
+    "title": "🚀 现代化 Neovim 配置",
+    "path": "/tools#neovim",
+    "content": "🚀 现代化 Neovim 配置 > 一个高度优化、模块化、功能完整的 Neovim 配置，提供现代 IDE 级开发体验 # 🚀 现代化 Neovim 配置\n\n> 一个高度优化、模块化、功能完整的 Neovim 配置，提供现代 IDE 级开发体验\n\n[![Neovim](https://img.shields.io/badge/Neovim-0.11+-green.svg)](https://neovim.io/)\n[![Lua](https://img.shields.io/badge/Lua-5.1+-blue.svg)](https://www.lua.org/)\n[![Lazy.nvim](https://img.shields.io/badge/Plugin%20Manager-Lazy.nvim-orange.svg)](https://github.com/folke/lazy.nvim)\n[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)\n\n## ✨ 特性亮点\n\n- 🎯 **统一化架构**: 模块化设计，75% 文件减少，零功能损失\n- 🔌 **精选插件**: 45 个精选插件，现代化替",
+    "tags": [
+      "开发工具",
+      "开源",
+      "neovim"
+    ]
+  },
+  {
+    "id": "tool-zsh",
+    "title": "ZSH 配置",
+    "path": "/tools#zsh",
+    "content": "ZSH 配置 基于 Zim 框架的 ZSH 配置，集成现代命令行工具和 FZF 增强功能。 # ZSH 配置\n\n基于 Zim 框架的 ZSH 配置，集成现代命令行工具和 FZF 增强功能。\n\n## 项目结构\n\n```\nzsh/\n├── zshrc                    # 主配置文件\n├── zimrc                    # Zim 框架配置\n├── gitconfig                # Git 配置\n├── config/                  # 配置目录\n│   ├── conda.zsh           # Conda 管理\n│   ├── fzf.zsh             # FZF 配置\n│   ├── mappings.zsh        # 键盘映射\n│   ├── modern-tools.zsh    # 现代工具别名\n│   └── fzf/                # FZF 工具脚本\n│       ├── brew-tools      # Homebrew 管理\n│       ├── modern-git      # Git 工具\n│       ├── pro",
+    "tags": [
+      "开发工具",
+      "开源",
+      "zsh"
+    ]
+  },
+  {
     "id": "about",
     "title": "关于我",
     "path": "/about",
