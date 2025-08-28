@@ -1,34 +1,29 @@
 "use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-import { useInView } from "react-intersection-observer"
-import { cn } from "@/lib/utils"
 import { ProjectContent } from "@/lib/content"
+import { ResponsiveGrid } from "@/components/molecules"
 
 interface ProjectGridProps {
   projects: ProjectContent[];
 }
 
 export default function ProjectGrid({ projects }: ProjectGridProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
   return (
-    <div ref={ref} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <ResponsiveGrid 
+      strategy="auto" // 使用 sm:2 md:3 lg:4 自动布局，对应原来的 md:grid-cols-2 lg:grid-cols-3
+      gap="lg" // 对应原来的 gap-8
+      animation="fadeInUp"
+      baseDelay={100} // 对应原来的 index * 100
+    >
       {projects.map((project: ProjectContent, index: number) => (
         <Card
           key={project.slug}
-          className={cn(
-            "card-hover overflow-hidden border-secondary",
-            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-            "transition-all duration-700 ease-out",
-            `delay-${index * 100}`,
-          )}
+          className="card-hover overflow-hidden border-secondary"
         >
           <div className="relative h-48">
             <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
@@ -60,6 +55,6 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           </CardContent>
         </Card>
       ))}
-    </div>
+    </ResponsiveGrid>
   )
 }

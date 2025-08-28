@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
 import { SkillsContent } from "@/lib/content"
+import { AnimatedSection } from "@/components/molecules"
 
 // 组件属性类型
 interface SkillsVisualProps {
@@ -71,16 +72,15 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
   }, [inView, skillCategories])
 
   return (
-    <section id={content.anchor || "SkillsVisual"} className="mb-16" ref={ref}>
-      <h2 className="text-3xl font-bold mb-8">{content.title || "技能图谱"}</h2>
-      
-      {content.description && (
-        <p className="text-lg text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
-          {content.description}
-        </p>
-      )}
-
-      <div className="grid md:grid-cols-3 gap-8">
+    <AnimatedSection 
+      title={content.title || "技能图谱"}
+      titleLevel="h2"
+      titleVariant="h2"
+      description={content.description}
+      anchor={content.anchor || "SkillsVisual"}
+      spacing="lg"
+    >
+      <div ref={ref} className="grid md:grid-cols-3 gap-8">
         {skillCategories.map((category, catIndex) => (
           <Card
             key={catIndex}
@@ -119,6 +119,6 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
           </Card>
         ))}
       </div>
-    </section>
+    </AnimatedSection>
   )
 }

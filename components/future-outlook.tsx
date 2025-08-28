@@ -1,10 +1,10 @@
 "use client"
 
-import { useInView } from "react-intersection-observer"
-import { cn } from "@/lib/utils"
 import { FutureContent } from "@/lib/content"
-import { Card, CardContent } from "@/components/ui/card"
 import { Sparkles, Brain, Workflow } from "lucide-react"
+import { AnimatedSection } from "@/components/molecules"
+import { ResponsiveGrid } from "@/components/molecules"
+import { FeatureCard } from "@/components/molecules"
 
 // 组件属性类型
 interface FutureOutlookProps {
@@ -44,53 +44,39 @@ const defaultFutureContent: FutureContent = {
 };
 
 export default function FutureOutlook({ content = defaultFutureContent }: FutureOutlookProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-  
   return (
-    <section id={content.anchor || "FutureOutlook"} className="mb-16" ref={ref}>
-      <h2 className={cn(
-        "text-3xl font-bold mb-4",
-        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-        "transition-all duration-700 ease-out"
-      )}>{content.title}</h2>
-
-      {content.description && (
-        <p className="text-lg text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
-          {content.description}
-        </p>
-      )}
-
-      <div className="grid md:grid-cols-3 gap-8">
+    <AnimatedSection 
+      title={content.title}
+      titleLevel="h2"
+      titleVariant="h2"
+      description={content.description}
+      anchor={content.anchor || "FutureOutlook"}
+      spacing="lg"
+    >
+      <ResponsiveGrid 
+        strategy="responsive" // 使用 3列布局，对应原来的 md:grid-cols-3
+        gap="lg" // 对应原来的 gap-8
+        animation="fadeInUp"
+        baseDelay={200} // 对应原来的 index * 200
+      >
         {content.visionPoints && content.visionPoints.map((point, index) => {
           // 获取对应的图标组件
           const IconComponent = iconMap[point.icon as keyof typeof iconMap] || Sparkles;
           
           return (
-            <Card
+            <FeatureCard
               key={index}
-              className={cn(
-                "border-secondary bg-secondary/20 card-hover",
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                "transition-all duration-700 ease-out",
-                `delay-${index * 200}`,
-              )}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center mb-3">
-                  <div className="bg-accent/20 rounded-full p-2 mr-3">
-                    <IconComponent className="h-5 w-5 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold">{point.title}</h3>
-                </div>
-                <p className="text-muted-foreground">{point.description}</p>
-              </CardContent>
-            </Card>
+              icon={<IconComponent />}
+              title={point.title}
+              description={point.description}
+              variant="hover" // 对应原来的 card-hover
+              layout="horizontal" // 图标在左侧
+              iconSize="md" // 对应原来的 h-5 w-5
+              iconVariant="accent" // 对应原来的 text-accent
+            />
           );
         })}
-      </div>
-    </section>
+      </ResponsiveGrid>
+    </AnimatedSection>
   )
 }

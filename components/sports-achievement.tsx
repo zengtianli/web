@@ -46,6 +46,7 @@ interface SportsAchievementProps {
 export default function SportsAchievementComponent({ content }: SportsAchievementProps) {
   return (
     <section className="py-16" id="sports-achievement">
+      {/* 标题区域 - 保持橙色主题 */}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center space-x-3 mb-4">
           <Trophy className="h-8 w-8 text-orange-500" />
