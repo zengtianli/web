@@ -1,17 +1,10 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Lightbulb, ChevronDown, ChevronUp } from "lucide-react"
-import { useInView } from "react-intersection-observer"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Lightbulb } from "lucide-react"
 import { PatentsContent, Patent } from "@/lib/content"
-
-// 默认专利数据
-interface PatentWithState extends Patent {
-  expanded: boolean;
-}
+import { AnimatedSection } from "@/components/molecules"
+import { ResponsiveGrid } from "@/components/molecules"
+import { ExpandableCard } from "@/components/molecules"
 
 // 默认专利数据
 const defaultPatentsData: PatentsContent = {
@@ -38,89 +31,54 @@ interface PatentsProps {
 }
 
 export default function Patents({ data = defaultPatentsData }: PatentsProps) {
-  // 将专利数据项转换为包含展开状态的数据项
-  const initialPatents = data.items.map(patent => ({ ...patent, expanded: false }) as PatentWithState);
-  const [patentsList, setPatentsList] = useState<PatentWithState[]>(initialPatents);
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-  
-  // 根据items数量确定每行显示的卡片数
-  const getGridCols = (itemCount: number) => {
-    if (itemCount % 3 === 0) return "md:grid-cols-3"
-    if (itemCount % 2 === 0) return "md:grid-cols-2"
-    return "md:grid-cols-3" // 默认为3列
-  }
-
-  const toggleExpand = (index: number) => {
-    setPatentsList(patentsList.map((patent, i) => (i === index ? { ...patent, expanded: !patent.expanded } : patent)))
-  }
-
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
-
-      <div ref={ref} className={`grid grid-cols-1 ${getGridCols(data.items.length)} gap-4`}>
-        {patentsList.map((patent: PatentWithState, index: number) => (
-          <Card
+    <AnimatedSection 
+      title={data.title}
+      titleLevel="h2"
+      titleVariant="h2"
+      spacing="lg"
+    >
+      <ResponsiveGrid 
+        strategy="optimal" // 使用智能网格策略，对应原来的 getGridCols 逻辑
+        animation="fadeInUp"
+        baseDelay={200} // 对应原来的 index * 200
+      >
+        {data.items.map((patent: Patent, index: number) => (
+          <ExpandableCard
             key={index}
-            className={cn(
-              "card-hover border-secondary",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-              "transition-all duration-700 ease-out",
-              `delay-${index * 200}`,
-            )}
+            variant="hover" // 对应原来的 card-hover
+            expandText="展开详情"
+            collapseText="收起详情"
+            expandedContent={
+              <div>
+                <p className="font-medium mb-1">专利描述:</p>
+                <p className="text-sm text-muted-foreground">{patent.description}</p>
+              </div>
+            }
           >
-            <CardContent className="p-6">
-              <div className="flex items-start">
-                <div className="mr-4 mt-1">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Lightbulb className="h-5 w-5 text-accent" />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold mb-1">{patent.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-2">发明年份: {patent.year}</p>
-                  <p className="text-sm mb-3">
-                    发明人:{" "}
-                    {patent.inventors.split("，").map((inventor: string, i: number, arr: string[]) => (
-                      <span key={i}>
-                        {inventor.includes("曾田力") ? <strong>{inventor}</strong> : inventor}
-                        {i < arr.length - 1 ? "，" : ""}
-                      </span>
-                    ))}
-                  </p>
-
-                  <div
-                    className={cn(
-                      "overflow-hidden transition-all duration-300",
-                      patent.expanded ? "max-h-96" : "max-h-0"
-                    )}
-                  >
-                    <div className="pt-2 border-t mt-2">
-                      <p className="font-medium mb-1">专利描述:</p>
-                      <p className="text-sm text-muted-foreground">{patent.description}</p>
-                    </div>
-                  </div>
-
-                  <Button variant="ghost" size="sm" className="mt-2 text-accent" onClick={() => toggleExpand(index)}>
-                    {patent.expanded ? (
-                      <>
-                        收起详情 <ChevronUp className="ml-1 h-4 w-4" />
-                      </>
-                    ) : (
-                      <>
-                        展开详情 <ChevronDown className="ml-1 h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
+            <div className="flex items-start">
+              <div className="mr-4 mt-1">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Lightbulb className="h-5 w-5 text-accent" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold mb-1">{patent.title}</h3>
+                <p className="text-sm text-muted-foreground mb-2">发明年份: {patent.year}</p>
+                <p className="text-sm mb-3">
+                  发明人:{" "}
+                  {patent.inventors.split("，").map((inventor: string, i: number, arr: string[]) => (
+                    <span key={i}>
+                      {inventor.includes("曾田力") ? <strong>{inventor}</strong> : inventor}
+                      {i < arr.length - 1 ? "，" : ""}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            </div>
+          </ExpandableCard>
         ))}
-      </div>
-    </section>
+      </ResponsiveGrid>
+    </AnimatedSection>
   )
 } 

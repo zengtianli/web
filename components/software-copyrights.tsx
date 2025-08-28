@@ -1,12 +1,10 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Database, BarChart, FileSpreadsheet, FileText } from "lucide-react"
-import { useInView } from "react-intersection-observer"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { SoftwareCopyrightsContent } from "@/lib/content"
+import { AnimatedSection } from "@/components/molecules"
+import { ResponsiveGrid } from "@/components/molecules"
+import { FeatureCard } from "@/components/molecules"
 
 const iconMap = {
   "Database": Database,
@@ -45,55 +43,41 @@ interface SoftwareCopyrightsProps {
 }
 
 export default function SoftwareCopyrights({ data = defaultSoftwareCopyrights }: SoftwareCopyrightsProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-  
-  // 根据items数量确定每行显示的卡片数
-  const getGridCols = (itemCount: number) => {
-    if (itemCount % 3 === 0) return "md:grid-cols-3"
-    if (itemCount % 2 === 0) return "md:grid-cols-2"
-    return "md:grid-cols-3" // 默认为3列
-  }
-
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
-
-      <div ref={ref} className={`grid grid-cols-1 ${getGridCols(data.items.length)} gap-6`}>
+    <AnimatedSection 
+      title={data.title}
+      titleLevel="h2"
+      titleVariant="h2"
+      spacing="lg"
+    >
+      <ResponsiveGrid 
+        strategy="optimal" // 使用智能网格策略，对应原来的 getGridCols 逻辑
+        animation="fadeInUp"
+        baseDelay={200} // 对应原来的 index * 200
+        gap="lg" // 对应原来的 gap-6
+      >
         {data.items.map((software, index) => {
           // 获取图标组件
           const Icon = iconMap[software.icon as keyof typeof iconMap] || FileText;
           
           return (
-            <Card
+            <FeatureCard
               key={index}
-              className={cn(
-                "card-hover border-secondary",
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                "transition-all duration-700 ease-out",
-                `delay-${index * 200}`,
-              )}
-            >
-              <CardContent className="p-6">
-                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-                  <Icon className="h-6 w-6 text-accent" />
-                </div>
-                <h3 className="text-lg font-bold mb-2">{software.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{software.description}</p>
-                <Link href={software.pdfLink} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" size="sm" className="w-full group">
-                    <FileText className="h-4 w-4 mr-2 text-accent" />
-                    查看说明书
-                    <span className="sr-only">{software.title}</span>
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+              icon={<Icon />}
+              title={software.title}
+              description={software.description}
+              variant="hover" // 对应原来的 card-hover
+              layout="vertical" // 图标在上方，垂直布局
+              iconSize="xl" // 对应原来的 w-12 h-12
+              primaryAction={{
+                label: "查看说明书",
+                href: software.pdfLink,
+                variant: "outline"
+              }}
+            />
           );
         })}
-      </div>
-    </section>
+      </ResponsiveGrid>
+    </AnimatedSection>
   )
 }

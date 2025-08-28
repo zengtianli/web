@@ -1,10 +1,10 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Award } from "lucide-react"
-import { useInView } from "react-intersection-observer"
-import { cn } from "@/lib/utils"
 import { AwardsContent } from "@/lib/content"
+import { AnimatedSection } from "@/components/molecules"
+import { ResponsiveGrid } from "@/components/molecules"
+import { FeatureCard } from "@/components/molecules"
 
 // 组件接口定义
 interface AwardsProps {
@@ -52,48 +52,30 @@ const defaultAwardsData: AwardsContent = {
 }
 
 export default function Awards({ data = defaultAwardsData }: AwardsProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-  
-  // 根据items数量确定每行显示的卡片数
-  const getGridCols = (itemCount: number) => {
-    if (itemCount % 3 === 0) return "md:grid-cols-3"
-    if (itemCount % 2 === 0) return "md:grid-cols-2"
-    return "md:grid-cols-3" // 默认为3列
-  }
-
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
-
-      <div ref={ref} className={`grid grid-cols-1 ${getGridCols(data.items.length)} gap-4`}>
+    <AnimatedSection 
+      title={data.title}
+      titleLevel="h2"
+      titleVariant="h2"
+      spacing="lg"
+    >
+      <ResponsiveGrid 
+        strategy="optimal" // 使用智能网格策略，对应原来的 getGridCols 逻辑
+        animation="fadeInUp"
+        baseDelay={100} // 对应原来的 index * 100
+      >
         {data.items.map((award: { title: string; year: string; organization: string; note?: string }, index: number) => (
-          <Card
+          <FeatureCard
             key={index}
-            className={cn(
-              "card-hover border-secondary",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-              "transition-all duration-700 ease-out",
-              `delay-${index * 100}`,
-            )}
-          >
-            <CardContent className="p-4 flex items-start">
-              <div className="mr-3 mt-1">
-                <Award className="h-5 w-5 text-accent" />
-              </div>
-              <div>
-                <h3 className="font-bold">{award.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {award.year} · {award.organization}
-                  {award.note && <span className="italic"> ({award.note})</span>}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+            icon={<Award />}
+            title={award.title}
+            subtitle={`${award.year} · ${award.organization}${award.note ? ` (${award.note})` : ''}`}
+            variant="hover" // 对应原来的 card-hover
+            layout="horizontal"
+            padding="sm" // 对应原来的 p-4
+          />
         ))}
-      </div>
-    </section>
+      </ResponsiveGrid>
+    </AnimatedSection>
   )
 }

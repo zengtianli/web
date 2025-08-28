@@ -1,17 +1,10 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { ChevronDown, ChevronUp, ExternalLink, FileText } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useInView } from "react-intersection-observer"
-import { cn } from "@/lib/utils"
+import { ExternalLink, FileText } from "lucide-react"
 import { PapersContent, Paper } from "@/lib/content"
-
-// 论文项目状态接口
-interface PaperWithState extends Paper {
-  expanded: boolean;
-}
+import { AnimatedSection } from "@/components/molecules"
+import { ResponsiveGrid } from "@/components/molecules"
+import { ExpandableCard } from "@/components/molecules"
 
 // 组件接口定义
 interface AcademicPapersProps {
@@ -58,100 +51,68 @@ const defaultPapersData: PapersContent = {
 };
 
 export default function AcademicPapers({ data = defaultPapersData }: AcademicPapersProps) {
-  // 将论文数据项转换为包含展开状态的数据项
-  const initialPapers = data.items.map(paper => ({ ...paper, expanded: false }) as PaperWithState);
-  const [papersList, setPapersList] = useState<PaperWithState[]>(initialPapers);
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-  
-  // 根据items数量确定每行显示的卡片数
-  const getGridCols = (itemCount: number) => {
-    if (itemCount % 3 === 0) return "md:grid-cols-3"
-    if (itemCount % 2 === 0) return "md:grid-cols-2"
-    return "md:grid-cols-3" // 默认为3列
-  }
-
-  const toggleExpand = (index: number) => {
-    setPapersList(papersList.map((paper, i) => (i === index ? { ...paper, expanded: !paper.expanded } : paper)))
-  }
-
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-6">{data.title}</h2>
-
-      <div ref={ref} className={`grid grid-cols-1 ${getGridCols(data.items.length)} gap-4`}>
-        {papersList.map((paper: PaperWithState, index: number) => (
-          <Card
+    <AnimatedSection 
+      title={data.title}
+      titleLevel="h2"
+      titleVariant="h2"
+      spacing="lg"
+    >
+      <ResponsiveGrid 
+        strategy="optimal" // 使用智能网格策略，对应原来的 getGridCols 逻辑
+        animation="fadeInUp"
+        baseDelay={200} // 对应原来的 index * 200
+      >
+        {data.items.map((paper: Paper, index: number) => (
+          <ExpandableCard
             key={index}
-            className={cn(
-              "card-hover border-secondary",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-              "transition-all duration-700 ease-out",
-              `delay-${index * 200}`,
-            )}
+            variant="hover" // 对应原来的 card-hover
+            expandText="展开摘要"
+            collapseText="收起摘要"
+            expandedContent={
+              <div>
+                <p className="font-medium mb-1">摘要:</p>
+                <p className="text-sm text-muted-foreground">{paper.abstract}</p>
+              </div>
+            }
           >
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div className="flex items-start">
-                  <div className="mr-4 mt-1 hidden sm:block">
-                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                      <FileText className="h-5 w-5 text-accent" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold mb-1">{paper.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      {paper.journal}, {paper.year}
-                    </p>
-                    <p className="text-sm mb-2">
-                      作者:{" "}
-                      {paper.authors.split(", ").map((author: string, i: number, arr: string[]) => (
-                        <span key={i}>
-                          {author.includes("曾田力") || author.includes("Zeng T.") ? <strong>{author}</strong> : author}
-                          {i < arr.length - 1 ? ", " : ""}
-                        </span>
-                      ))}
-                    </p>
+            <div className="flex justify-between items-start">
+              <div className="flex items-start">
+                <div className="mr-4 mt-1 hidden sm:block">
+                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-accent" />
                   </div>
                 </div>
-                {paper.link && (
-                  <a
-                    href={paper.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent hover:text-accent/80 ml-4 flex-shrink-0"
-                  >
-                    <ExternalLink className="h-5 w-5" />
-                  </a>
-                )}
-              </div>
-
-              <div
-                className={cn("overflow-hidden transition-all duration-300", paper.expanded ? "max-h-96" : "max-h-0")}
-              >
-                <div className="pt-3 border-t mt-3">
-                  <p className="font-medium mb-1">摘要:</p>
-                  <p className="text-sm text-muted-foreground">{paper.abstract}</p>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">{paper.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    {paper.journal}, {paper.year}
+                  </p>
+                  <p className="text-sm mb-2">
+                    作者:{" "}
+                    {paper.authors.split(", ").map((author: string, i: number, arr: string[]) => (
+                      <span key={i}>
+                        {author.includes("曾田力") || author.includes("Zeng T.") ? <strong>{author}</strong> : author}
+                        {i < arr.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                  </p>
                 </div>
               </div>
-
-              <Button variant="ghost" size="sm" className="mt-2 text-accent" onClick={() => toggleExpand(index)}>
-                {paper.expanded ? (
-                  <>
-                    收起摘要 <ChevronUp className="ml-1 h-4 w-4" />
-                  </>
-                ) : (
-                  <>
-                    展开摘要 <ChevronDown className="ml-1 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
+              {paper.link && (
+                <a
+                  href={paper.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:text-accent/80 ml-4 flex-shrink-0"
+                >
+                  <ExternalLink className="h-5 w-5" />
+                </a>
+              )}
+            </div>
+          </ExpandableCard>
         ))}
-      </div>
-    </section>
+      </ResponsiveGrid>
+    </AnimatedSection>
   )
 }
