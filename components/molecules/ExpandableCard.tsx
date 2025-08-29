@@ -157,12 +157,12 @@ export default function ExpandableCard({
   
   return (
     <Card 
-      className={cn(cardVariants({ variant, padding, shadow }), className)}
+      className={cn(cardVariants({ variant, padding, shadow }), className, "h-full flex flex-col")} // 🎨 高度拉伸支持
       {...props}
     >
-      <CardContent className={cn(padding === 'md' ? 'pt-0' : '', contentClassName)}>
+      <CardContent className={cn(padding === 'md' ? 'pt-0' : '', contentClassName, "h-full flex flex-col")}>
         {/* 基础内容 */}
-        {children}
+        <div className="flex-1">{children}</div>
         
         {/* 可展开内容 */}
         <div
@@ -180,13 +180,13 @@ export default function ExpandableCard({
           </div>
         </div>
         
-        {/* 展开/收起按钮 */}
+        {/* 展开/收起按钮 - 固定在底部 */}
         <Button
           variant={buttonVariant}
           size={buttonSize}
           onClick={handleToggle}
           className={cn(
-            "mt-2 text-accent", // 保持与现有设计一致
+            "mt-auto text-accent", // mt-auto 推到底部
             buttonClassName
           )}
           aria-expanded={isExpanded}

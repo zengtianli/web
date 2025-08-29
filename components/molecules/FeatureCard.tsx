@@ -192,8 +192,8 @@ export default function FeatureCard({
     
     return (
       <div className={cn(contentLayout[layout], contentClassName)}>
-        {/* 图标 */}
-        {renderIcon()}
+        {/* 图标 - 只在非垂直布局时显示，因为垂直布局的图标在 CardHeader 中 */}
+        {layout !== 'vertical' && renderIcon()}
         
         {/* 文本内容 */}
         <div className="flex-1 min-w-0">

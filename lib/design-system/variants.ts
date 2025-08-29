@@ -187,21 +187,21 @@ export const buttonVariants = cva(
  * 统一图标样式和尺寸
  */
 export const iconVariants = cva(
-  "flex items-center justify-center rounded-full shrink-0",
+  "flex items-center justify-center rounded-full shrink-0 transition-colors duration-200",
   {
     variants: {
       variant: {
-        default: "bg-accent/10 text-accent",
-        muted: "bg-muted text-muted-foreground",
-        primary: "bg-primary/10 text-primary",
-        secondary: "bg-secondary text-secondary-foreground",
-        outline: "border-2 border-accent/30 text-accent",
+        default: "bg-accent/15 text-accent border border-accent/20 hover:bg-accent/25",
+        muted: "bg-muted/50 text-muted-foreground border border-border/50 hover:bg-muted",
+        primary: "bg-primary/15 text-primary border border-primary/20 hover:bg-primary/25",
+        secondary: "bg-secondary/70 text-secondary-foreground border border-border hover:bg-secondary",
+        outline: "border-2 border-accent/30 text-accent bg-transparent hover:bg-accent/10",
       },
       size: {
-        sm: "w-8 h-8 [&>svg]:w-4 [&>svg]:h-4",
-        md: "w-10 h-10 [&>svg]:w-5 [&>svg]:h-5", 
-        lg: "w-12 h-12 [&>svg]:w-6 [&>svg]:h-6",
-        xl: "w-16 h-16 [&>svg]:w-8 [&>svg]:h-8",
+        sm: "w-9 h-9 [&>svg]:w-4 [&>svg]:h-4",
+        md: "w-11 h-11 [&>svg]:w-5 [&>svg]:h-5", 
+        lg: "w-14 h-14 [&>svg]:w-7 [&>svg]:h-7",
+        xl: "w-18 h-18 [&>svg]:w-9 [&>svg]:h-9",
       }
     },
     defaultVariants: {

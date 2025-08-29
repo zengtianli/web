@@ -25,6 +25,8 @@ export default function Patents({ data }: PatentsProps) {
         strategy="optimal" // 使用智能网格策略，对应原来的 getGridCols 逻辑
         animation="fadeInUp"
         baseDelay={200} // 对应原来的 index * 200
+        alignItems="stretch"     // 🎨 关键：让卡片高度一致！
+        minItemHeight="280px"    // 🎨 设置最小高度确保美观
       >
         {data.items.map((patent: Patent, index: number) => (
           <ExpandableCard

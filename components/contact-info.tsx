@@ -1,82 +1,80 @@
 "use client"
 
 import Link from "next/link"
-import { useInView } from "react-intersection-observer" 
-import { cn } from "@/lib/utils"
+import { AnimatedSection, FeatureCard, ResponsiveGrid } from "@/components/molecules"
 import { contactConfig, ContactItem } from "@/lib/profile-config"
 
-export default function ContactInfo() {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-  
-  return (
-    <div className="space-y-8" ref={ref}>
-      <div className={cn(
-        inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-        "transition-all duration-700 ease-out"
-      )}>
-        <h1 className="text-4xl font-bold mb-4">{contactConfig.title}</h1>
-        <p className="text-lg text-muted-foreground">
-          {contactConfig.description}
-        </p>
-      </div>
-
-      <div className="space-y-6">
-        {contactConfig.contacts.map((item: ContactItem, index: number) => {
-          // 渲染联系方式内容
-          const renderContent = () => {
-            const baseClasses = "text-muted-foreground hover:text-accent transition-colors";
-            
-            switch (item.type) {
-              case "email":
-                return (
-                  <a href={item.href} className={baseClasses}>
-                    {item.content}
-                  </a>
-                );
-              case "phone":
-                return (
-                  <a href={item.href} className={baseClasses}>
-                    {item.content}
-                  </a>
-                );
-              case "link":
-                return (
-                  <Link
-                    href={item.href!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={baseClasses}
-                  >
-                    {item.content}
-                  </Link>
-                );
-              case "text":
-              default:
-                return <p className="text-muted-foreground">{item.content}</p>;
-            }
-          };
-
-          return (
-          <div 
-            key={index} 
-            className={cn(
-              "flex items-start",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-              "transition-all duration-700 ease-out",
-              `delay-[${item.delay}ms]`
-            )}
+// 渲染联系方式卡片的内部组件
+function ContactCard({ item, index }: { item: ContactItem; index: number }) {
+  // 渲染联系方式内容
+  const renderContent = () => {
+    const baseClasses = "text-muted-foreground hover:text-accent transition-colors underline";
+    
+    switch (item.type) {
+      case "email":
+        return (
+          <a href={item.href} className={baseClasses}>
+            {item.content}
+          </a>
+        );
+      case "phone":
+        return (
+          <a href={item.href} className={baseClasses}>
+            {item.content}
+          </a>
+        );
+      case "link":
+        return (
+          <Link
+            href={item.href!}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={baseClasses}
           >
-            <item.icon className="h-6 w-6 text-accent mr-4 mt-1" />
-            <div>
-              <h3 className="font-bold mb-1">{item.title}</h3>
-              {renderContent()}
-            </div>
-          </div>
-        )})}
-      </div>
-    </div>
+            {item.content}
+          </Link>
+        );
+      case "text":
+      default:
+        return <p className="text-muted-foreground">{item.content}</p>;
+    }
+  };
+
+  return (
+    <FeatureCard
+      icon={<item.icon />}
+      title={item.title}
+      description={renderContent()}
+      variant="hover"
+      layout="vertical"
+      className="text-center"
+      iconSize="lg"
+    />
+  );
+}
+
+export default function ContactInfo() {
+  return (
+    <AnimatedSection
+      title={contactConfig.title}
+      description={contactConfig.description}
+      titleAlign="center"
+      spacing="xl"
+    >
+      {/* 联系方式卡片网格 */}
+      <ResponsiveGrid 
+        strategy="responsive" 
+        gap="lg" 
+        animation="fadeInUp"
+        staggerDelay={150}
+        enableInView={true}
+        alignItems="stretch"     // 🎨 关键：让卡片高度一致！
+        minItemHeight="160px"    // 🎨 设置最小高度确保美观
+      >
+        {contactConfig.contacts.map((item: ContactItem, index: number) => (
+          <ContactCard key={index} item={item} index={index} />
+        ))}
+      </ResponsiveGrid>
+    </AnimatedSection>
   )
 }

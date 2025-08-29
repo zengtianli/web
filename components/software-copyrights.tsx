@@ -32,6 +32,8 @@ export default function SoftwareCopyrights({ data }: SoftwareCopyrightsProps) {
         animation="fadeInUp"
         baseDelay={200} // 对应原来的 index * 200
         gap="lg" // 对应原来的 gap-6
+        alignItems="stretch"     // 🎨 关键：让卡片高度一致！
+        minItemHeight="220px"    // 🎨 设置最小高度确保美观
       >
         {data.items.map((software, index) => {
           // 获取图标组件

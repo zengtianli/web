@@ -25,6 +25,8 @@ export default function Awards({ data }: AwardsProps) {
         strategy="optimal" // 使用智能网格策略，对应原来的 getGridCols 逻辑
         animation="fadeInUp"
         baseDelay={100} // 对应原来的 index * 100
+        alignItems="stretch"     // 🎨 关键：让卡片高度一致！
+        minItemHeight="140px"    // 🎨 设置最小高度确保美观
       >
         {data.items.map((award: { title: string; year: string; organization: string; note?: string }, index: number) => (
           <FeatureCard

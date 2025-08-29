@@ -41,6 +41,8 @@ export default function FutureOutlook({ content }: FutureOutlookProps) {
         gap="lg" // 对应原来的 gap-8
         animation="fadeInUp"
         baseDelay={200} // 对应原来的 index * 200
+        alignItems="stretch"     // 🎨 关键：让卡片高度一致！
+        minItemHeight="200px"    // 🎨 设置最小高度确保美观
       >
         {content.visionPoints.map((point, index) => {
           // 获取对应的图标组件

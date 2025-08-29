@@ -3,9 +3,7 @@
 import { useState, useEffect } from "react"
 import { GraduationCap, Briefcase } from "lucide-react"
 import { TimelineContent, TimelineItem } from "@/lib/content"
-import { AnimatedSection } from "@/components/molecules"
-import { ResponsiveGrid } from "@/components/molecules"
-import { ExpandableCard } from "@/components/molecules"
+import { AnimatedSection, ResponsiveGrid, ExpandableCard, SkillTag, TagGroup } from "@/components/molecules"
 import { IconWrapper } from "@/components/atoms"
 
 // 图标映射表
@@ -48,6 +46,8 @@ export default function Timeline({ content }: TimelineProps) {
         gap="md" // 对应原来的 gap-6
         animation="fadeInUp"
         baseDelay={150} // 对应原来的 index * 150
+        alignItems="stretch" // 🎨 关键：让同行卡片高度一致！
+        minItemHeight="320px" // 🎨 设置最小高度，确保美观
       >
         {timeline.map((item, index) => {
           // 获取对应的图标组件
@@ -65,13 +65,11 @@ export default function Timeline({ content }: TimelineProps) {
                   {item.skills.length > 0 && (
                     <div className="mb-3">
                       <p className="font-medium mb-1">核心技能:</p>
-                      <div className="flex flex-wrap">
+                      <TagGroup gap="sm" className="mt-1">
                         {item.skills.map((skill, skillIndex) => (
-                          <span key={skillIndex} className="skill-tag">
-                            {skill}
-                          </span>
+                          <SkillTag key={skillIndex} skill={skill} />
                         ))}
-                      </div>
+                      </TagGroup>
                     </div>
                   )}
                   
@@ -93,11 +91,11 @@ export default function Timeline({ content }: TimelineProps) {
               <div className="flex items-center mb-4">
                 <div className="mr-3">
                   <IconWrapper 
-                    icon={IconComponent} 
                     size="md" 
-                    variant="accent" 
-                    className="bg-accent text-background"
-                  />
+                    variant="primary"
+                  >
+                    <IconComponent />
+                  </IconWrapper>
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground">{item.period}</div>

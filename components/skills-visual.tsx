@@ -64,6 +64,8 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
           animation="fadeInUp"
           staggerDelay={200}
           enableInView={false} // 我们手动控制 inView
+          alignItems="stretch"     // 🎨 关键：让卡片高度一致！
+          minItemHeight="280px"    // 🎨 设置最小高度确保美观
         >
         {skillCategories.map((category, catIndex) => (
           <Card
