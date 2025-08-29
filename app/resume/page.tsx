@@ -75,7 +75,7 @@ export default async function ResumePage() {
             const badgeColorClass = badgeColorMap[resume.color as keyof typeof badgeColorMap] || badgeColorMap.blue
 
             return (
-              <Card key={resume.id} className={`transition-all duration-300 ${cardColorClass}`}>
+              <Card key={resume.id} className={`card-hover border-secondary bg-secondary/20 ${cardColorClass}`}>
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-2">
                     <div className="p-2 rounded-lg bg-background/50">

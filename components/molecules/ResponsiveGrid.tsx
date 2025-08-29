@@ -3,6 +3,7 @@
 import React from "react"
 import { cn } from "@/lib/utils"
 import AnimatedElement from "@/components/atoms/AnimatedElement"
+import { useInView } from "react-intersection-observer"
 
 // 简化的类型定义
 type GridStrategy = "optimal" | "responsive" | "compact" | "auto"
@@ -14,6 +15,10 @@ interface ResponsiveGridProps extends React.HTMLAttributes<HTMLDivElement> {
   gap?: "sm" | "md" | "lg"
   animation?: AnimationType
   baseDelay?: number
+  staggerDelay?: number
+  enableInView?: boolean
+  threshold?: number
+  triggerOnce?: boolean
   className?: string
 }
 
@@ -47,6 +52,10 @@ export default function ResponsiveGrid({
   gap = "md",
   animation = "fadeInUp",
   baseDelay = 100,
+  staggerDelay = 200,
+  enableInView = true,
+  threshold = 0.1,
+  triggerOnce = true,
   className,
   ...props
 }: ResponsiveGridProps) {
@@ -54,19 +63,40 @@ export default function ResponsiveGrid({
   
   // 网格布局类
   const gridClasses = getGridLayout(items.length, strategy, gap)
+  
+  // 使用 inView 动画（可选）
+  const { ref, inView } = useInView({
+    triggerOnce,
+    threshold,
+    skip: !enableInView, // 如果不启用 inView，跳过
+  })
 
   return (
-    <div className={cn(gridClasses, className)} {...props}>
-      {items.map((child, index) => (
-        <AnimatedElement
-          key={index}
-          animation={animation}
-          staggerIndex={index}
-          staggerBaseDelay={baseDelay}
-        >
-          {child}
-        </AnimatedElement>
-      ))}
+    <div ref={enableInView ? ref : undefined} className={cn(gridClasses, className)} {...props}>
+      {items.map((child, index) => {
+        // 如果启用了 inView，使用 inView 状态；否则总是显示
+        const shouldAnimate = enableInView ? inView : true
+        const staggerIndex = shouldAnimate ? index : 0
+        const delay = shouldAnimate ? index * staggerDelay : 0
+
+        return (
+          <AnimatedElement
+            key={index}
+            animation={animation}
+            staggerIndex={staggerIndex}
+            staggerBaseDelay={baseDelay}
+            delay={delay}
+            className={cn(
+              enableInView && (
+                shouldAnimate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              ),
+              enableInView && "transition-all duration-700 ease-out"
+            )}
+          >
+            {child}
+          </AnimatedElement>
+        )
+      })}
     </div>
   )
 }

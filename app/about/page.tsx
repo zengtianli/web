@@ -4,8 +4,9 @@ import AboutIntro from "@/components/about-intro"
 import Timeline from "@/components/timeline"
 import SkillsVisual from "@/components/skills-visual"
 import FutureOutlook from "@/components/future-outlook"
-import SportsAchievementComponent, { SportsAchievementContent } from "@/components/sports-achievement"
+import SportsAchievement from "@/components/sports-achievement"
 import { getContent, getNestedContent, AboutIntroContent, TimelineContent, SkillsContent, FutureContent } from "@/lib/content"
+import { SportsAchievementContent } from "@/components/sports-achievement"
 
 export const metadata = {
   title: "关于我 | 曾田力",
@@ -36,7 +37,7 @@ export default async function AboutPage() {
         {introContent && <AboutIntro content={introContent} />}
         {timelineContent && <Timeline content={timelineContent} />}
         {skillsContent && <SkillsVisual content={skillsContent} />}
-        {sportsContent && <SportsAchievementComponent content={sportsContent} />}
+        {sportsContent && <SportsAchievement content={sportsContent} />}
         {futureContent && <FutureOutlook content={futureContent} />}
       </div>
       <Footer />

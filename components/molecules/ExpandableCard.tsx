@@ -124,7 +124,7 @@ export default function ExpandableCard({
   
   // 卡片样式
   variant = "hover",
-  padding = "md",
+  padding = "md", 
   shadow = "none",
   className,
   contentClassName,

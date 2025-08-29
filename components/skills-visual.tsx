@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
 import { SkillsContent } from "@/lib/content"
-import { AnimatedSection } from "@/components/molecules"
+import { AnimatedSection, ResponsiveGrid } from "@/components/molecules"
 
 // 组件属性类型
 interface SkillsVisualProps {
@@ -22,15 +22,16 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
     return null;
   }
 
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  })
-
   const progressRefs = useRef<(HTMLDivElement | null)[]>([])
   
   // 使用内容文件中的数据
   const skillCategories = content.categories;
+
+  // 进度条动画将由 ResponsiveGrid 的 inView 状态触发
+  const { ref: gridRef, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  })
 
   useEffect(() => {
     if (inView) {
@@ -41,7 +42,7 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
             if (skill) {
               ref.style.width = `${skill.level}%`
             }
-          }, 100 * index)
+          }, 100 * index + 500) // 延迟500ms，让卡片动画先完成
         }
       })
     }
@@ -56,16 +57,18 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
       anchor={content.anchor || "SkillsVisual"}
       spacing="lg"
     >
-      <div ref={ref} className="grid md:grid-cols-3 gap-8">
+      <div ref={gridRef}>
+        <ResponsiveGrid 
+          strategy="optimal" 
+          gap="lg"
+          animation="fadeInUp"
+          staggerDelay={200}
+          enableInView={false} // 我们手动控制 inView
+        >
         {skillCategories.map((category, catIndex) => (
           <Card
             key={catIndex}
-            className={cn(
-              "border-secondary bg-secondary/20 card-hover",
-              inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-              "transition-all duration-700 ease-out",
-              `delay-${catIndex * 200}`,
-            )}
+            className="border-secondary bg-secondary/20 card-hover"
           >
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-4">{category.name}</h3>
@@ -94,6 +97,7 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
             </CardContent>
           </Card>
         ))}
+        </ResponsiveGrid>
       </div>
     </AnimatedSection>
   )

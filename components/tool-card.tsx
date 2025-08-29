@@ -61,7 +61,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
   }
 
   return (
-    <Card className="w-full hover:shadow-lg transition-all duration-300">
+    <Card className="w-full card-hover border-secondary bg-secondary/20">
       <CardHeader>
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
           <div className="flex-1">

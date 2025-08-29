@@ -20,11 +20,11 @@ export const cardVariants = cva(
         // 平面卡片
         flat: "border-secondary bg-secondary/10",
         // 高亮卡片  
-        elevated: "border-secondary bg-secondary/30 shadow-lg",
+        elevated: "border-secondary bg-secondary/30 shadow-lg card-hover",
         // 边框卡片
-        outline: "border-secondary bg-transparent hover:bg-secondary/5",
+        outline: "border-secondary bg-transparent hover:bg-secondary/5 card-hover",
         // 渐变卡片
-        gradient: "border-secondary bg-gradient-to-br from-secondary/20 to-secondary/10",
+        gradient: "border-secondary bg-gradient-to-br from-secondary/20 to-secondary/10 card-hover",
       },
       padding: {
         sm: "p-4",

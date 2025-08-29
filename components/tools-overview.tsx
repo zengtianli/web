@@ -30,7 +30,7 @@ export default function ToolsOverview({ totalTools }: ToolsOverviewProps) {
       {/* 特性卡片 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {toolsOverviewConfig.features.map((feature: ToolFeature, index: number) => (
-          <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+          <Card key={index} className="text-center card-hover border-secondary bg-secondary/20">
             <CardHeader>
               <div className="mx-auto mb-4 p-3 rounded-full bg-primary/10">
                 <feature.icon className="h-8 w-8" />
