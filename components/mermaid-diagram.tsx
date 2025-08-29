@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTheme } from 'next-themes'
+import { uiTexts } from '@/lib/ui-texts'
 
 interface MermaidDiagramProps {
   chart: string
@@ -108,7 +109,7 @@ export default function MermaidDiagram({ chart, className = '' }: MermaidDiagram
 
       } catch (err) {
         console.error('Mermaid rendering error:', err)
-        setError('图表渲染失败，请检查语法')
+        setError(uiTexts.error.diagramError)
       } finally {
         setIsLoading(false)
       }
@@ -136,7 +137,7 @@ export default function MermaidDiagram({ chart, className = '' }: MermaidDiagram
       {isLoading && (
         <div className="flex items-center justify-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          <span className="ml-2 text-sm text-muted-foreground">渲染图表中...</span>
+          <span className="ml-2 text-sm text-muted-foreground">{uiTexts.loading.diagram}</span>
         </div>
       )}
       <div 

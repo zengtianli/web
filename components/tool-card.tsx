@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator"
 import { ExternalLink, Github, GitBranch, Star, ChevronDown, ChevronUp, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MarkdownRenderer from "@/components/markdown-renderer"
+import { uiTexts } from "@/lib/ui-texts"
 
 interface Tool {
   id: string
@@ -48,10 +49,10 @@ export default function ToolCard({ tool }: ToolCardProps) {
         setIsExpanded(true)
       } else {
         const errorData = await response.json()
-        throw new Error(errorData.error || '加载失败')
+        throw new Error(errorData.error || uiTexts.error.contentLoadFailed)
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : '内容加载失败'
+      const errorMessage = err instanceof Error ? err.message : uiTexts.error.toolLoadError
       setError(errorMessage)
       console.error('加载工具内容失败:', err)
     } finally {
@@ -112,17 +113,17 @@ export default function ToolCard({ tool }: ToolCardProps) {
               className="flex items-center gap-2"
             >
               {isLoading ? (
-                "加载中..."
+                uiTexts.loading.content
               ) : (
                 <>
                   {isExpanded ? (
                     <>
-                      收起详情
+                      {uiTexts.button.collapseDetails}
                       <ChevronUp className="h-4 w-4" />
                     </>
                   ) : (
                     <>
-                      查看详情
+                      {uiTexts.button.expandDetails}
                       <ChevronDown className="h-4 w-4" />
                     </>
                   )}
@@ -152,7 +153,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
                 <div className="flex items-center gap-2 p-4 bg-destructive/10 border border-destructive/20 rounded-lg">
                   <AlertCircle className="h-5 w-5 text-destructive" />
                   <div>
-                    <p className="text-destructive font-medium">加载失败</p>
+                    <p className="text-destructive font-medium">{uiTexts.error.contentLoadFailed}</p>
                     <p className="text-sm text-muted-foreground">{error}</p>
                   </div>
                 </div>
@@ -164,7 +165,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
                     <Button asChild>
                       <a href={tool.github} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4 mr-2" />
-                        GitHub 完整文档
+                        {uiTexts.button.github} 完整文档
                       </a>
                     </Button>
                     <Button variant="outline" asChild>
@@ -190,7 +191,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
                     <Button size="lg" asChild>
                       <a href={tool.github} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4 mr-2" />
-                        查看 GitHub 仓库
+                        查看 {uiTexts.button.github} 仓库
                       </a>
                     </Button>
                     <Button variant="outline" size="lg" asChild>

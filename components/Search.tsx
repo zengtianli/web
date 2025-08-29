@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { uiTexts } from '@/lib/ui-texts';
 
 interface SearchItem {
   id: string;
@@ -89,7 +90,7 @@ export default function Search() {
         onChange={handleInputChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        placeholder="搜索全站内容..."
+        placeholder={uiTexts.placeholder.searchSite}
         style={{
           padding: '0.5rem',
           fontSize: '1rem',
@@ -98,7 +99,7 @@ export default function Search() {
           borderRadius: '4px'
         }}
       />
-      {isLoading && <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'white', border: '1px solid #eee', padding: '0.5rem', zIndex: 10 }}>加载中...</div>}
+      {isLoading && <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'white', border: '1px solid #eee', padding: '0.5rem', zIndex: 10 }}>{uiTexts.loading.searching}</div>}
       {showResults && !isLoading && (
         <div style={{
           position: 'absolute',
@@ -125,7 +126,7 @@ export default function Search() {
               ))}
             </ul>
           ) : (
-            <div style={{ padding: '0.5rem' }}>{query ? '未找到相关内容' : '请输入关键词开始搜索'}</div>
+            <div style={{ padding: '0.5rem' }}>{query ? uiTexts.stats.noResults : uiTexts.placeholder.search}</div>
           )}
         </div>
       )}
