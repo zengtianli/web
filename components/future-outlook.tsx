@@ -20,30 +20,13 @@ const iconMap = {
   Workflow,
 };
 
-// 默认的未来展望内容，当内容文件加载失败时使用
-const defaultFutureContent: FutureContent = {
-  title: "未来展望",
-  description: "我对未来水利行业发展的思考与个人职业规划",
-  visionPoints: [
-    {
-      title: "数字孪生水利",
-      description: "深入推进数字孪生技术在水利工程全生命周期的应用，构建虚实融合的智能决策系统。",
-      icon: "Sparkles"
-    },
-    {
-      title: "水利人工智能",
-      description: "探索深度学习、强化学习等前沿AI技术在水文预测、工程管理中的创新应用。",
-      icon: "Brain"
-    },
-    {
-      title: "跨学科融合",
-      description: "促进水利工程与信息技术、环境科学、生态学等学科的深度融合，培养复合型创新人才。",
-      icon: "Workflow"
-    }
-  ]
-};
+// 组件现在完全依赖外部数据源，不再包含默认数据
 
-export default function FutureOutlook({ content = defaultFutureContent }: FutureOutlookProps) {
+export default function FutureOutlook({ content }: FutureOutlookProps) {
+  if (!content || !content.visionPoints || content.visionPoints.length === 0) {
+    return null;
+  }
+
   return (
     <AnimatedSection 
       title={content.title}
@@ -59,7 +42,7 @@ export default function FutureOutlook({ content = defaultFutureContent }: Future
         animation="fadeInUp"
         baseDelay={200} // 对应原来的 index * 200
       >
-        {content.visionPoints && content.visionPoints.map((point, index) => {
+        {content.visionPoints.map((point, index) => {
           // 获取对应的图标组件
           const IconComponent = iconMap[point.icon as keyof typeof iconMap] || Sparkles;
           

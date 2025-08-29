@@ -14,38 +14,14 @@ interface SkillsVisualProps {
   };
 }
 
-// 默认的技能数据，当内容文件加载失败时使用
-const defaultSkillCategories = [
-  {
-    name: "领域专长",
-    skills: [
-      { name: "水资源管理与规划", level: 95 },
-      { name: "水文预测与模拟", level: 90 },
-      { name: "水利工程设计", level: 85 },
-      { name: "水资源承载力评价", level: 95 },
-    ],
-  },
-  {
-    name: "技术核心",
-    skills: [
-      { name: "机器学习/深度学习", level: 85 },
-      { name: "数据分析与可视化", level: 90 },
-      { name: "水文模型开发", level: 95 },
-      { name: "GIS空间分析", level: 80 },
-    ],
-  },
-  {
-    name: "编程语言",
-    skills: [
-      { name: "Python", level: 90 },
-      { name: "MATLAB", level: 85 },
-      { name: "Fortran", level: 75 },
-      { name: "JavaScript/TypeScript", level: 70 },
-    ],
-  },
-]
+// 组件现在完全依赖外部数据源，不再包含默认数据
 
 export default function SkillsVisual({ content }: SkillsVisualProps) {
+  // 如果没有技能数据，不渲染组件
+  if (!content || !content.categories || content.categories.length === 0) {
+    return null;
+  }
+
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -53,8 +29,8 @@ export default function SkillsVisual({ content }: SkillsVisualProps) {
 
   const progressRefs = useRef<(HTMLDivElement | null)[]>([])
   
-  // 使用内容文件中的数据或默认数据
-  const skillCategories = content.categories || defaultSkillCategories;
+  // 使用内容文件中的数据
+  const skillCategories = content.categories;
 
   useEffect(() => {
     if (inView) {
