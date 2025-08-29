@@ -26,7 +26,7 @@ export default function Awards({ data }: AwardsProps) {
         animation="fadeInUp"
         baseDelay={100} // 对应原来的 index * 100
         alignItems="stretch"     // 🎨 关键：让卡片高度一致！
-        minItemHeight="140px"    // 🎨 设置最小高度确保美观
+        minItemHeight="180px"    // 🎯 增加高度确保荣誉奖项卡片完美对齐
       >
         {data.items.map((award: { title: string; year: string; organization: string; note?: string }, index: number) => (
           <FeatureCard

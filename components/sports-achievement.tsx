@@ -1,9 +1,9 @@
 "use client"
 
 import { Badge } from "@/components/ui/badge"
-import { Trophy, Medal, Star, Target } from "lucide-react"
+import { Trophy, Medal, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { AnimatedSection, FeatureCard, ResponsiveGrid, ExpandableCard } from "@/components/molecules"
+import { AnimatedSection, ResponsiveGrid, ExpandableCard, FeatureCard } from "@/components/molecules"
 
 export interface SportsAchievement {
   category: string
@@ -37,7 +37,6 @@ const iconMap = {
   Trophy,
   Medal,
   Star,
-  Target,
 }
 
 interface SportsAchievementProps {
@@ -228,41 +227,7 @@ export default function SportsAchievement({ content }: SportsAchievementProps) {
         ))}
       </ResponsiveGrid>
 
-      {/* 体育精神总结 */}
-      <div className="mt-8 max-w-4xl mx-auto">
-        <ResponsiveGrid 
-          strategy="optimal" 
-          gap="md" 
-          animation="fadeInUp"
-          alignItems="stretch"     // 🎨 关键：让卡片高度一致！
-          minItemHeight="180px"    // 🎨 设置最小高度确保美观
-        >
-          <FeatureCard
-            icon={<Target />}
-            title="竞技精神"
-            description="永不放弃，追求卓越，团队协作"
-            variant="hover"
-            layout="vertical"
-            className="text-center"
-          />
-          <FeatureCard
-            icon={<Medal />}
-            title="全面发展"
-            description="多项运动技能，体现综合素质"
-            variant="hover"
-            layout="vertical"
-            className="text-center"
-          />
-          <FeatureCard
-            icon={<Star />}
-            title="工作促进"
-            description="体育精神与专业精神完美结合"
-            variant="hover"
-            layout="vertical"
-            className="text-center"
-          />
-        </ResponsiveGrid>
-      </div>
+
     </AnimatedSection>
   )
 }

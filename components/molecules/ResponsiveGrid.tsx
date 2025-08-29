@@ -105,9 +105,8 @@ export default function ResponsiveGrid({
           <AnimatedElement
             key={index}
             animation={animation}
-            staggerIndex={staggerIndex}
-            staggerBaseDelay={baseDelay}
-            delay={delay}
+            index={staggerIndex}  // 🎯 修复：使用正确的属性名
+            baseDelay={baseDelay}  // 🎯 修复：使用正确的属性名
             className={cn(
               enableInView && (
                 shouldAnimate ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"

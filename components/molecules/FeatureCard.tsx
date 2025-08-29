@@ -285,7 +285,7 @@ export default function FeatureCard({
   
   return (
     <Card 
-      className={cardClasses}
+      className={cn(cardClasses, "h-full flex flex-col")} // 🎯 支持高度拉伸
       onClick={onClick || href ? handleClick : undefined}
       {...props}
     >
@@ -300,9 +300,14 @@ export default function FeatureCard({
       
       <CardContent className={cn(
         headerless || layout === 'horizontal' ? 'pt-0' : '',
-        layout === 'minimal' ? 'p-4' : ''
+        layout === 'minimal' ? 'p-4' : '',
+        "flex-1 flex flex-col" // 🎯 支持内容拉伸
       )}>
-        {renderContent()}
+        <div className="flex-1"> {/* 🎯 内容区域占据剩余空间 */}
+          {renderContent()}
+        </div>
+        
+        {/* 🎯 操作按钮固定在底部 */}
         {renderActions()}
         
         {/* 自定义底部内容 */}

@@ -33,7 +33,7 @@ export default function SoftwareCopyrights({ data }: SoftwareCopyrightsProps) {
         baseDelay={200} // 对应原来的 index * 200
         gap="lg" // 对应原来的 gap-6
         alignItems="stretch"     // 🎨 关键：让卡片高度一致！
-        minItemHeight="220px"    // 🎨 设置最小高度确保美观
+        minItemHeight="320px"    // 🎯 增加高度确保软件著作权卡片完美对齐
       >
         {data.items.map((software, index) => {
           // 获取图标组件
