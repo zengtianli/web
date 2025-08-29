@@ -2,16 +2,17 @@
 
 import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
+import { downloadConfig } from "@/lib/profile-config"
 
 interface DownloadPDFButtonProps {
-  filename: string
+  filename?: string
 }
 
-export default function DownloadPDFButton({ filename }: DownloadPDFButtonProps) {
+export default function DownloadPDFButton({ filename = downloadConfig.filename }: DownloadPDFButtonProps) {
   const handleDownload = () => {
     // 创建下载链接
     const link = document.createElement('a')
-    link.href = '/zengtianli-cv.pdf'
+    link.href = downloadConfig.fullPath
     link.download = `${filename}.pdf`
     link.click()
   }
@@ -19,7 +20,7 @@ export default function DownloadPDFButton({ filename }: DownloadPDFButtonProps) 
   return (
     <Button size="sm" onClick={handleDownload}>
       <Download className="h-4 w-4 mr-2" />
-      下载PDF
+      {downloadConfig.text}
     </Button>
   )
 }

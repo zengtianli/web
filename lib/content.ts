@@ -153,6 +153,20 @@ export interface AwardsContent {
   items: Award[];
 }
 
+// 最新动态项目类型
+export interface LatestUpdate {
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+}
+
+// 最新动态集合类型
+export interface LatestUpdatesContent {
+  title: string;
+  items: LatestUpdate[];
+}
+
 /**
  * 获取指定内容的元数据和正文
  */
@@ -313,4 +327,11 @@ export async function getAcademicPapers(): Promise<PapersContent | null> {
  */
 export async function getAwards(): Promise<AwardsContent | null> {
   return getNestedContent<AwardsContent>('research/awards');
+}
+
+/**
+ * 获取最新动态信息
+ */
+export async function getLatestUpdates(): Promise<LatestUpdatesContent | null> {
+  return getNestedContent<LatestUpdatesContent>('home/latest-updates');
 }

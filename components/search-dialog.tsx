@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/command'; // Assuming shadcn/ui command component is available
 import { Button } from '@/components/ui/button'; // Assuming shadcn/ui button component
 import { cn } from '@/lib/utils'; // For conditional classes
+import { searchConfig } from '@/lib/profile-config';
 
 interface SearchResultItem {
   id: string;
@@ -123,30 +124,30 @@ export function SearchDialog() {
         onClick={() => setIsOpen(true)}
       >
         <SearchIcon className="h-4 w-4 mr-2" />
-        <span className="hidden lg:inline-flex">搜索全站...</span>
-        <span className="inline-flex lg:hidden">搜索...</span>
+        <span className="hidden lg:inline-flex">{searchConfig.searchButtonText}</span>
+        <span className="inline-flex lg:hidden">{searchConfig.shortSearchButtonText}</span>
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-          <span className="text-xs">⌘</span>K
+          <span className="text-xs">{searchConfig.shortcutHint.slice(0, -1)}</span>{searchConfig.shortcutHint.slice(-1)}
         </kbd>
       </Button>
 
       <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
         {/* The CommandDialog component should handle its own title for accessibility internally */}
         <CommandInput
-          placeholder="输入关键词搜索页面、项目等..."
+          placeholder={searchConfig.placeholder}
           value={query}
           onValueChange={setQuery}
         />
-        <CommandList aria-label="搜索结果">
-          {isLoading && <CommandEmpty>加载中...</CommandEmpty>}
+        <CommandList aria-label={searchConfig.resultsHeading}>
+          {isLoading && <CommandEmpty>{searchConfig.loadingText}</CommandEmpty>}
           {!isLoading && !results.length && query.trim().length > 1 && (
-            <CommandEmpty>未找到与 "{query}" 相关的内容。</CommandEmpty>
+            <CommandEmpty>{searchConfig.noResultsText(query)}</CommandEmpty>
           )}
           {!isLoading && !results.length && query.trim().length < 1 && (
-            <CommandEmpty>请输入关键词开始搜索。</CommandEmpty>
+            <CommandEmpty>{searchConfig.startSearchText}</CommandEmpty>
           )}
           {!isLoading && results.length > 0 && (
-            <CommandGroup heading="搜索结果">
+            <CommandGroup heading={searchConfig.resultsHeading}>
               {results.map((item) => {
                 console.log('Rendering CommandItem with:', item); // Debugging line for each item
                 return (

@@ -96,7 +96,7 @@ export default function SportsAchievementComponent({ content }: SportsAchievemen
           const IconComponent = iconMap[category.icon as keyof typeof iconMap] || Trophy
           
           return (
-            <Card key={index} className="transition-all duration-300 hover:shadow-lg">
+            <Card key={index} className="card-hover border-secondary bg-secondary/20 hover:shadow-[0_10px_20px_rgba(251,146,60,0.15)]">
               <CardHeader className="pb-3">
                 <div className="flex items-center space-x-2">
                   <div className="p-1.5 rounded-lg bg-orange-500/10">

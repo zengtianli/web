@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
+import { heroConfig } from "@/lib/profile-config"
 
 export default function HeroSection() {
   const { ref, inView } = useInView({
@@ -22,7 +23,7 @@ export default function HeroSection() {
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
           "transition-all duration-700 ease-out"
         )}>
-          曾田力
+          {heroConfig.name}
         </h1>
 
         <p className={cn(
@@ -30,7 +31,7 @@ export default function HeroSection() {
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
           "transition-all duration-700 ease-out delay-200"
         )}>
-          数据驱动水利创新 | AI赋能未来水务
+          {heroConfig.tagline}
         </p>
 
         <p className={cn(
@@ -38,7 +39,18 @@ export default function HeroSection() {
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
           "transition-all duration-700 ease-out delay-400"
         )}>
-          融合<span className="text-accent font-medium">水利工程</span>专业智慧与<span className="text-accent font-medium">前沿信息技术</span>，致力于通过<span className="text-accent font-medium">数据分析</span>、<span className="text-accent font-medium">智能模型</span>及<span className="text-accent font-medium">软件系统</span>研发，解决复杂水资源挑战，驱动行业变革。
+          {/* 处理高亮关键词 */}
+          {heroConfig.description.split(/(\*\*.*?\*\*)/g).map((part, index) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+              const keyword = part.slice(2, -2);
+              return (
+                <span key={index} className="text-accent font-medium">
+                  {keyword}
+                </span>
+              );
+            }
+            return part;
+          })}
         </p>
 
         <div className={cn(
@@ -46,19 +58,14 @@ export default function HeroSection() {
           inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
           "transition-all duration-700 ease-out delay-600"
         )}>
-          <Link href="/about">
-            <Button className="group" size="lg">
-              深入了解
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-
-          <Link href="/projects">
-            <Button variant="outline" size="lg" className="group">
-              查看项目
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
+          {heroConfig.buttons.map((button, index) => (
+            <Link key={index} href={button.href}>
+              <Button variant={button.variant} size="lg" className="group">
+                {button.text}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

@@ -8,16 +8,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
 import { SearchDialog } from "@/components/search-dialog"
-
-const navItems = [
-  { name: "首页", path: "/" },
-  { name: "关于我", path: "/about" },
-  { name: "项目案例", path: "/projects" },
-  { name: "学术与成果", path: "/research" },
-  { name: "开发工具", path: "/tools" },
-  { name: "简历中心", path: "/resume" },
-  { name: "联系方式", path: "/contact" },
-]
+import { navigationConfig, brandConfig } from "@/lib/profile-config"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -54,12 +45,12 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-orbitron font-bold text-accent">
-          曾田力
+          {brandConfig.name}
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {navItems.map((item, index) => (
+          {navigationConfig.map((item, index) => (
             <Link
               key={item.path}
               href={item.path}
@@ -79,7 +70,7 @@ export default function Navbar() {
           <div className={cn(
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3",
             "transition-all duration-500",
-            `delay-${navItems.length * 100}`,
+            `delay-${navigationConfig.length * 100}`,
           )}>
             <SearchDialog />
           </div>
@@ -97,7 +88,7 @@ export default function Navbar() {
       {/* Mobile Navigation */}
       {isMenuOpen && isMobile && (
         <div className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-12 animate-slide-down">
-          {navItems.map((item, index) => (
+          {navigationConfig.map((item, index) => (
             <Link
               key={item.path}
               href={item.path}
