@@ -189,6 +189,7 @@ export const navigationConfig = [
   { name: "项目案例", path: "/projects" },
   { name: "学术与成果", path: "/research" },
   { name: "开发工具", path: "/tools" },
+  { name: "合作伙伴", path: "/partners" },
   { name: "简历中心", path: "/resume" },
   { name: "联系方式", path: "/contact" },
 ]
