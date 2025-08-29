@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
-import { SearchDialog } from "@/components/search-dialog"
+
 import { navigationConfig, brandConfig } from "@/lib/profile-config"
 
 export default function Navbar() {
@@ -67,18 +67,11 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
-          <div className={cn(
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3",
-            "transition-all duration-500",
-            `delay-${navigationConfig.length * 100}`,
-          )}>
-            <SearchDialog />
-          </div>
+
         </nav>
 
         {/* Mobile Menu */}
-        <div className="md:hidden flex items-center gap-2">
-          <SearchDialog />
+        <div className="md:hidden flex items-center">
           <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
@@ -103,9 +96,7 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
-          <div className="w-full flex justify-center py-4 animate-fade-in animate-delay-500">
-            <SearchDialog />
-          </div>
+
         </div>
       )}
     </header>

@@ -9,7 +9,7 @@ export const loadingTexts = {
   content: "内容加载中...",
   submitting: "提交中...",
   processing: "处理中...",
-  searching: "搜索中...",
+
   building: "构建中...",
   connecting: "连接中...",
   saving: "保存中...",
@@ -46,9 +46,7 @@ export const errorMessages = {
   fileParseError: "文件解析失败",
   downloadError: "下载失败，请稍后重试",
   
-  // 搜索错误
-  searchFailed: "搜索失败，请稍后重试",
-  searchNoResults: (query: string) => `未找到与 "${query}" 相关的内容`,
+
   
   // 图表渲染错误
   chartRenderError: "图表渲染失败，请检查语法",
@@ -140,11 +138,6 @@ export const buttonTexts = {
 
 // 占位符文案
 export const placeholderTexts = {
-  search: "搜索...",
-  searchSite: "搜索全站...",
-  searchProjects: "搜索项目...",
-  searchTools: "搜索工具...",
-  
   // 表单占位符
   name: "请输入您的姓名",
   email: "请输入您的邮箱",
@@ -234,7 +227,7 @@ export const pageTitles = {
   tools: "开发工具",
   resume: "简历中心",
   contact: "联系方式",
-  search: "搜索结果",
+
   notFound: "页面未找到"
 }
 
@@ -257,7 +250,7 @@ export const a11yTexts = {
   // 屏幕阅读器文本
   skip: "跳到主要内容",
   menu: "主菜单",
-  search: "搜索",
+
   close: "关闭",
   open: "打开",
   

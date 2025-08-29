@@ -200,17 +200,7 @@ export const brandConfig = {
   favicon: "/favicon.ico"
 }
 
-// 搜索配置
-export const searchConfig = {
-  placeholder: "输入关键词搜索页面、项目等...",
-  searchButtonText: "搜索全站...",
-  shortSearchButtonText: "搜索...", 
-  shortcutHint: "⌘K",
-  loadingText: "加载中...",
-  noResultsText: (query: string) => `未找到与 "${query}" 相关的内容。`,
-  startSearchText: "请输入关键词开始搜索。",
-  resultsHeading: "搜索结果"
-}
+
 
 // 表单配置
 export const contactFormConfig = {
