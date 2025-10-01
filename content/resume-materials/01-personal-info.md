@@ -5,9 +5,10 @@
 | 字段 Field | 中文 | 英文 English |
 |---|---|---|
 | **姓名 Name** | 曾田力 | Zeng Tianli |
-| **生日 Date of Birth** | <!-- 🔴 TODO: 请补充出生日期 --> 【待补充】 | <!-- 🔴 TODO: Please provide date of birth --> 【To be filled】 |
+| **生日 Date of Birth** | 1989年12月13日 | December 13, 1989 |
 | **国籍 Citizenship** | 中国 | China |
-| **性别 Gender** | <!-- 🔴 TODO: 请补充性别 --> 【待补充】 | <!-- 🔴 TODO: Please provide gender --> 【To be filled】 |
+| **性别 Gender** | 男 | Male |
+| **出生地 Place of Birth** | 浙江省 | Zhejiang Province |
 
 ## 联系方式 Contact Information
 
@@ -56,5 +57,4 @@ Ph.D. in Hydraulic Engineering from Zhejiang University, currently serving as an
 
 ---
 
-**最后更新 Last Updated**: <!-- 🔴 TODO: 填写更新日期 --> 【待补充】
-
+**最后更新 Last Updated**: 2025年10月01日
