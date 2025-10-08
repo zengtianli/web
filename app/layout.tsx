@@ -109,7 +109,7 @@ export default function RootLayout({
           <main>{children}</main>
           <ScrollToTop />
         </ThemeProvider>
-        <GoogleAnalytics gaId="G-DDVQRL5SCY" />
+        <GoogleAnalytics gaId="G-0SLC09HKNF" />
       </body>
     </html>
   )
