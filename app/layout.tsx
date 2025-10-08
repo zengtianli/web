@@ -1,6 +1,10 @@
 import type React from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Inter, Montserrat, Exo_2, Orbitron } from "next/font/google"
+import { siteConfig, openGraph, twitter } from "@/lib/seo-config"
+import type { Metadata } from "next"
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { ScrollToTop } from "@/components/scroll-to-top"
 
 import "./globals.css"
 
@@ -24,20 +28,44 @@ const orbitron = Orbitron({
   variable: "--font-orbitron",
 })
 
-export const metadata = {
-  title: "曾田力 | 数据驱动的水利创新者",
-  description:
-    "融合水利工程专业智慧与前沿信息技术，致力于通过数据分析、智能模型及软件系统研发，解决复杂水资源挑战，驱动行业变革。",
-  openGraph: {
-    title: "曾田力 | 数据驱动的水利创新者",
-    description:
-      "融合水利工程专业智慧与前沿信息技术，致力于通过数据分析、智能模型及软件系统研发，解决复杂水资源挑战，驱动行业变革。",
-    url: "https://zengtianli.vercel.app",
-    siteName: "曾田力个人作品集",
-    locale: "zh_CN",
-    type: "website",
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
   },
-    generator: 'v0.dev'
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
+  creator: siteConfig.creator,
+  publisher: siteConfig.publisher,
+  openGraph,
+  twitter,
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    // 添加你的验证码（如果有）
+    // google: "your-google-verification-code",
+    // baidu: "your-baidu-verification-code",
+  },
 }
 
 export default function RootLayout({
@@ -47,13 +75,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "曾田力",
+              jobTitle: "水利工程师",
+              worksFor: {
+                "@type": "Organization",
+                name: "浙江省水利水电规划设计院",
+              },
+              alumniOf: {
+                "@type": "EducationalOrganization",
+                name: "浙江大学",
+              },
+              email: "zengtianli1@126.com",
+              url: siteConfig.url,
+              sameAs: [
+                "https://www.linkedin.com/in/tianli-zeng-4068a7190/",
+                "https://github.com/zengtianli",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${montserrat.variable} ${exo2.variable} ${orbitron.variable} font-sans antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-
           <main>{children}</main>
+          <ScrollToTop />
         </ThemeProvider>
+        <GoogleAnalytics gaId="G-DDVQRL5SCY" />
       </body>
     </html>
   )
