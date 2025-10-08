@@ -1,12 +1,18 @@
 "use client"
 
 import { useEffect, useRef } from 'react'
+import dynamic from 'next/dynamic'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
 import { cn } from '@/lib/utils'
-import MermaidDiagram from '@/components/mermaid-diagram'
+
+// 动态导入 MermaidDiagram，提升性能
+const MermaidDiagram = dynamic(() => import('@/components/mermaid-diagram'), {
+  ssr: false,
+  loading: () => <div className="p-4 bg-muted rounded">加载图表...</div>,
+})
 
 // 导入代码高亮样式（你可以根据主题选择不同的样式）
 import 'highlight.js/styles/github-dark.css'

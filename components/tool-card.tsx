@@ -1,14 +1,27 @@
 "use client"
 
 import { useState } from "react"
+import dynamic from "next/dynamic"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { ExternalLink, Github, GitBranch, Star, ChevronDown, ChevronUp, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
-import MarkdownRenderer from "@/components/markdown-renderer"
 import { uiTexts } from "@/lib/ui-texts"
+
+// 动态导入 MarkdownRenderer，提升性能
+const MarkdownRenderer = dynamic(
+  () => import("@/components/markdown-renderer"),
+  {
+    loading: () => (
+      <div className="flex items-center justify-center p-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    ),
+    ssr: false, // 关闭服务器端渲染，减少初始加载
+  }
+)
 
 interface Tool {
   id: string
