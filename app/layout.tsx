@@ -62,9 +62,10 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // 添加你的验证码（如果有）
+    // Google Search Console 验证码（待添加）
     // google: "your-google-verification-code",
-    // baidu: "your-baidu-verification-code",
+    // 百度站长平台验证码
+    baidu: "codeva-YKWD5513P7",
   },
 }
 
