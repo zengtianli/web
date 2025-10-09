@@ -3,6 +3,8 @@
 import { AnimatedSection, ResponsiveGrid, FeatureCard } from "@/components/molecules"
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Mail, Phone, Calendar, GraduationCap, Trophy, Globe, Camera, Palette, Users } from "lucide-react"
+
+
 // 合作伙伴基本信息数据
 const partnerInfo = {
   name: "陈一心",
