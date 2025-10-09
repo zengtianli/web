@@ -3,6 +3,11 @@ import Footer from "@/components/footer"
 import ToolsOverview from "@/components/tools-overview"
 import ToolCard from "@/components/tool-card"
 
+export const metadata = {
+  title: "开发工具 | 曾田力",
+  description: "曾田力的开源开发工具集合，包括Execute macOS效率工具集、现代化Neovim配置、ZSH配置等实用工具，提升开发效率。",
+}
+
 export default function ToolsPage() {
   const tools = [
     {

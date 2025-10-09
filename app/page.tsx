@@ -5,6 +5,11 @@ import StrengthsSection from "@/components/strengths-section"
 import LatestUpdates from "@/components/latest-updates"
 import { getLatestUpdates } from "@/lib/content"
 
+export const metadata = {
+  title: "曾田力 - 水利工程博士 | 数据驱动水利创新",
+  description: "曾田力，浙江大学水利工程博士，融合水利工程专业智慧与前沿信息技术，致力于通过数据分析、智能模型及软件系统研发，解决复杂水资源挑战。",
+}
+
 export default async function Home() {
   // 获取最新动态数据
   const latestUpdates = await getLatestUpdates();

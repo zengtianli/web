@@ -8,7 +8,7 @@ export const siteConfig = {
   title: "曾田力 - 水利工程博士 | 数据驱动水利创新",
   description: "曾田力，浙江大学水利工程博士，融合水利工程专业智慧与前沿信息技术，致力于通过数据分析、智能模型及软件系统研发，解决复杂水资源挑战。",
   url: "https://tianlizeng.cloud",
-  ogImage: "/images/og-image.png", // 需要创建一个 1200x630 的 OG 图片
+  ogImage: "/images/og-image.svg", // SVG格式的OG图片（浏览器会自动渲染）
   keywords: [
     "曾田力",
     "水利工程",

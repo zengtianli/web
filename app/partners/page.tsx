@@ -4,6 +4,12 @@ import { AnimatedSection, ResponsiveGrid, FeatureCard } from "@/components/molec
 import { Badge } from "@/components/ui/badge"
 import { MapPin, Mail, Phone, Calendar, GraduationCap, Trophy, Globe, Camera, Palette, Users } from "lucide-react"
 
+// 页面 metadata
+export const metadata = {
+  title: "合作伙伴 | 曾田力",
+  description: "了解曾田力的合作伙伴信息，探索合作机会。",
+}
+
 // 合作伙伴基本信息数据
 const partnerInfo = {
   name: "陈一心",
