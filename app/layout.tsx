@@ -77,6 +77,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
+        <meta name="baidu-site-verification" content="codeva-YKWD5513P7" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
