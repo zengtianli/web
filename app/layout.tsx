@@ -62,8 +62,8 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Google Search Console 验证码（待添加）
-    // google: "your-google-verification-code",
+    // Google Search Console 验证码
+    google: "57QMT0cs1Wp51nZDwFjr5xHBB0XeFqd44328Ow4r2bw",
     // 百度站长平台验证码
     baidu: "codeva-YKWD5513P7",
   },
