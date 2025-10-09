@@ -3,7 +3,7 @@ slug: "water-consumption-prediction"
 title: "浙江省用水量变化研究"
 brief: "应用时间序列分析与深度学习方法，研究区域用水量变化规律，提供精准预测。"
 role: "核心研究人员"
-image: "/images/compressed-images/浙江省用水量变化研究.png"
+image: "/images/optimized/compressed-images/浙江省用水量变化研究.webp"
 tags:
   - "MannKendall"
   - "TheilSen"

@@ -11,21 +11,25 @@ import "./globals.css"
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: 'swap', // ⚡ 防止字体阻塞渲染
 })
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
+  display: 'swap', // ⚡ 防止字体阻塞渲染
 })
 
 const exo2 = Exo_2({
   subsets: ["latin"],
   variable: "--font-exo2",
+  display: 'swap', // ⚡ 防止字体阻塞渲染
 })
 
 const orbitron = Orbitron({
   subsets: ["latin"],
   variable: "--font-orbitron",
+  display: 'swap', // ⚡ 防止字体阻塞渲染
 })
 
 export const metadata: Metadata = {

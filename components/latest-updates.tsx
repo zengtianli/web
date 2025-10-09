@@ -39,7 +39,14 @@ export default function LatestUpdates({ data }: LatestUpdatesProps) {
           >
             {/* 更新图片 */}
             <div className="relative h-48 mb-4 -mx-6 -mt-6">
-              <Image src={update.image || "/placeholder.svg"} alt={update.title} fill className="object-cover" />
+              <Image 
+                src={update.image || "/placeholder.svg"} 
+                alt={update.title} 
+                fill 
+                className="object-cover"
+                priority={index === 0} // ⚡ 首张图片优先加载，提升 LCP
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
           </FeatureCard>

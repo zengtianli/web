@@ -3,7 +3,7 @@ slug: "digital-twin-water-diversion"
 title: "数字孪生浙东引水"
 brief: "利用机器学习和多源数据融合技术，构建数字孪生模型，实现精准预测与决策支持。"
 role: "技术骨干"
-image: "/images/compressed-images/浙东引水工程总体布置图.png"
+image: "/images/optimized/compressed-images/浙东引水工程总体布置图.webp"
 tags:
   - "机器学习"
   - "降雨特征分析" 

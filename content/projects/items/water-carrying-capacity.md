@@ -3,7 +3,7 @@ slug: "water-carrying-capacity"
 title: "绍兴水资源承载力评价"
 brief: "基于多准则决策方法，开发水资源承载力评价系统，为区域水资源管理提供科学依据。"
 role: "技术负责人"
-image: "/images/compressed-images/绍兴水资源承载力评价.png"
+image: "/images/optimized/compressed-images/绍兴水资源承载力评价.webp"
 tags:
   - "AHP"
   - "CRITIC"

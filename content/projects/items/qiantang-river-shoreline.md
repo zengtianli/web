@@ -3,7 +3,7 @@ slug: "qiantang-river-shoreline"
 title: "钱塘江岸线规划"
 brief: "结合GIS空间分析技术，开发岸线分级分类系统，提升岸线资源管理水平。"
 role: "技术负责人"
-image: "/images/compressed-images/钱塘江岸线规划.png"
+image: "/images/optimized/compressed-images/钱塘江岸线规划.webp"
 tags:
   - "GIS空间分析"
   - "岸线分级分类"
