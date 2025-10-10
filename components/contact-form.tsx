@@ -11,12 +11,12 @@ import { Label } from "@/components/ui/label"
 import { Loader2, CheckCircle2, XCircle } from "lucide-react"
 import { AnimatedSection } from "@/components/molecules"
 
-// 表单验证 schema
+// 表单验证 schema（与后端保持一致）
 const contactFormSchema = z.object({
-  name: z.string().min(2, "姓名至少需要 2 个字符").max(50, "姓名最多 50 个字符"),
+  name: z.string().min(2, "姓名至少需要2个字符").max(50, "姓名不能超过50个字符"),
   email: z.string().email("请输入有效的邮箱地址"),
-  subject: z.string().min(5, "主题至少需要 5 个字符").max(100, "主题最多 100 个字符"),
-  message: z.string().min(10, "消息至少需要 10 个字符").max(1000, "消息最多 1000 个字符"),
+  subject: z.string().min(2, "主题至少需要2个字符").max(100, "主题不能超过100个字符"),
+  message: z.string().min(5, "消息至少需要5个字符").max(1000, "消息不能超过1000个字符"),
 })
 
 type ContactFormData = z.infer<typeof contactFormSchema>

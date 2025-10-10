@@ -4,10 +4,10 @@ import { z } from "zod"
 
 // 验证 schema
 const contactSchema = z.object({
-  name: z.string().min(2).max(50),
-  email: z.string().email(),
-  subject: z.string().min(5).max(100),
-  message: z.string().min(10).max(1000),
+  name: z.string().min(2, "姓名至少需要2个字符").max(50, "姓名不能超过50个字符"),
+  email: z.string().email("请输入有效的邮箱地址"),
+  subject: z.string().min(2, "主题至少需要2个字符").max(100, "主题不能超过100个字符"),
+  message: z.string().min(5, "消息至少需要5个字符").max(1000, "消息不能超过1000个字符"),
 })
 
 // 简单的 rate limiting (内存存储，适合小规模使用)
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     // 发送邮件
     const { name, email, subject, message } = validatedData
-    const recipientEmail = process.env.CONTACT_EMAIL || "zengtianli1@126.com"
+    const recipientEmail = process.env.CONTACT_EMAIL || "zengtianli1@gmail.com"
 
     try {
       await resend.emails.send({

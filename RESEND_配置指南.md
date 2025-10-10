@@ -35,12 +35,17 @@
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # 接收联系表单消息的邮箱地址
-CONTACT_EMAIL=zengtianli1@126.com
+# ⚠️ 重要：免费账户只能发送到注册 Resend 使用的邮箱
+CONTACT_EMAIL=zengtianli1@gmail.com
 ```
 
 **说明**：
 - `RESEND_API_KEY`：填入你刚才复制的 API Key
 - `CONTACT_EMAIL`：填入你想接收消息的邮箱地址
+
+⚠️ **免费账户限制**：
+- 只能发送测试邮件到**注册 Resend 使用的邮箱**
+- 如果需要发送到其他邮箱，请验证自定义域名（见下方"高级配置"）
 
 ### 4. 重启开发服务器
 
