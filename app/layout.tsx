@@ -111,8 +111,15 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${montserrat.variable} ${exo2.variable} ${orbitron.variable} font-sans antialiased`}
       >
+        {/* Skip to main content link for accessibility */}
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-accent-foreground focus:rounded-md focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
+        >
+          跳转到主要内容
+        </a>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <main>{children}</main>
+          <main id="main-content">{children}</main>
           <ScrollToTop />
         </ThemeProvider>
         <GoogleAnalytics gaId="G-0SLC09HKNF" />

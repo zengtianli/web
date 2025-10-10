@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ContactInfo from "@/components/contact-info"
+import ContactForm from "@/components/contact-form"
 
 export const metadata = {
   title: "联系方式 | 曾田力",
@@ -11,8 +12,9 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
+      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl space-y-16">
         <ContactInfo />
+        <ContactForm />
       </div>
       <Footer />
     </main>

@@ -46,8 +46,15 @@ export default function Footer() {
               
               if (link.external) {
                 const IconComponent = link.icon === "Linkedin" ? Linkedin : Github;
+                const platformName = link.icon === "Linkedin" ? "LinkedIn" : "GitHub";
                 return (
-                  <Link key={index} href={link.href} target="_blank" rel="noopener noreferrer">
+                  <Link 
+                    key={index} 
+                    href={link.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={`访问我的${platformName}主页`}
+                  >
                     <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-accent">
                       <IconComponent className="h-5 w-5" />
                     </Button>

@@ -335,3 +335,154 @@ export async function getAwards(): Promise<AwardsContent | null> {
 export async function getLatestUpdates(): Promise<LatestUpdatesContent | null> {
   return getNestedContent<LatestUpdatesContent>('home/latest-updates');
 }
+
+// ============ 博客功能 ============
+
+/**
+ * 博客文章内容类型
+ */
+export interface BlogPost {
+  slug: string;
+  title: string;
+  date: string; // YYYY-MM-DD
+  author?: string;
+  excerpt: string; // 摘要
+  tags: string[];
+  image?: string;
+  readingTime?: number; // 阅读时间（分钟）
+}
+
+/**
+ * 博客文章详情类型
+ */
+export interface BlogPostDetail extends BlogPost {
+  content: string; // HTML格式的内容
+  rawContent: string; // 原始Markdown内容
+}
+
+/**
+ * 计算阅读时间（基于字数，中文按300字/分钟，英文按200词/分钟）
+ */
+function calculateReadingTime(content: string): number {
+  // 统计中文字符数
+  const chineseChars = (content.match(/[\u4e00-\u9fa5]/g) || []).length;
+  // 统计英文单词数
+  const englishWords = (content.match(/[a-zA-Z]+/g) || []).length;
+  
+  // 计算阅读时间（中文300字/分钟，英文200词/分钟）
+  const chineseTime = chineseChars / 300;
+  const englishTime = englishWords / 200;
+  
+  const totalMinutes = Math.ceil(chineseTime + englishTime);
+  return Math.max(1, totalMinutes); // 至少1分钟
+}
+
+/**
+ * 获取所有博客文章列表
+ */
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const blogDir = path.join(contentDirectory, 'blog');
+    
+    // 检查目录是否存在
+    if (!fs.existsSync(blogDir)) {
+      console.warn('博客目录不存在，返回空数组');
+      return [];
+    }
+    
+    const filenames = fs.readdirSync(blogDir);
+    
+    const posts = await Promise.all(
+      filenames
+        .filter(filename => filename.endsWith('.md'))
+        .map(async (filename) => {
+          const slug = filename.replace(/\.md$/, '');
+          const fullPath = path.join(blogDir, filename);
+          const fileContents = fs.readFileSync(fullPath, 'utf8');
+          const { data, content } = matter(fileContents);
+          
+          // 计算阅读时间
+          const readingTime = calculateReadingTime(content);
+          
+          return {
+            slug,
+            title: data.title || slug,
+            date: data.date || new Date().toISOString().split('T')[0],
+            author: data.author,
+            excerpt: data.excerpt || content.slice(0, 150).replace(/\n/g, ' ') + '...',
+            tags: data.tags || [],
+            image: data.image,
+            readingTime,
+          } as BlogPost;
+        })
+    );
+    
+    // 按日期降序排序
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error('加载博客文章列表出错:', error);
+    return [];
+  }
+}
+
+/**
+ * 根据 slug 获取单篇博客文章
+ */
+export async function getBlogPostBySlug(slug: string): Promise<BlogPostDetail | null> {
+  try {
+    const fullPath = path.join(contentDirectory, 'blog', `${slug}.md`);
+    
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`博客文章未找到: ${slug}`);
+      return null;
+    }
+    
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+    
+    // 将Markdown转换为HTML
+    const processedContent = await remark().use(html).process(content);
+    const htmlContent = processedContent.toString();
+    
+    // 计算阅读时间
+    const readingTime = calculateReadingTime(content);
+    
+    return {
+      slug,
+      title: data.title || slug,
+      date: data.date || new Date().toISOString().split('T')[0],
+      author: data.author,
+      excerpt: data.excerpt || content.slice(0, 150).replace(/\n/g, ' ') + '...',
+      tags: data.tags || [],
+      image: data.image,
+      readingTime,
+      content: htmlContent,
+      rawContent: content,
+    };
+  } catch (error) {
+    console.error(`读取博客文章时出错: ${slug}`, error);
+    return null;
+  }
+}
+
+/**
+ * 获取所有博客标签
+ */
+export async function getAllBlogTags(): Promise<string[]> {
+  const posts = await getAllBlogPosts();
+  const tagsSet = new Set<string>();
+  
+  posts.forEach(post => {
+    post.tags.forEach(tag => tagsSet.add(tag));
+  });
+  
+  return Array.from(tagsSet).sort();
+}
+
+/**
+ * 根据标签获取博客文章
+ */
+export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
+  const allPosts = await getAllBlogPosts();
+  return allPosts.filter(post => post.tags.includes(tag));
+}

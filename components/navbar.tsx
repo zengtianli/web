@@ -44,12 +44,12 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-orbitron font-bold text-accent">
+        <Link href="/" className="text-2xl font-orbitron font-bold text-accent" aria-label="返回首页">
           {brandConfig.name}
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-8" aria-label="主导航">
           {navigationConfig.map((item, index) => (
             <Link
               key={item.path}
@@ -72,7 +72,14 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center">
-          <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "关闭菜单" : "打开菜单"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+          >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
@@ -80,7 +87,11 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isMenuOpen && isMobile && (
-        <div className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-12 animate-slide-down">
+        <nav 
+          id="mobile-navigation"
+          className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-12 animate-slide-down"
+          aria-label="移动端导航"
+        >
           {navigationConfig.map((item, index) => (
             <Link
               key={item.path}
@@ -97,7 +108,7 @@ export default function Navbar() {
             </Link>
           ))}
 
-        </div>
+        </nav>
       )}
     </header>
   )
