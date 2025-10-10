@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 import { z } from "zod"
 
-// 初始化 Resend
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 // 验证 schema
 const contactSchema = z.object({
   name: z.string().min(2).max(50),
@@ -60,6 +57,9 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
+
+    // 初始化 Resend 客户端（在请求时初始化，避免构建时错误）
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
     // 发送邮件
     const { name, email, subject, message } = validatedData
