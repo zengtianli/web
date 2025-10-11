@@ -3,6 +3,8 @@
  * 提供专业的简历排版，支持打印友好样式
  */
 
+'use client'
+
 import { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 

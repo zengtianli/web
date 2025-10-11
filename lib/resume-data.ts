@@ -606,7 +606,7 @@ export const honors: Honor[] = [
   },
   {
     id: "honor-sports-star",
-    title: { zh: "浙江省水利厅"体育之星"", en: '"Sports Star" of Zhejiang Provincial Department of Water Resources' },
+    title: { zh: '浙江省水利厅"体育之星"', en: '"Sports Star" of Zhejiang Provincial Department of Water Resources' },
     issuer: { zh: "浙江省水利厅", en: "Zhejiang Provincial Department of Water Resources" },
     date: "2024",
     category: "sports",
