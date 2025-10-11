@@ -620,7 +620,7 @@ export const honors: Honor[] = [
 export const sportsAchievements: SportsAchievement[] = [
   {
     id: "sports-1",
-    event: { zh: "浙江大学"建工杯"研究生新生篮球赛", en: 'Zhejiang University "Jiangong Cup" Graduate Basketball Championship' },
+    event: { zh: '浙江大学"建工杯"研究生新生篮球赛', en: 'Zhejiang University "Jiangong Cup" Graduate Basketball Championship' },
     achievement: { zh: "MVP", en: "MVP" },
     date: "2013-03",
     organizer: { zh: "浙江大学建筑工程学院", en: "College of Civil Engineering and Architecture, Zhejiang University" },
@@ -638,7 +638,7 @@ export const sportsAchievements: SportsAchievement[] = [
   },
   {
     id: "sports-3",
-    event: { zh: "浙江大学研究生体育文化节"Vazyme杯"篮球赛", en: 'Zhejiang University Graduate Sports Festival "Vazyme Cup" Basketball Championship' },
+    event: { zh: '浙江大学研究生体育文化节"Vazyme杯"篮球赛', en: 'Zhejiang University Graduate Sports Festival "Vazyme Cup" Basketball Championship' },
     achievement: { zh: "季军", en: "3rd Place" },
     date: "2015-12",
     organizer: { zh: "浙江大学", en: "Zhejiang University" },
