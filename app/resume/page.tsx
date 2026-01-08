@@ -1,147 +1,134 @@
+/**
+ * 简历中心页面
+ * 从 content/resume-source/_生成简历/ 自动读取可用版本
+ */
+
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Download, Eye, User, Briefcase, Trophy, GraduationCap } from "lucide-react"
-import { getAllTemplates } from "@/lib/resume-builder"
+import { Eye, Download, FileText } from "lucide-react"
+import { loadResumeVersions } from "@/lib/resume-loader"
 import Link from "next/link"
 
 export const metadata = {
   title: "简历中心 | 曾田力",
-  description: "在线查看和下载曾田力的不同版本简历，包含综合简历、工作简历、学术简历和体育简历。支持在线预览和PDF导出。",
+  description: "在线查看和下载曾田力的不同版本简历。支持在线预览和PDF导出。",
 }
 
-const iconMap = {
-  comprehensive: User,
-  work: Briefcase,
-  academic: GraduationCap,
-  sports: Trophy,
+// 版本配置映射（可扩展）
+const VERSION_CONFIG: Record<string, { 
+  description: string
+  color: string
+  icon: string
+}> = {
+  '综合版': {
+    description: '全面展示个人能力、经历和成就，适合综合性展示',
+    color: 'purple',
+    icon: '📋',
+  },
+  '售前方案版': {
+    description: '侧重解决方案能力和客户服务经验，适合售前/咨询岗位',
+    color: 'blue',
+    icon: '💼',
+  },
+  '算法研发版': {
+    description: '侧重技术能力和算法经验，适合研发岗位',
+    color: 'green',
+    icon: '🔬',
+  },
+  '学术版': {
+    description: '侧重学术成果和研究经历，适合学术申请',
+    color: 'amber',
+    icon: '🎓',
+  },
+  '体育版': {
+    description: '突出体育成就和综合素质',
+    color: 'orange',
+    icon: '🏆',
+  },
 }
 
-const colorMap = {
-  comprehensive: "bg-purple-500/10 border-purple-500/20 hover:bg-purple-500/20",
-  work: "bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/20",
-  academic: "bg-green-500/10 border-green-500/20 hover:bg-green-500/20",
-  sports: "bg-orange-500/10 border-orange-500/20 hover:bg-orange-500/20",
+// 默认配置
+const DEFAULT_CONFIG = {
+  description: '个人简历',
+  color: 'gray',
+  icon: '📄',
 }
 
-const badgeColorMap = {
-  comprehensive: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-  work: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-  academic: "bg-green-500/20 text-green-300 border-green-500/30",
-  sports: "bg-orange-500/20 text-orange-300 border-orange-500/30",
-}
-
-const highlightsMap = {
-  comprehensive: ["全面展示", "完整经历", "适合综合评估"],
-  work: ["工作经历", "项目经验", "适合求职"],
-  academic: ["学术成果", "详细课程", "适合学术申请"],
-  sports: ["体育成就", "综合素质", "特色展示"],
-}
-
-export default function ResumePage() {
-  const templates = getAllTemplates()
+export default async function ResumePage() {
+  const versions = await loadResumeVersions()
 
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
+      <div className="flex-grow container mx-auto px-4 py-16 max-w-5xl">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent mb-4">
-            在线简历中心
+            简历中心
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            根据不同场景需求，提供多种简历版本。支持在线预览和PDF导出。
+            根据不同场景需求，提供多种简历版本。支持在线预览和打印导出 PDF。
           </p>
         </div>
 
         {/* Resume Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {templates.map((template) => {
-            const IconComponent = iconMap[template.id as keyof typeof iconMap]
-            const cardColorClass = colorMap[template.id as keyof typeof colorMap]
-            const badgeColorClass = badgeColorMap[template.id as keyof typeof badgeColorMap]
-            const highlights = highlightsMap[template.id as keyof typeof highlightsMap]
-
-            return (
-              <Card key={template.id} className={`card-hover border-secondary bg-secondary/20 ${cardColorClass}`}>
-                <CardHeader>
-                  <div className="flex items-center space-x-3 mb-2">
-                    <div className="p-2 rounded-lg bg-background/50">
-                      <IconComponent className="h-5 w-5" />
+        {versions.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            <FileText className="h-16 w-16 mx-auto mb-4 opacity-50" />
+            <p>暂无可用的简历版本</p>
+            <p className="text-sm mt-2">请在 content/resume-source/_生成简历/ 添加简历文件</p>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            {versions.map((version) => {
+              const config = VERSION_CONFIG[version.name] || DEFAULT_CONFIG
+              
+              return (
+                <Card 
+                  key={version.id} 
+                  className="hover:shadow-lg transition-shadow border-secondary bg-secondary/10"
+                >
+                  <CardHeader>
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="text-2xl">{config.icon}</span>
+                      <CardTitle className="text-xl">{version.name}</CardTitle>
                     </div>
-                    <CardTitle className="text-xl">{template.name.zh}</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">
-                    {template.description.zh}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {/* Highlights */}
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-muted-foreground">亮点特色</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {highlights.map((highlight, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="outline" 
-                            className={`text-xs ${badgeColorClass}`}
-                          >
-                            {highlight}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex flex-col space-y-2 pt-2">
-                      <Button variant="default" size="sm" className="w-full" asChild>
-                        <Link href={`/resume/${template.id}`}>
+                    <CardDescription className="text-base">
+                      {config.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button variant="default" className="flex-1" asChild>
+                        <Link href={`/resume/${encodeURIComponent(version.id)}`}>
                           <Eye className="h-4 w-4 mr-2" />
                           在线预览
                         </Link>
                       </Button>
-                      <Button variant="outline" size="sm" className="w-full" asChild>
-                        <a href="/zengtianli-cv.pdf" download={`zengtianli-${template.id}.pdf`}>
+                      <Button variant="outline" className="flex-1" asChild>
+                        <Link href={`/resume/${encodeURIComponent(version.id)}?print=true`}>
                           <Download className="h-4 w-4 mr-2" />
-                          下载PDF
-                        </a>
+                          打印/导出
+                        </Link>
                       </Button>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
-
-        {/* Additional Info */}
-        <div className="text-center p-6 border border-border/50 rounded-lg bg-card/50">
-          <h3 className="text-lg font-semibold mb-3">📋 简历版本说明</h3>
-          <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground text-left max-w-3xl mx-auto">
-            <div>
-              <p className="font-medium mb-1">✨ 综合简历</p>
-              <p className="text-xs">全面展示个人能力、经历和成就，适合综合性展示场合</p>
-            </div>
-            <div>
-              <p className="font-medium mb-1">💼 工作简历</p>
-              <p className="text-xs">侧重工作经历和项目经验，适合求职和职业发展申请</p>
-            </div>
-            <div>
-              <p className="font-medium mb-1">🎓 学术简历</p>
-              <p className="text-xs">侧重教育背景和学术成果，适合申请博士后、学术职位</p>
-            </div>
-            <div>
-              <p className="font-medium mb-1">🏆 体育简历</p>
-              <p className="text-xs">突出体育成就和综合素质，适合特殊场合展示</p>
-            </div>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
-          <p className="text-xs text-muted-foreground mt-4">
-            💡 提示：在线预览页面支持打印功能，可直接打印或导出为PDF
-          </p>
+        )}
+
+        {/* Tips */}
+        <div className="text-center p-6 border border-border/50 rounded-lg bg-card/50">
+          <h3 className="text-lg font-semibold mb-3">💡 使用提示</h3>
+          <div className="text-sm text-muted-foreground space-y-2">
+            <p>• 点击「在线预览」查看简历内容</p>
+            <p>• 点击「打印/导出」后使用浏览器打印功能导出 PDF</p>
+            <p>• 打印时建议选择「背景图形」以保留完整样式</p>
+          </div>
         </div>
       </div>
       <Footer />

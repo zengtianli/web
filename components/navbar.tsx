@@ -49,25 +49,23 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8" aria-label="主导航">
+        <nav className="hidden md:flex items-center space-x-6" aria-label="主导航">
           {navigationConfig.map((item, index) => (
             <Link
               key={item.path}
               href={item.path}
               className={cn(
-                "relative py-2 text-sm font-medium transition-colors hover:text-accent",
+                "relative py-2 text-sm font-medium transition-all duration-300 ease-out hover:text-accent",
                 pathname === item.path
                   ? "text-accent after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-accent"
                   : "text-foreground/70",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3",
-                "transition-all duration-500",
-                `delay-${index * 100}`,
               )}
+              style={{ transitionDelay: `${index * 50}ms` }}
             >
               {item.name}
             </Link>
           ))}
-
         </nav>
 
         {/* Mobile Menu */}
@@ -89,7 +87,7 @@ export default function Navbar() {
       {isMenuOpen && isMobile && (
         <nav 
           id="mobile-navigation"
-          className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-12 animate-slide-down"
+          className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-12"
           aria-label="移动端导航"
         >
           {navigationConfig.map((item, index) => (
@@ -97,17 +95,19 @@ export default function Navbar() {
               key={item.path}
               href={item.path}
               className={cn(
-                "w-full py-4 text-center text-lg font-medium transition-colors",
+                "w-full py-4 text-center text-lg font-medium transition-all duration-300 ease-out",
                 pathname === item.path ? "text-accent" : "text-foreground/70 hover:text-accent",
-                "animate-fade-in",
-                `animate-delay-${index * 100}`,
               )}
+              style={{ 
+                opacity: 1,
+                transform: 'translateY(0)',
+                animation: `fadeInUp 0.3s ease-out ${index * 50}ms both`
+              }}
               onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
             </Link>
           ))}
-
         </nav>
       )}
     </header>
