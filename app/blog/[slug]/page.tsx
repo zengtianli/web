@@ -6,7 +6,7 @@ import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/content"
 import { Calendar, Clock, User, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { SkillTag, TagGroup } from "@/components/molecules"
+import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import type { Metadata } from "next"
 
@@ -14,23 +14,17 @@ interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }
 
-// 生成静态路径
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+  return posts.map((post) => ({ slug: post.slug }))
 }
 
-// 生成动态 metadata
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params
   const post = await getBlogPostBySlug(slug)
 
   if (!post) {
-    return {
-      title: "文章未找到",
-    }
+    return { title: "文章未找到" }
   }
 
   return {
@@ -56,7 +50,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound()
   }
 
-  // 格式化日期
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString('zh-CN', {
@@ -82,7 +75,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* 文章头部 */}
         <header className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
           
           {/* 元信息 */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
@@ -108,13 +101,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* 标签 */}
           {post.tags && post.tags.length > 0 && (
-            <TagGroup gap="sm" className="justify-start mb-6">
+            <div className="flex flex-wrap gap-2 mb-6">
               {post.tags.map((tag) => (
-                <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
-                  <SkillTag skill={tag} size="sm" />
-                </Link>
+                <Badge key={tag} variant="secondary">
+                  {tag}
+                </Badge>
               ))}
-            </TagGroup>
+            </div>
           )}
 
           {/* 封面图 */}
@@ -145,11 +138,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 返回博客列表
               </Button>
             </Link>
-
             <Link href="/contact">
-              <Button>
-                联系我
-              </Button>
+              <Button>联系我</Button>
             </Link>
           </div>
         </footer>
@@ -158,4 +148,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </main>
   )
 }
-

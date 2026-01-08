@@ -5,6 +5,7 @@
 
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import PageHeader from "@/components/page-header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Eye, Download, FileText } from "lucide-react"
@@ -62,16 +63,11 @@ export default async function ResumePage() {
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-16 max-w-5xl">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-green-400 bg-clip-text text-transparent mb-4">
-            简历中心
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            根据不同场景需求，提供多种简历版本。支持在线预览和打印导出 PDF。
-          </p>
-        </div>
+      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
+        <PageHeader 
+          title="简历中心" 
+          description="根据不同场景需求，提供多种简历版本。支持在线预览和打印导出 PDF。" 
+        />
 
         {/* Resume Cards */}
         {versions.length === 0 ? (
