@@ -190,7 +190,7 @@ export const navigationConfig = [
   { name: "学术与成果", path: "/research" },
   { name: "技术博客", path: "/blog" },
   { name: "开发工具", path: "/tools" },
-  { name: "简历中心", path: "/resume" },
+  // { name: "简历中心", path: "/resume" }, // 暂时隐藏
   { name: "联系方式", path: "/contact" },
 ]
 
