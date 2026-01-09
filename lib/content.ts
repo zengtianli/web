@@ -74,10 +74,17 @@ export interface SkillCategory {
 export interface ProjectContent {
   slug: string;
   title: string;
-  brief: string;
+  brief?: string;        // 简要描述（兼容旧格式）
   role: string;
-  image: string;
+  image?: string;        // 兼容旧格式
+  thumbnail?: string;    // 新格式的缩略图
   tags: string[];
+  // 新增字段
+  period?: string;       // 项目时间段
+  category?: string;     // 项目类别
+  highlight?: boolean;   // 是否重点项目
+  featured?: boolean;    // 是否精选项目
+  // 旧格式字段
   background?: string;
   contributions?: string[];
   outcomes?: string[];
@@ -256,31 +263,64 @@ export async function getNestedContent<T = Record<string, any>>(contentPath: str
 
 /**
  * 获取项目概要信息
+ * 优先从 project-source 读取，回退到旧目录
  */
 export async function getProjectIndex(): Promise<ProjectIndexContent | null> {
-  return getNestedContent<ProjectIndexContent>('projects/_index');
+  // 尝试新路径
+  let result = await getNestedContent<ProjectIndexContent>('project-source/_index');
+  if (!result) {
+    // 回退到旧路径
+    result = await getNestedContent<ProjectIndexContent>('projects/_index');
+  }
+  return result;
 }
 
 /**
  * 获取所有项目列表
+ * 优先从 project-source 读取，回退到旧目录
  */
 export async function getAllProjects(): Promise<ProjectContent[]> {
   try {
-    const contentDir = path.join(contentDirectory, 'projects/items');
+    // 优先使用新目录 project-source
+    let contentDir = path.join(contentDirectory, 'project-source');
+    let basePath = 'project-source';
+    
+    // 如果新目录不存在，回退到旧目录
+    if (!fs.existsSync(contentDir)) {
+      contentDir = path.join(contentDirectory, 'projects/items');
+      basePath = 'projects/items';
+    }
+    
     const filenames = fs.readdirSync(contentDir);
     
     const projects = await Promise.all(
       filenames
-        .filter(filename => filename.endsWith('.md'))
+        .filter(filename => filename.endsWith('.md') && !filename.startsWith('_') && filename !== 'README.md')
         .map(async (filename) => {
           const slug = filename.replace(/\.md$/, '');
-          const result = await getContent<ProjectContent>(`projects/items/${slug}`);
-          return result?.metadata || null;
+          const result = await getContent<ProjectContent>(`${basePath}/${slug}`);
+          if (!result?.metadata) return null;
+          
+          const meta = result.metadata;
+          // 确保 slug 存在
+          if (!meta.slug) {
+            meta.slug = slug;
+          }
+          return meta;
         })
     );
     
-    // 过滤掉空值
-    return projects.filter((project): project is ProjectContent => project !== null);
+    // 过滤掉空值，按 featured/highlight 排序
+    const validProjects = projects.filter((project): project is ProjectContent => project !== null);
+    
+    // 排序：featured 优先，然后 highlight，其他按字母顺序
+    return validProjects.sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      if (a.highlight && !b.highlight) return -1;
+      if (!a.highlight && b.highlight) return 1;
+      return (a.title || '').localeCompare(b.title || '');
+    });
   } catch (error) {
     console.error('加载项目列表出错:', error);
     return [];
@@ -289,9 +329,20 @@ export async function getAllProjects(): Promise<ProjectContent[]> {
 
 /**
  * 获取单个项目内容
+ * 优先从 project-source 读取，回退到旧目录
  */
 export async function getProjectBySlug(slug: string): Promise<ContentItem<ProjectContent> | null> {
-  return getContent<ProjectContent>(`projects/items/${slug}`);
+  // 尝试新路径
+  let result = await getContent<ProjectContent>(`project-source/${slug}`);
+  if (!result) {
+    // 回退到旧路径
+    result = await getContent<ProjectContent>(`projects/items/${slug}`);
+  }
+  // 确保 slug 存在
+  if (result && !result.metadata.slug) {
+    result.metadata.slug = slug;
+  }
+  return result;
 }
 
 /**

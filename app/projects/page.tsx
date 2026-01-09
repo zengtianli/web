@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import PageHeader from "@/components/page-header"
-import { ProjectGrid } from "@/components/card-components"
+import { ProjectFilter } from "@/components/project-filter"
 import { getProjectIndex, getAllProjects } from "@/lib/content"
 
 export const metadata = {
@@ -19,9 +19,9 @@ export default async function ProjectsPage() {
       <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
         <PageHeader 
           title={indexContent?.title || "项目案例"} 
-          description={indexContent?.description || "我参与的部分重点项目展示"} 
+          description={indexContent?.description || "探索曾田力的水利工程项目案例"} 
         />
-        <ProjectGrid projects={projects} />
+        <ProjectFilter projects={projects} />
       </div>
       <Footer />
     </main>

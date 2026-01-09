@@ -51,9 +51,8 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const project = projectResult.metadata;
   const content = projectResult.content; // HTML格式的内容
 
-  // 从内容中提取背景、贡献和成果部分
-  // 注意：这里我们使用项目元数据中的背景、贡献和成果信息
-  // 这些信息已经存在于MD文件中并被加载到HTML内容中
+  // 获取项目图片（兼容新旧格式）
+  const projectImage = project.thumbnail || project.image || "/placeholder.svg";
 
   return (
     <main className="min-h-screen flex flex-col">
@@ -68,22 +67,36 @@ export default async function ProjectPage({ params }: { params: { slug: string }
 
         <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
 
+        {/* 项目元信息 */}
+        <div className="mb-6 flex flex-wrap items-center gap-4 text-muted-foreground">
+          <span className="font-medium text-foreground">{project.role}</span>
+          {project.period && (
+            <>
+              <span>|</span>
+              <span>{project.period}</span>
+            </>
+          )}
+          {project.category && (
+            <>
+              <span>|</span>
+              <span>{project.category}</span>
+            </>
+          )}
+        </div>
+
+        {/* 标签 */}
         <div className="mb-6 flex flex-wrap gap-2">
-          {project.tags.map((tag: string) => (
+          {project.tags?.map((tag: string) => (
             <span key={tag} className="skill-tag">
               {tag}
             </span>
           ))}
         </div>
 
-        <div className="mb-8">
-          <p className="text-muted-foreground mb-2">我的角色</p>
-          <p className="text-lg font-medium">{project.role}</p>
-        </div>
-
+        {/* 项目图片 */}
         <div className="mb-8 rounded-lg overflow-hidden">
           <Image
-            src={project.image || "/placeholder.svg"}
+            src={projectImage}
             alt={project.title}
             width={800}
             height={450}

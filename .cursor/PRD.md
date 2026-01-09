@@ -17,6 +17,7 @@
 | 内容 | 源路径 | 网站路径 |
 |------|--------|----------|
 | 简历素材 | `~/cursor-shared/personal/resume/` | `content/resume-source/` |
+| 项目展示 | `~/cursor-shared/personal/projects/` | `content/project-source/` |
 | 档案扫描件 | `~/cursor-shared/archives/` | `public/archives/` |
 
 ### 简历模块结构（来自总部）

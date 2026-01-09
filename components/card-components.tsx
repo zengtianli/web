@@ -65,26 +65,65 @@ interface ProjectGridProps {
 }
 
 export function ProjectGrid({ projects }: ProjectGridProps) {
+  // 获取项目图片（兼容新旧格式）
+  const getProjectImage = (project: ProjectContent) => {
+    return project.thumbnail || project.image || "/placeholder.svg"
+  }
+
+  // 获取项目描述（兼容新旧格式）
+  const getProjectBrief = (project: ProjectContent) => {
+    return project.brief || `${project.category || '项目'} | ${project.period || ''}`
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {projects.map((project: ProjectContent) => (
         <Link key={project.slug} href={`/projects/${project.slug}`}>
-          <Card className="overflow-hidden border-secondary hover:shadow-lg transition-shadow h-full">
-            <div className="relative h-48">
-              <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+          <Card className="overflow-hidden border-secondary hover:shadow-lg transition-shadow h-full group">
+            <div className="relative h-48 overflow-hidden">
+              <Image 
+                src={getProjectImage(project)} 
+                alt={project.title} 
+                fill 
+                className="object-cover group-hover:scale-105 transition-transform duration-300" 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+              />
+              {/* 精选/重点标记 */}
+              {(project.featured || project.highlight) && (
+                <div className="absolute top-2 right-2">
+                  <Badge variant="default" className="bg-primary/90 text-xs">
+                    {project.featured ? '精选' : '重点'}
+                  </Badge>
+                </div>
+              )}
             </div>
-            <CardHeader>
-              <CardTitle className="text-lg">{project.title}</CardTitle>
-              <CardDescription>我的角色: {project.role}</CardDescription>
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between gap-2">
+                <CardTitle className="text-lg line-clamp-1">{project.title}</CardTitle>
+              </div>
+              <CardDescription className="flex items-center gap-2">
+                <span>{project.role}</span>
+                {project.period && (
+                  <>
+                    <span className="text-muted-foreground/50">|</span>
+                    <span className="text-xs">{project.period}</span>
+                  </>
+                )}
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{project.brief}</p>
+            <CardContent className="pt-0">
+              {project.brief && (
+                <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{project.brief}</p>
+              )}
               <div className="flex flex-wrap gap-1">
-                {project.tags.slice(0, 3).map((tag: string) => (
+                {project.category && (
+                  <Badge variant="outline" className="text-xs">{project.category}</Badge>
+                )}
+                {project.tags?.slice(0, 2).map((tag: string) => (
                   <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
                 ))}
-                {project.tags.length > 3 && (
-                  <Badge variant="outline" className="text-xs">+{project.tags.length - 3}</Badge>
+                {project.tags && project.tags.length > 2 && (
+                  <Badge variant="secondary" className="text-xs opacity-60">+{project.tags.length - 2}</Badge>
                 )}
               </div>
             </CardContent>
