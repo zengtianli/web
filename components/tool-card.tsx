@@ -13,8 +13,9 @@ interface Tool {
   name: string
   description: string
   techs: string[]
-  github: string
-  gitee: string
+  github?: string
+  gitee?: string
+  link?: string  // 内部链接
 }
 
 interface ToolCardProps {
@@ -35,36 +36,56 @@ export default function ToolCard({ tool }: ToolCardProps) {
           
           {/* 链接按钮 */}
           <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              size="sm"
-              asChild
-              className="hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
-            >
-              <a 
-                href={tool.github} 
-                target="_blank" 
-                rel="noopener noreferrer"
+            {tool.link ? (
+              <Button 
+                variant="outline" 
+                size="sm"
+                asChild
+                className="hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
               >
-                <Github className="h-4 w-4 mr-2" />
-                GitHub
-              </a>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="sm"
-              asChild
-              className="hover:bg-orange-500 hover:text-white transition-colors duration-150"
-            >
-              <a 
-                href={tool.gitee} 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Gitee
-              </a>
-            </Button>
+                <a href={tool.link}>
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  打开工具
+                </a>
+              </Button>
+            ) : (
+              <>
+                {tool.github && (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    asChild
+                    className="hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
+                  >
+                    <a 
+                      href={tool.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="h-4 w-4 mr-2" />
+                      GitHub
+                    </a>
+                  </Button>
+                )}
+                {tool.gitee && (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    asChild
+                    className="hover:bg-orange-500 hover:text-white transition-colors duration-150"
+                  >
+                    <a 
+                      href={tool.gitee} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Gitee
+                    </a>
+                  </Button>
+                )}
+              </>
+            )}
           </div>
         </div>
 
@@ -82,11 +103,20 @@ export default function ToolCard({ tool }: ToolCardProps) {
       <CardContent className="pt-0">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Star className="h-4 w-4" />
-              开源项目
-            </span>
-            <span>MIT 许可证</span>
+            {tool.link ? (
+              <span className="flex items-center gap-1">
+                <Star className="h-4 w-4" />
+                在线工具
+              </span>
+            ) : (
+              <>
+                <span className="flex items-center gap-1">
+                  <Star className="h-4 w-4" />
+                  开源项目
+                </span>
+                <span>MIT 许可证</span>
+              </>
+            )}
           </div>
         </div>
       </CardContent>

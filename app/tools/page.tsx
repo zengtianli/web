@@ -10,6 +10,13 @@ export const metadata = {
 
 const tools = [
   {
+    id: "irrigation",
+    name: "农田灌溉需水计算",
+    description: "浙东河网平原农田灌溉需水量在线计算系统，支持多作物类型、灌溉保证率配置，可视化展示需水量趋势和分布。",
+    techs: ["Next.js", "TypeScript", "Recharts", "Python API"],
+    link: "/tools/irrigation",
+  },
+  {
     id: "execute",
     name: "Execute - macOS 效率工具集",
     description: "一套完整的 macOS 自动化工具集合，通过 Raycast 集成提供强大的文件处理、窗口管理、宏录制等功能。",
