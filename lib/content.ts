@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import remarkGfm from 'remark-gfm';
 
 // 内容根目录
 const contentDirectory = path.join(process.cwd(), 'content');
@@ -192,6 +193,7 @@ export async function getContent<T = Record<string, any>>(contentPath: string): 
     
     // 将Markdown转换为HTML
     const processedContent = await remark()
+      .use(remarkGfm)
       .use(html)
       .process(content);
     const contentHtml = processedContent.toString();

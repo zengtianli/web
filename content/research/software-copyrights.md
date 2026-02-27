@@ -13,4 +13,8 @@ items:
     description: "专业数据格式智能转换工具，支持批量处理，大幅提升水利模型数据准备效率。"
     icon: "FileSpreadsheet"
     pdfLink: "/soft_copyright/浙水设计-Excel至MIKE智能数据转换软件.pdf"
+  - title: "浙水设计-梯级水库群多目标联合调度模型 V1.0"
+    description: "基于Python+PyQt开发的多水库多时期联合调度系统，采用水量平衡迭代算法，支持梯级水库群多目标优化调度。"
+    icon: "Layers"
+    status: "申请中"
 ---

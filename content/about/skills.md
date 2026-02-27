@@ -30,6 +30,21 @@ categories:
         years: 5
         description: "ArcGIS、QGIS、空间数据处理"
         projects: ["钱塘江岸线规划"]
+      - name: "水力仿真建模 (WNTR)"
+        level: 85
+        years: 2
+        description: "供水管网水力仿真、正反算分析、管网优化"
+        projects: ["缙云县水资源数字化端到端治理"]
+      - name: "多目标优化"
+        level: 85
+        years: 2
+        description: "多目标优化算法、成本最小化与压力保障联合优化"
+        projects: ["缙云管网优化", "梯级水库联合调度"]
+      - name: "生态流量核定"
+        level: 85
+        years: 2
+        description: "Tennant法、QP法、生态流量泄放设施改造方案"
+        projects: ["浙江省小型水库生态流量核定"]
         
   - name: "机器学习与数据科学"
     skills:
