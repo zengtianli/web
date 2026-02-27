@@ -64,7 +64,7 @@ cp .env.example .env.local
 # 启动开发服务器
 pnpm dev
 
-# 访问 http://localhost:3000
+# 访问 http://localhost:3005
 ```
 
 ### 可用命令
@@ -140,15 +140,31 @@ portfolio/
 - 模块化数据管理
 - 打印优化
 
-## 部署
+## 提交与部署
 
-### Vercel (推荐)
+项目通过 Vercel 自动部署，push 到 `main` 分支即触发构建和上线。
 
-项目已配置自动部署：
+```bash
+# 1. 本地构建验证（必须通过再推送，避免线上构建失败）
+pnpm build
 
-1. 推送代码到 GitHub
-2. Vercel 自动检测并部署
-3. 配置环境变量（如需要）
+# 2. 查看改动
+git status
+git diff
+
+# 3. 暂存文件（指定具体文件，避免误提交敏感文件）
+git add <文件名>
+
+# 4. 提交（使用语义化前缀）
+git commit -m "feat: 描述你的修改"
+
+# 5. 推送到 GitHub，Vercel 自动部署
+git push origin main
+```
+
+提交信息前缀：`feat:` 新功能 / `fix:` 修复 / `docs:` 文档 / `chore:` 杂项 / `refactor:` 重构
+
+部署状态可在 [Vercel Dashboard](https://vercel.com/dashboard) 查看，通常 1-2 分钟完成。
 
 ### 环境变量
 
