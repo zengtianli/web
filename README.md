@@ -140,31 +140,57 @@ portfolio/
 - 模块化数据管理
 - 打印优化
 
-## 提交与部署
+## Git 工作流
 
-项目通过 Vercel 自动部署，push 到 `main` 分支即触发构建和上线。
+项目采用 **main + develop** 双分支模式：
+
+- **main** - 生产分支，推送后自动触发 Vercel 部署
+- **develop** - 开发分支，日常开发在此分支进行
+
+### 开发流程
 
 ```bash
-# 1. 本地构建验证（必须通过再推送，避免线上构建失败）
+# 1. 切换到 develop 分支
+git checkout develop
+
+# 2. 拉取最新代码
+git pull origin develop
+
+# 3. 开发并测试
+pnpm dev
+# 修改代码...
+
+# 4. 本地构建验证（必须通过再推送）
 pnpm build
 
-# 2. 查看改动
-git status
-git diff
-
-# 3. 暂存文件（指定具体文件，避免误提交敏感文件）
+# 5. 提交更改
 git add <文件名>
-
-# 4. 提交（使用语义化前缀）
 git commit -m "feat: 描述你的修改"
+git push origin develop
 
-# 5. 推送到 GitHub，Vercel 自动部署
+# 6. 测试通过后，合并到 main 触发部署
+git checkout main
+git pull origin main
+git merge develop
 git push origin main
 ```
 
-提交信息前缀：`feat:` 新功能 / `fix:` 修复 / `docs:` 文档 / `chore:` 杂项 / `refactor:` 重构
+### 提交规范
 
-部署状态可在 [Vercel Dashboard](https://vercel.com/dashboard) 查看，通常 1-2 分钟完成。
+使用语义化提交信息前缀：
+
+- `feat:` - 新功能
+- `fix:` - 修复 Bug
+- `docs:` - 文档更新
+- `style:` - 样式调整
+- `refactor:` - 代码重构
+- `chore:` - 杂项（依赖更新、配置修改等）
+
+### 部署
+
+推送到 `main` 分支后，Vercel 自动构建和部署，通常 1-2 分钟完成。
+
+部署状态可在 [Vercel Dashboard](https://vercel.com/dashboard) 查看。
 
 ### 环境变量
 
