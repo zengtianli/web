@@ -4,7 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-水利工程师（曾田力）的个人作品集网站。基于 Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS + shadcn/ui。部署在 Vercel。
+水利工程师（曾田力）的个人作品集网站。基于 Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS + shadcn/ui。
+
+**部署**: VPS standalone（`bash deploy.sh`）→ /opt/website → systemd `website` → Nginx 8443 → CF
+**域名**: tianlizeng.cloud
+**搜索**: SQLite FTS5（data/search.db，deploy 时自动构建）
+**CMS**: /admin（CF Access 保护）→ content/blog/*.md
 
 ## 常用命令
 
