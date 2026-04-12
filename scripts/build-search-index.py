@@ -1,4 +1,4 @@
-#!/Users/tianli/miniforge3/bin/python3
+#!/opt/homebrew/bin/python3
 """Build FTS5 search index from content/ markdown files."""
 
 import os
