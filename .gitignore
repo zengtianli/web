@@ -66,6 +66,9 @@ RESEND_配置指南.md
 Vercel环境变量配置检查清单.md
 联系表单测试指南.md.next
 
+# SQLite search database
+data/
+
 # Baseline (auto-added by /groom)
 __pycache__/
 *.py[cod]
