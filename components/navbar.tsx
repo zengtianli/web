@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
@@ -56,6 +56,16 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <Link
+            href="/search"
+            className={cn(
+              "relative py-2 transition-colors hover:text-accent",
+              pathname === "/search" ? "text-accent" : "text-foreground/70",
+            )}
+            aria-label="搜索"
+          >
+            <Search className="h-4 w-4" />
+          </Link>
         </nav>
 
         {/* Mobile Menu */}
@@ -93,6 +103,16 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <Link
+            href="/search"
+            className={cn(
+              "w-full py-4 text-center text-lg font-medium transition-colors",
+              pathname === "/search" ? "text-accent" : "text-foreground/70 hover:text-accent",
+            )}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            搜索
+          </Link>
         </nav>
       )}
     </header>
