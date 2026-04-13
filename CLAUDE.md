@@ -101,9 +101,40 @@ featured: true            # 可选
 
 awards、patents、software-copyrights、academic-papers 使用纯 YAML frontmatter 结构，通过 `getNestedContent()` 读取。
 
+## 部署（硬规则）
+
+**唯一部署方式：`cd ~/Dev/website && bash deploy.sh`**
+
+- 绝对不能 SSH 到 VPS 上 build。VPS 的 `/var/www/web` 只是源码镜像，systemd 跑的是 `/opt/website`（standalone 产物）
+- deploy.sh 流程：rm -rf .next → pnpm build → rsync standalone+static+public 到 VPS → restart → 自动验证
+- GitHub webhook 只做 git pull，不做 build/deploy，对 website 无效
+- 部署后 deploy.sh 会自动验证 HTTP 200 + CSS 哈希匹配 + 服务端日志
+
+**已知陷阱：**
+- CSS 哈希不匹配：standalone 和 static 必须来自同一次 build，否则页面无样式（2026-04-12 事故）
+- cookies() ByteString：Next.js 15 的 `cookies()` 遇到非 ASCII cookie 会崩溃，不要在 server component 里调 `cookies()`（2026-04-13 事故）
+
 ## 构建注意事项
 
 - `next.config.mjs` 中 ESLint 和 TypeScript 错误在构建时被忽略（`ignoreDuringBuilds: true`）
 - 图片未启用 Next.js 优化（`unoptimized: true`）
 - 中文引号与 JS 字符串冲突时，用单引号包裹：`'浙江省水利厅"体育之星"'`
 - 服务器组件不能使用事件处理器，需要交互的组件加 `'use client'`
+
+## 验证规则
+
+任务完成前必须通过：
+1. `pnpm build` 无报错（本地构建验证）
+2. 新增/修改页面需在 `pnpm dev` 下目视检查渲染效果
+3. 内容变更确认 frontmatter 格式符合上方规范
+4. 涉及 symlink 目录的改动需确认不影响外部仓库
+
+## Compact Instructions
+
+会话压缩时保留以下关键上下文：
+- **项目**: Next.js 15 个人网站，pnpm，部署到 VPS（`bash deploy.sh`）
+- **内容系统**: `content/` 下 Markdown，`lib/content.ts` 加载，部分目录是外部 symlink
+- **路由**: `/projects/[slug]`, `/blog/[slug]`, `/resume/[version]`, `/tools/irrigation`
+- **样式**: Tailwind + shadcn/ui，明暗主题，`cn()` 合并类名
+- **验证**: 改动后必须 `pnpm build` 通过
+- **包管理**: 只用 pnpm，不用 npm
