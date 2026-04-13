@@ -1,8 +1,8 @@
 'use client'
 
 import { createContext, useContext, useState, useCallback, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { type Track, DEFAULT_TRACK, TRACK_COOKIE, TRACKS, isValidTrack } from '@/lib/track'
+import { useRouter } from 'next/navigation'
+import { type Track, DEFAULT_TRACK, TRACK_COOKIE, isValidTrack } from '@/lib/track'
 
 interface TrackContextValue {
   track: Track
