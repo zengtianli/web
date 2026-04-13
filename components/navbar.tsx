@@ -57,7 +57,6 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
-          <TrackSwitcher />
           <Link
             href="/search"
             className={cn(
@@ -83,6 +82,14 @@ export default function Navbar() {
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
+      </div>
+
+      {/* Track Switcher Bar - 独立一行 */}
+      <div className={cn(
+        "hidden md:flex justify-center py-1.5 transition-all duration-300",
+        isScrolled ? "bg-background/80 backdrop-blur-md border-t border-border/30" : "bg-transparent",
+      )}>
+        <TrackSwitcher />
       </div>
 
       {/* Mobile Navigation */}
