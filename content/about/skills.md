@@ -125,6 +125,46 @@ categories:
         level: 75
         years: 3
         description: "容器化部署、环境管理"
+tracks:
+  ai:
+    categoryOrder: ["机器学习与数据科学", "软件开发", "水利工程专业技能", "专业工具"]
+    extraCategories:
+      - name: "AI & LLM 工程"
+        skills:
+          - name: "Claude Code Harness"
+            level: 95
+          - name: "Prompt Engineering"
+            level: 90
+          - name: "MCP 生态集成"
+            level: 90
+          - name: "AI Agent 工作流"
+            level: 85
+  devtools:
+    categoryOrder: ["软件开发", "专业工具", "机器学习与数据科学", "水利工程专业技能"]
+    extraCategories:
+      - name: "开发者工具"
+        skills:
+          - name: "CLI 工具链设计"
+            level: 95
+          - name: "Raycast 集成"
+            level: 95
+          - name: "自动化工作流"
+            level: 90
+          - name: "VPS 运维"
+            level: 85
+  indie:
+    categoryOrder: ["软件开发", "机器学习与数据科学", "水利工程专业技能", "专业工具"]
+    extraCategories:
+      - name: "产品与运营"
+        skills:
+          - name: "端到端产品交付"
+            level: 95
+          - name: "VPS/Docker 部署"
+            level: 90
+          - name: "域名/CDN/SSL"
+            level: 90
+          - name: "产品设计"
+            level: 80
 ---
 
 我的专业技能横跨**水利工程**与**信息技术**两大领域，通过**跨学科融合**，解决行业实际问题。

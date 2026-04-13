@@ -2,15 +2,22 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import PageHeader from "@/components/page-header"
 import { BlogCard } from "@/components/card-components"
-import { getAllBlogPosts } from "@/lib/content"
+import { getBlogPostsForTrack } from "@/lib/content"
+import { getServerTrack } from "@/lib/track-server"
 
 export const metadata = {
   title: "技术博客 | 曾田力",
   description: "分享水利工程、数据分析、机器学习等领域的技术经验和项目心得。",
 }
 
-export default async function BlogPage() {
-  const posts = await getAllBlogPosts()
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
+  const params = await searchParams
+  const track = await getServerTrack(params)
+  const posts = await getBlogPostsForTrack(track)
 
   return (
     <main className="min-h-screen flex flex-col">

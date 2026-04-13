@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
 
 import { navigationConfig, brandConfig } from "@/lib/profile-config"
+import { TrackSwitcher } from "@/components/track-switcher"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -56,6 +57,7 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+          <TrackSwitcher />
           <Link
             href="/search"
             className={cn(
@@ -87,9 +89,10 @@ export default function Navbar() {
       {isMenuOpen && isMobile && (
         <nav 
           id="mobile-navigation"
-          className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-12"
+          className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-8"
           aria-label="移动端导航"
         >
+          <TrackSwitcher className="mb-6" />
           {navigationConfig.map((item, index) => (
             <Link
               key={item.path}

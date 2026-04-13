@@ -539,3 +539,47 @@ export async function getBlogPostsByTag(tag: string): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
   return allPosts.filter(post => post.tags.includes(tag));
 }
+
+// ============ Track-aware 查询 ============
+
+import { type Track, TRACK_BLOG_TAGS } from './track';
+
+/**
+ * 获取指定 track 的项目列表
+ * 项目 frontmatter 中的 tracks 字段控制可见性和覆盖
+ */
+export async function getAllProjectsForTrack(track: Track): Promise<ProjectContent[]> {
+  const all = await getAllProjects();
+  return all
+    .map(p => {
+      const trackData = (p as any).tracks;
+      if (!trackData) return p; // 无 tracks 字段 → 所有方向都显示
+      const overrides = trackData[track];
+      if (!overrides) return null; // 有 tracks 但不包含当前 track → 不显示
+      return { ...p, ...overrides };
+    })
+    .filter((p): p is ProjectContent => p !== null)
+    .sort((a, b) => {
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      if (a.highlight && !b.highlight) return -1;
+      if (!a.highlight && b.highlight) return 1;
+      return (a.title || '').localeCompare(b.title || '');
+    });
+}
+
+/**
+ * 获取指定 track 的博客列表
+ * 按 TRACK_BLOG_TAGS 过滤，无匹配 tag 的文章在所有 track 都显示
+ */
+export async function getBlogPostsForTrack(track: Track): Promise<BlogPost[]> {
+  const all = await getAllBlogPosts();
+  const trackTags = TRACK_BLOG_TAGS[track];
+  if (!trackTags?.length) return all;
+
+  const allTrackTags = Object.values(TRACK_BLOG_TAGS).flat();
+  return all.filter(post =>
+    post.tags.some(t => trackTags.includes(t)) ||
+    !post.tags.some(t => allTrackTags.includes(t))
+  );
+}

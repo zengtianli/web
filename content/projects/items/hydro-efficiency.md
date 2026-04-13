@@ -9,6 +9,16 @@ highlight: true
 featured: true
 thumbnail: "/images/projects/water-consumption-cover.png"
 brief: "基于 AHP+CRITIC 组合赋权与 TOPSIS 排名的工业集聚区水效评估工具，支持园区-管线-企业三级评估体系。"
+tracks:
+  hydro:
+    highlight: true
+    featured: true
+  ai:
+    brief: "AHP-CRITIC 组合赋权 + TOPSIS 多准则决策算法的工程化实现。"
+    highlight: false
+  indie:
+    brief: "独立开发的节水评估 SaaS 产品，Web + 桌面双端交付。"
+    highlight: true
 ---
 
 ## 背景

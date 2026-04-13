@@ -14,7 +14,7 @@ import {
   TimelineContent, 
   TimelineItem 
 } from "@/lib/content"
-import { strengthsConfig, StrengthConfig } from "@/lib/profile-config"
+import { StrengthConfig } from "@/lib/profile-config"
 
 // ============== 关于页介绍 ==============
 interface AboutIntroProps {
@@ -179,13 +179,17 @@ export function Timeline({ content }: TimelineProps) {
 }
 
 // ============== 核心能力 ==============
-export function StrengthsSection() {
+interface StrengthsSectionProps {
+  strengths: StrengthConfig[]
+}
+
+export function StrengthsSection({ strengths }: StrengthsSectionProps) {
   return (
     <section className="py-16 bg-secondary/30">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">核心能力</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {strengthsConfig.map((strength: StrengthConfig, index: number) => (
+          {strengths.map((strength: StrengthConfig, index: number) => (
             <Card key={index} className="text-center bg-secondary/50 border-secondary hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10">

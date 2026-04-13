@@ -9,6 +9,16 @@ highlight: true
 featured: false
 thumbnail: "/images/projects/water-capacity-cover.png"
 brief: "基于河道衰减公式的纳污能力自动计算工具，支持多方案对比、支流分段与月度统计。"
+tracks:
+  hydro:
+    highlight: true
+    featured: false
+  devtools:
+    brief: "Streamlit → Tauri 跨平台迁移实践，Python 计算引擎的桌面化封装。"
+    highlight: false
+  indie:
+    brief: "独立开发的水利计算 SaaS 工具，从需求分析到交付的完整产品实践。"
+    highlight: true
 ---
 
 ## 背景
