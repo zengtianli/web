@@ -29,6 +29,8 @@ export function TrackProvider({
       setTrackState(t)
       // 写 cookie
       document.cookie = `${TRACK_COOKIE}=${t};path=/;max-age=${60 * 60 * 24 * 365};samesite=lax`
+      // 立即更新 body data-track（CSS 变量即时生效）
+      document.body.setAttribute('data-track', t)
       // 更新 URL query（hydro 默认不带参数）
       const url = new URL(window.location.href)
       if (t === DEFAULT_TRACK) {

@@ -114,6 +114,7 @@ export default async function RootLayout({
         />
       </head>
       <body
+        data-track={track}
         className={`${inter.variable} ${montserrat.variable} ${exo2.variable} ${orbitron.variable} font-sans antialiased`}
       >
         {/* Skip to main content link for accessibility */}

@@ -3,6 +3,7 @@ import Footer from "@/components/footer"
 import HeroSection from "@/components/hero-section"
 import { StrengthsSection } from "@/components/page-sections"
 import { LatestUpdates } from "@/components/card-components"
+import { TrackShowcase } from "@/components/track-showcase"
 import { getLatestUpdates } from "@/lib/content"
 import { getServerTrack } from "@/lib/track-server"
 import { getTrackHeroConfig, getTrackStrengths } from "@/lib/profile-config"
@@ -29,7 +30,8 @@ export default async function Home({
       <div className="flex-grow">
         <HeroSection config={heroResolved} />
         <StrengthsSection strengths={strengths} />
-        {latestUpdates && <LatestUpdates data={latestUpdates} />}
+        <TrackShowcase track={track} />
+        {track === 'hydro' && latestUpdates && <LatestUpdates data={latestUpdates} />}
       </div>
       <Footer />
     </main>

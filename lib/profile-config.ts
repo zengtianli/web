@@ -14,6 +14,7 @@ export interface HeroConfig {
   description: string
   buttons: { text: string; href: string; variant: "default" | "outline" }[]
   highlights: string[]
+  track: Track
 }
 
 // 核心能力配置
@@ -188,7 +189,8 @@ export const heroConfig: HeroConfig = {
       variant: "outline" as const
     }
   ],
-  highlights: ["水利工程", "前沿信息技术", "数据分析", "智能模型", "软件系统"]
+  highlights: ["水利工程", "前沿信息技术", "数据分析", "智能模型", "软件系统"],
+  track: 'hydro',
 }
 
 // 各 Track 的 Hero 变体
@@ -226,7 +228,7 @@ const heroTrackOverrides: Record<Exclude<Track, 'hydro'>, Partial<HeroConfig>> =
 export function getTrackHeroConfig(track: Track): HeroConfig {
   if (track === 'hydro') return heroConfig
   const overrides = heroTrackOverrides[track]
-  return { ...heroConfig, ...overrides }
+  return { ...heroConfig, ...overrides, track }
 }
 
 // 各 Track 的核心能力变体
