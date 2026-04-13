@@ -1,8 +1,8 @@
 'use client'
 
-import { createContext, useContext, useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
-import { type Track, DEFAULT_TRACK, TRACK_COOKIE } from '@/lib/track'
+import { createContext, useContext, useState, useCallback, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { type Track, DEFAULT_TRACK, TRACK_COOKIE, TRACKS, isValidTrack } from '@/lib/track'
 
 interface TrackContextValue {
   track: Track
@@ -14,15 +14,33 @@ const TrackContext = createContext<TrackContextValue>({
   setTrack: () => {},
 })
 
-export function TrackProvider({
-  initialTrack,
-  children,
-}: {
-  initialTrack: Track
-  children: React.ReactNode
-}) {
-  const [track, setTrackState] = useState<Track>(initialTrack)
+/** 从 document.cookie 读取 track（纯客户端，避免服务端 cookies() 的 ByteString 崩溃） */
+function getInitialTrack(): Track {
+  if (typeof window === 'undefined') return DEFAULT_TRACK
+
+  // URL query 优先
+  const params = new URLSearchParams(window.location.search)
+  const fromQuery = params.get('track')
+  if (fromQuery && isValidTrack(fromQuery)) return fromQuery
+
+  // 然后读 cookie
+  const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${TRACK_COOKIE}=([^;]*)`))
+  const fromCookie = match?.[1]
+  if (fromCookie && isValidTrack(fromCookie)) return fromCookie
+
+  return DEFAULT_TRACK
+}
+
+export function TrackProvider({ children }: { children: React.ReactNode }) {
+  const [track, setTrackState] = useState<Track>(DEFAULT_TRACK)
   const router = useRouter()
+
+  // 客户端初始化
+  useEffect(() => {
+    const initial = getInitialTrack()
+    setTrackState(initial)
+    document.body.setAttribute('data-track', initial)
+  }, [])
 
   const setTrack = useCallback(
     (t: Track) => {

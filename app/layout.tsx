@@ -1,7 +1,6 @@
 import type React from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TrackProvider } from "@/components/track-provider"
-import { getServerTrack } from "@/lib/track-server"
 import { Inter, Montserrat, Exo_2, Orbitron } from "next/font/google"
 import { siteConfig, openGraph, twitter } from "@/lib/seo-config"
 import type { Metadata } from "next"
@@ -77,12 +76,11 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const track = await getServerTrack()
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
@@ -114,7 +112,6 @@ export default async function RootLayout({
         />
       </head>
       <body
-        data-track={track}
         className={`${inter.variable} ${montserrat.variable} ${exo2.variable} ${orbitron.variable} font-sans antialiased`}
       >
         {/* Skip to main content link for accessibility */}
@@ -125,7 +122,7 @@ export default async function RootLayout({
           跳转到主要内容
         </a>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <TrackProvider initialTrack={track}>
+          <TrackProvider>
             <main id="main-content">{children}</main>
             <ScrollToTop />
           </TrackProvider>
