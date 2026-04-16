@@ -3,75 +3,89 @@
 @tailwind utilities;
 
 @layer base {
+  /* ===== Light theme ===== */
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 96%;
+    --foreground: 0 0% 9%;
 
-    --card: 222.2 84% 9.8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 9%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 164 84% 70%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 64%;
 
-    /* Track 色系变量 */
-    --track-accent: var(--accent);
-    --track-glow: 164 84% 70%;
-    --track-hero-from: rgba(10, 25, 47, 0.8);
-    --track-hero-to: rgba(10, 25, 47, 1);
+    --radius: 1rem;
+    --track-accent: 0 0% 9%;
   }
 
-  /* hydro: 天蓝 (默认，与 root 一致) */
+  /* ===== Dark theme ===== */
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 0 0% 98%;
+    --accent-foreground: 0 0% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 0 0% 30%;
+
+    --track-accent: 0 0% 98%;
+  }
+
+  /* Track accent colors (both themes) */
   [data-track="hydro"] {
-    --accent: 199 89% 60%;
-    --track-accent: 199 89% 60%;
-    --track-glow: 199 89% 60%;
-    --track-hero-from: rgba(7, 20, 40, 0.85);
-    --track-hero-to: rgba(7, 20, 40, 1);
+    --accent: 217 91% 68%;
+    --track-accent: 217 91% 68%;
   }
-
-  /* ai: 紫罗兰 */
   [data-track="ai"] {
     --accent: 263 70% 76%;
     --track-accent: 263 70% 76%;
-    --track-glow: 263 70% 76%;
-    --track-hero-from: rgba(20, 10, 40, 0.85);
-    --track-hero-to: rgba(20, 10, 40, 1);
   }
-
-  /* devtools: 翠绿 */
   [data-track="devtools"] {
-    --accent: 142 71% 73%;
-    --track-accent: 142 71% 73%;
-    --track-glow: 142 71% 73%;
-    --track-hero-from: rgba(8, 25, 15, 0.85);
-    --track-hero-to: rgba(8, 25, 15, 1);
+    --accent: 160 64% 52%;
+    --track-accent: 160 64% 52%;
   }
-
-  /* indie: 暖橙 */
   [data-track="indie"] {
-    --accent: 27 96% 61%;
-    --track-accent: 27 96% 61%;
-    --track-glow: 27 96% 61%;
-    --track-hero-from: rgba(30, 15, 5, 0.85);
-    --track-hero-to: rgba(30, 15, 5, 1);
+    --accent: 45 93% 56%;
+    --track-accent: 45 93% 56%;
   }
 }
 
@@ -82,89 +96,22 @@
   body {
     @apply bg-background text-foreground;
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-montserrat;
-  }
-  h1 {
-    @apply font-orbitron;
-  }
 }
 
-.hero-gradient {
-  background: linear-gradient(to bottom, var(--track-hero-from), var(--track-hero-to));
-  transition: background 0.3s ease;
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@layer components {
-  .card-hover {
-    @apply transition-all duration-300;
-    @apply hover:translate-y-[-5px];
-    @apply hover:shadow-[0_10px_20px_rgba(100,255,218,0.15)];
-  }
-
-  .timeline-dot {
-    @apply w-4 h-4 rounded-full bg-accent absolute left-0 transform -translate-x-1/2;
-    @apply shadow-[0_0_10px_rgba(100,255,218,0.6)];
-  }
-}
-
-.skill-tag {
-  @apply inline-block px-2 py-1 text-xs rounded-md bg-secondary text-foreground m-1;
-}
-
-.skill-tag:hover {
-  @apply bg-accent text-accent-foreground;
-}
-
-.typing-effect {
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid #64ffda;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #64ffda;
-  }
-}
-
-/* 统一动画 keyframes */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }
 
@@ -179,18 +126,9 @@
   }
 }
 
-.particles-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-/* Markdown 内容样式优化 */
+/* Markdown content */
 .markdown-content {
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 .markdown-content h1,
@@ -199,11 +137,11 @@
 .markdown-content h4,
 .markdown-content h5,
 .markdown-content h6 {
-  @apply font-montserrat font-bold mt-8 mb-4 first:mt-0;
+  @apply font-bold mt-10 mb-4 first:mt-0;
 }
 
 .markdown-content h1 {
-  @apply text-3xl border-b pb-2;
+  @apply text-3xl;
 }
 
 .markdown-content h2 {
@@ -215,21 +153,20 @@
 }
 
 .markdown-content p {
-  @apply mb-4;
+  @apply mb-5 text-foreground/80;
 }
 
 .markdown-content ul,
 .markdown-content ol {
-  @apply mb-4 ml-6;
+  @apply mb-5 ml-6;
 }
 
 .markdown-content li {
-  @apply mb-1;
+  @apply mb-1.5 text-foreground/80;
 }
 
-/* 代码块样式优化 */
 .markdown-content pre {
-  @apply rounded-lg border bg-muted/50 p-4 overflow-x-auto text-sm;
+  @apply rounded-2xl bg-foreground/5 p-5 overflow-x-auto text-sm my-6;
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 }
 
@@ -238,44 +175,39 @@
 }
 
 .markdown-content :not(pre) > code {
-  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
+  @apply bg-foreground/10 px-1.5 py-0.5 rounded-md text-sm;
 }
 
-/* 表格样式 */
 .markdown-content table {
-  @apply w-full border-collapse border border-border rounded-lg overflow-hidden my-6;
+  @apply w-full border-collapse rounded-2xl overflow-hidden my-6;
 }
 
 .markdown-content th {
-  @apply border border-border bg-muted px-4 py-2 text-left font-semibold;
+  @apply bg-foreground/5 px-4 py-3 text-left font-semibold text-sm;
 }
 
 .markdown-content td {
-  @apply border border-border px-4 py-2;
+  @apply border-t border-foreground/5 px-4 py-3 text-sm text-foreground/70;
 }
 
-/* 引用块样式 */
 .markdown-content blockquote {
-  @apply border-l-4 border-l-primary bg-muted/30 pl-6 py-4 my-6 italic;
+  @apply border-l-2 border-foreground/20 pl-6 py-4 my-6 text-foreground/60;
 }
 
-/* Mermaid 图表容器样式 */
 .mermaid-container {
-  @apply bg-card border rounded-lg p-4;
+  @apply bg-foreground/5 rounded-2xl p-6;
 }
 
 .mermaid-container svg {
   @apply mx-auto max-w-full h-auto;
 }
 
-/* 响应式表格 */
 @media (max-width: 768px) {
   .markdown-content table {
     @apply text-sm;
   }
-  
   .markdown-content th,
   .markdown-content td {
-    @apply px-2 py-1;
+    @apply px-2 py-1.5;
   }
 }

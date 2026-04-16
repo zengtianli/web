@@ -3,7 +3,7 @@
  * 统一管理个人信息、联系方式、核心能力等相对稳定的内容
  */
 
-import { Brain, Code, Droplets, Mail, Phone, MapPin, Linkedin, Github, MessageCircle, Code2, Zap, Terminal, Package, Bot, Wrench, Rocket, Cpu, Workflow, Globe, Layers, Server } from "lucide-react"
+import { Brain, Code, Droplets, Mail, Phone, MapPin, Linkedin, Github, MessageCircle, Code2, Zap, Terminal, Package, Bot, Wrench, Rocket, Cpu, Workflow, Globe, Layers, Server, TrendingUp } from "lucide-react"
 import type React from "react"
 import type { Track } from "./track"
 
@@ -214,9 +214,9 @@ const heroTrackOverrides: Record<Exclude<Track, 'hydro'>, Partial<HeroConfig>> =
     ],
   },
   indie: {
-    tagline: "全栈独立开发者 | One-person Company",
-    description: "一个人的**全栈闭环**：**产品设计**、**开发**、**部署**到**运维**。24 个 systemd 服务、4 个 Docker 容器、29 个 GitHub 仓库——从想法到上线，全部自己搞定。",
-    highlights: ["全栈闭环", "产品设计", "开发", "部署", "运维"],
+    tagline: "全栈独立开发者 · 量化投资实践者 | One-person Company",
+    description: "一个人的**全栈闭环**：**产品设计**、**开发**、**部署**到**运维**，同样的工程思维也延伸到**量化投资**——QQQ Covered Call 策略 5 年实盘，年化 +23.95%。29 个 GitHub 仓库、24 个 systemd 服务、跨境三地资产系统，全部自己搞定。",
+    highlights: ["全栈闭环", "产品设计", "开发", "部署", "运维", "量化投资"],
     buttons: [
       { text: "作品集", href: "/projects?track=indie", variant: "default" as const },
       { text: "关于我", href: "/about", variant: "outline" as const },
@@ -296,9 +296,9 @@ const strengthsTrackConfig: Record<Track, StrengthConfig[]> = {
       description: "VPS 上运行 24 个 systemd 服务 + 4 个 Docker 容器，Cloudflare 域名管理，零依赖第三方平台。",
     },
     {
-      icon: Globe,
-      title: "产品化能力",
-      description: "12 个 hydro-* 水利工具、个人网站、Dashboard——每个项目都是可交付的完整产品。",
+      icon: TrendingUp,
+      title: "量化投资系统",
+      description: "HSBC 三地跨境资产管道、QQQ Covered Call 期权策略 5 年实盘、自建 Streamlit 风控仪表盘——工程思维驱动的投资闭环。",
     },
   ],
 }
@@ -310,14 +310,11 @@ export function getTrackStrengths(track: Track): StrengthConfig[] {
 
 // 导航配置
 export const navigationConfig = [
-  { name: "首页", path: "/" },
   { name: "关于我", path: "/about" },
-  { name: "项目案例", path: "/projects" },
-  { name: "学术与成果", path: "/research" },
-  { name: "技术博客", path: "/blog" },
-  { name: "开发工具", path: "/tools" },
-  // { name: "简历中心", path: "/resume" }, // 暂时隐藏
-  { name: "联系方式", path: "/contact" },
+  { name: "作品", path: "/projects" },
+  { name: "研究", path: "/research" },
+  { name: "博客", path: "/blog" },
+  { name: "生活", path: "/life" },
 ]
 
 // 品牌配置

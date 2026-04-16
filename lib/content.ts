@@ -63,6 +63,7 @@ export interface TimelineContent {
 export interface Skill {
   name: string;
   level: number;
+  projects?: string[];
 }
 
 // 技能分类类型

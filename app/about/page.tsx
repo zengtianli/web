@@ -1,11 +1,11 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { AboutIntro, Timeline, SkillsVisual, FutureOutlook } from "@/components/page-sections"
-import SportsAchievement from "@/components/sports-achievement"
 import { getContent, getNestedContent, AboutIntroContent, TimelineContent, SkillsContent, FutureContent } from "@/lib/content"
-import { SportsAchievementContent } from "@/components/sports-achievement"
 import { getServerTrack } from "@/lib/track-server"
 import { resolveTrackContent, resolveTrackArray } from "@/lib/track-content"
+import type { Track } from "@/lib/track"
+import { TRACK_PAGE_BG } from "@/lib/track-theme"
 
 export const metadata = {
   title: "关于我 | 曾田力",
@@ -24,7 +24,6 @@ export default async function AboutPage({
   const timelineContentResult = await getNestedContent<TimelineContent>('about/timeline')
   const skillsContentResult = await getNestedContent<SkillsContent>('about/skills')
   const futureContentResult = await getNestedContent<FutureContent>('about/future')
-  const sportsContentResult = await getNestedContent<SportsAchievementContent>('about/sports')
 
   // resolve track overlay for intro
   const introRaw = introContentResult?.metadata
@@ -42,11 +41,19 @@ export default async function AboutPage({
         categories: resolveTrackArray(skillsContent.categories, resolved.categoryOrder),
       }
     }
-    // merge extra categories if present
     if (resolved.extraCategories) {
       skillsContent = {
         ...skillsContent,
         categories: [...resolved.extraCategories, ...skillsContent.categories],
+      }
+    }
+    // 按方向隐藏不相关的技能类别
+    if (resolved.hiddenCategories) {
+      skillsContent = {
+        ...skillsContent,
+        categories: skillsContent.categories.filter(
+          (c: any) => !(resolved.hiddenCategories as string[]).includes(c.name)
+        ),
       }
     }
   }
@@ -55,17 +62,14 @@ export default async function AboutPage({
   const futureRaw = futureContentResult
   const futureContent = futureRaw ? resolveTrackContent(futureRaw as any, track) as FutureContent : null
 
-  const sportsContent = sportsContentResult
-
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className={`min-h-screen flex flex-col ${TRACK_PAGE_BG[track]}`}>
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl space-y-16">
+      <div className="flex-grow max-w-5xl mx-auto px-6 md:px-8 py-24 md:py-32 space-y-16">
         {introContent && <AboutIntro content={introContent} />}
-        {timelineContent && <Timeline content={timelineContent} />}
-        {skillsContent && <SkillsVisual content={skillsContent} />}
-        {sportsContent && <SportsAchievement content={sportsContent} />}
-        {futureContent && <FutureOutlook content={futureContent} />}
+        {timelineContent && <Timeline content={timelineContent} track={track} />}
+        {skillsContent && <SkillsVisual content={skillsContent} track={track} />}
+        {futureContent && <FutureOutlook content={futureContent} track={track} />}
       </div>
       <Footer />
     </main>

@@ -1,20 +1,32 @@
 /**
  * 页面区块组件集合
- * 包含：关于页介绍、未来展望、技能展示、时间线、核心能力
+ * Liquid Glass 风格：方向色背景 + 毛玻璃卡片
  */
 
 import Image from "next/image"
 import { GraduationCap, Briefcase, Sparkles, Brain, Workflow } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { 
-  AboutIntroContent, 
-  FutureContent, 
-  SkillsContent, 
-  TimelineContent, 
-  TimelineItem 
+import {
+  AboutIntroContent,
+  FutureContent,
+  SkillsContent,
+  TimelineContent,
+  TimelineItem
 } from "@/lib/content"
 import { StrengthConfig } from "@/lib/profile-config"
+import type { Track } from "@/lib/track"
+
+// ============== 方向主题色 ==============
+const TRACK_THEME: Record<Track, { bg: string; iconText: string }> = {
+  hydro:    { bg: 'bg-[#E3F0FF]', iconText: 'text-blue-500' },
+  ai:       { bg: 'bg-[#F0E8FF]', iconText: 'text-purple-500' },
+  devtools: { bg: 'bg-[#DFFBE9]', iconText: 'text-emerald-500' },
+  indie:    { bg: 'bg-[#FFF3D6]', iconText: 'text-amber-500' },
+}
+
+// 毛玻璃卡片样式
+const GLASS = 'bg-white/50 backdrop-blur-xl border border-white/60 shadow-sm'
+const GLASS_PILL = 'bg-white/40 backdrop-blur-sm'
 
 // ============== 关于页介绍 ==============
 interface AboutIntroProps {
@@ -22,106 +34,19 @@ interface AboutIntroProps {
 }
 
 export function AboutIntro({ content }: AboutIntroProps) {
-  const { title, subtitle, description, slogan, profileImage } = content
-  const formattedDescription = description.replace(
-    /\*\*(.*?)\*\*/g,
-    '<span class="text-accent font-medium">$1</span>'
-  )
+  const { subtitle, description, slogan, profileImage } = content
 
   return (
-    <section>
-      <h2 className="text-2xl font-bold text-center mb-8">{title}</h2>
-      <Card className="border-secondary">
-        <CardContent className="p-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="flex justify-center">
-              <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-accent/30">
-                <Image src={profileImage} alt={subtitle} fill className="object-cover" />
-              </div>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold mb-2">{subtitle}</h3>
-              <p className="text-muted-foreground mb-4" dangerouslySetInnerHTML={{ __html: formattedDescription }} />
-              <p className="text-lg font-medium text-accent">{slogan}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </section>
-  )
-}
-
-// ============== 未来展望 ==============
-const futureIconMap = { Sparkles, Brain, Workflow }
-
-interface FutureOutlookProps {
-  content: FutureContent
-}
-
-export function FutureOutlook({ content }: FutureOutlookProps) {
-  if (!content?.visionPoints?.length) return null
-
-  return (
-    <section>
-      <h2 className="text-2xl font-bold mb-2">{content.title}</h2>
-      {content.description && <p className="text-muted-foreground mb-6">{content.description}</p>}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {content.visionPoints.map((point, index) => {
-          const IconComponent = futureIconMap[point.icon as keyof typeof futureIconMap] || Sparkles
-          return (
-            <Card key={index} className="border-secondary bg-secondary/10 hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-full bg-primary/10 shrink-0">
-                    <IconComponent className="h-5 w-5 text-accent" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">{point.title}</h3>
-                    <p className="text-sm text-muted-foreground">{point.description}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )
-        })}
+    <section className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+      <div className="shrink-0">
+        <div className="relative w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden">
+          <Image src={profileImage} alt={subtitle} fill className="object-cover" />
+        </div>
       </div>
-    </section>
-  )
-}
-
-// ============== 技能展示 ==============
-interface SkillsVisualProps {
-  content: SkillsContent
-}
-
-export function SkillsVisual({ content }: SkillsVisualProps) {
-  if (!content?.categories?.length) return null
-
-  return (
-    <section>
-      <h2 className="text-2xl font-bold mb-2">{content.title || "技能图谱"}</h2>
-      {content.description && <p className="text-muted-foreground mb-6">{content.description}</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {content.categories.map((category, index) => (
-          <Card key={index} className="border-secondary bg-secondary/10 hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">{category.name}</h3>
-              <div className="space-y-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between mb-1 text-sm">
-                      <span>{skill.name}</span>
-                      <span className="text-muted-foreground">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                      <div className="h-full bg-accent rounded-full" style={{ width: `${skill.level}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div>
+        <h1 className="text-3xl md:text-4xl font-semibold text-[#1d1d1f] mb-3">{subtitle}</h1>
+        <p className="text-[#86868b] text-base md:text-lg leading-relaxed mb-4">{description}</p>
+        <p className="text-[#0071e3] font-medium">{slogan}</p>
       </div>
     </section>
   )
@@ -132,45 +57,45 @@ const timelineIconMap = { GraduationCap, Briefcase }
 
 interface TimelineProps {
   content: TimelineContent
+  track?: Track
 }
 
-export function Timeline({ content }: TimelineProps) {
+export function Timeline({ content, track = 'hydro' }: TimelineProps) {
   if (!content?.items?.length) return null
+  const theme = TRACK_THEME[track]
 
   return (
-    <section>
-      <h2 className="text-2xl font-bold mb-2">{content.title}</h2>
-      <p className="text-muted-foreground mb-6">我的学习和职业发展旅程</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <section className="">
+      <h2 className="text-2xl md:text-3xl font-semibold text-[#1d1d1f] mb-2">
+        {content.title}
+      </h2>
+      <p className="text-[#86868b] mb-8">我的学习和职业发展旅程</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {content.items.map((item: TimelineItem, index: number) => {
           const IconComponent = timelineIconMap[item.icon as keyof typeof timelineIconMap] || GraduationCap
           return (
-            <Card key={index} className="border-secondary bg-secondary/10 hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2 rounded-full bg-primary/10">
-                    <IconComponent className="h-5 w-5 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{item.period}</p>
-                    <h3 className="font-semibold">{item.title}</h3>
-                  </div>
+            <div key={index} className={`${GLASS} rounded-2xl p-6`}>
+              <div className="flex items-center gap-3 mb-3">
+                <IconComponent className={`h-5 w-5 ${theme.iconText} shrink-0`} />
+                <span className="text-sm text-[#86868b]">{item.period}</span>
+              </div>
+              <h3 className="text-base font-semibold text-[#1d1d1f] mb-2">{item.title}</h3>
+              <p className="text-sm text-[#86868b] leading-relaxed mb-3">{item.description}</p>
+              {item.skills.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-2">
+                  {item.skills.map((skill, i) => (
+                    <span key={i} className={`text-xs text-[#1d1d1f] ${GLASS_PILL} rounded-full px-2.5 py-1`}>
+                      {skill}
+                    </span>
+                  ))}
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">{item.description}</p>
-                {item.skills.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {item.skills.map((skill, i) => (
-                      <Badge key={i} variant="secondary" className="text-xs">{skill}</Badge>
-                    ))}
-                  </div>
-                )}
-                {item.honors.length > 0 && (
-                  <ul className="text-sm text-muted-foreground list-disc list-inside">
-                    {item.honors.map((honor, i) => <li key={i}>{honor}</li>)}
-                  </ul>
-                )}
-              </CardContent>
-            </Card>
+              )}
+              {item.honors.length > 0 && (
+                <ul className="text-sm text-[#86868b] space-y-0.5">
+                  {item.honors.map((honor, i) => <li key={i}>· {honor}</li>)}
+                </ul>
+              )}
+            </div>
           )
         })}
       </div>
@@ -178,33 +103,104 @@ export function Timeline({ content }: TimelineProps) {
   )
 }
 
-// ============== 核心能力 ==============
-interface StrengthsSectionProps {
-  strengths: StrengthConfig[]
+// ============== 技能展示 ==============
+interface SkillsVisualProps {
+  content: SkillsContent
+  track?: Track
 }
 
-export function StrengthsSection({ strengths }: StrengthsSectionProps) {
+export function SkillsVisual({ content, track = 'hydro' }: SkillsVisualProps) {
+  if (!content?.categories?.length) return null
+  const theme = TRACK_THEME[track]
+
   return (
-    <section className="py-16 bg-secondary/30">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">核心能力</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {strengths.map((strength: StrengthConfig, index: number) => (
-            <Card key={index} className="text-center bg-secondary/50 border-secondary hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10">
-                  <strength.icon className="h-8 w-8 text-accent" />
-                </div>
-                <CardTitle className="text-xl">{strength.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">{strength.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+    <section className="">
+      <h2 className="text-2xl md:text-3xl font-semibold text-[#1d1d1f] mb-2">
+        {content.title || "技能与专长"}
+      </h2>
+      {content.description && <p className="text-[#86868b] mb-8">{content.description}</p>}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {content.categories.map((category, index) => (
+          <div key={index} className={`${GLASS} rounded-2xl p-6`}>
+            <h3 className="font-semibold text-[#1d1d1f] mb-4">{category.name}</h3>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill, skillIndex) => (
+                <span key={skillIndex} className={`text-sm text-[#1d1d1f] ${GLASS_PILL} rounded-full px-3 py-1.5`}>
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+            {category.skills.some(s => s.projects?.length) && (
+              <p className="text-xs text-[#86868b] mt-4">
+                {category.skills.flatMap(s => s.projects || []).filter((v, i, a) => a.indexOf(v) === i).join(' · ')}
+              </p>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   )
 }
 
+// ============== 未来展望 ==============
+const futureIconMap = { Sparkles, Brain, Workflow }
+
+interface FutureOutlookProps {
+  content: FutureContent
+  track?: Track
+}
+
+export function FutureOutlook({ content, track = 'hydro' }: FutureOutlookProps) {
+  if (!content?.visionPoints?.length) return null
+  const theme = TRACK_THEME[track]
+
+  return (
+    <section className="">
+      <h2 className="text-2xl md:text-3xl font-semibold text-[#1d1d1f] mb-2">{content.title}</h2>
+      {content.description && <p className="text-[#86868b] mb-8">{content.description}</p>}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {content.visionPoints.map((point, index) => {
+          const IconComponent = futureIconMap[point.icon as keyof typeof futureIconMap] || Sparkles
+          return (
+            <div key={index} className={`${GLASS} rounded-2xl p-6`}>
+              <IconComponent className={`h-6 w-6 ${theme.iconText} mb-4`} />
+              <h3 className="font-semibold text-[#1d1d1f] mb-2">{point.title}</h3>
+              <p className="text-sm text-[#86868b] leading-relaxed">{point.description}</p>
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+// ============== 核心能力（方向页用） ==============
+interface StrengthsSectionProps {
+  strengths: StrengthConfig[]
+  track?: Track
+}
+
+export function StrengthsSection({ strengths, track = 'hydro' }: StrengthsSectionProps) {
+  const theme = TRACK_THEME[track]
+
+  return (
+    <section className="py-24 md:py-32">
+      <div className="container mx-auto px-6 md:px-8">
+        <h2 className="text-3xl font-semibold text-center text-[#1d1d1f] mb-12">核心能力</h2>
+        <div className="">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {strengths.map((strength: StrengthConfig, index: number) => (
+              <div key={index} className={`${GLASS} rounded-2xl p-8 text-center`}>
+                <div className={`mx-auto mb-4 p-4 rounded-2xl ${GLASS_PILL} w-fit`}>
+                  <strength.icon className={`h-8 w-8 ${theme.iconText}`} />
+                </div>
+                <h3 className="text-lg font-semibold text-[#1d1d1f] mb-2">{strength.title}</h3>
+                <p className="text-sm text-[#86868b]">{strength.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

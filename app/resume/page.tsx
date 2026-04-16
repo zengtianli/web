@@ -63,7 +63,7 @@ export default async function ResumePage() {
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
+      <div className="flex-grow max-w-5xl mx-auto px-6 md:px-8 py-24 md:py-32">
         <PageHeader 
           title="简历中心" 
           description="根据不同场景需求，提供多种简历版本。支持在线预览和打印导出 PDF。" 

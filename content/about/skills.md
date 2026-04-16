@@ -127,7 +127,8 @@ categories:
         description: "容器化部署、环境管理"
 tracks:
   ai:
-    categoryOrder: ["机器学习与数据科学", "软件开发", "水利工程专业技能", "专业工具"]
+    categoryOrder: ["机器学习与数据科学", "软件开发"]
+    hiddenCategories: ["水利工程专业技能", "专业工具"]
     extraCategories:
       - name: "AI & LLM 工程"
         skills:
@@ -140,7 +141,8 @@ tracks:
           - name: "AI Agent 工作流"
             level: 85
   devtools:
-    categoryOrder: ["软件开发", "专业工具", "机器学习与数据科学", "水利工程专业技能"]
+    categoryOrder: ["软件开发"]
+    hiddenCategories: ["水利工程专业技能", "机器学习与数据科学"]
     extraCategories:
       - name: "开发者工具"
         skills:
@@ -153,7 +155,8 @@ tracks:
           - name: "VPS 运维"
             level: 85
   indie:
-    categoryOrder: ["软件开发", "机器学习与数据科学", "水利工程专业技能", "专业工具"]
+    categoryOrder: ["软件开发"]
+    hiddenCategories: ["水利工程专业技能", "机器学习与数据科学", "专业工具"]
     extraCategories:
       - name: "产品与运营"
         skills:
@@ -165,6 +168,16 @@ tracks:
             level: 90
           - name: "产品设计"
             level: 80
+      - name: "量化投资"
+        skills:
+          - name: "期权策略 (Covered Call)"
+            level: 90
+          - name: "跨境资产配置"
+            level: 90
+          - name: "Greeks 风控"
+            level: 85
+          - name: "Streamlit 仪表盘"
+            level: 90
 ---
 
 我的专业技能横跨**水利工程**与**信息技术**两大领域，通过**跨学科融合**，解决行业实际问题。

@@ -14,6 +14,8 @@ visionPoints:
     icon: "Workflow"
 tracks:
   ai:
+    title: "技术方向"
+    description: "AI 工程领域的技术方向与实践目标"
     visionPoints:
       - title: "LLM 应用工程化"
         description: "将大语言模型从实验室带入生产环境——Harness Engineering、评估体系、成本优化的系统化方法论。"
@@ -25,6 +27,8 @@ tracks:
         description: "在水利、文档、开发等垂直领域验证 AI 应用模式，积累可复制的行业解决方案。"
         icon: "Sparkles"
   devtools:
+    title: "产品路线"
+    description: "开发者工具方向的产品理念与技术路线"
     visionPoints:
       - title: "CLI-first 工具哲学"
         description: "命令行优先、脚本可组合、GUI 作为便捷入口——Unix 哲学在现代开发工具中的实践。"
@@ -36,6 +40,8 @@ tracks:
         description: "Dashboard、Briefing、Health Check——让系统状态一目了然，让重复工作自动完成。"
         icon: "Brain"
   indie:
+    title: "下一步计划"
+    description: "独立开发与量化投资的下一步计划"
     visionPoints:
       - title: "行业 SaaS 产品"
         description: "将水利计算工具产品化，服务设计院和水务公司——把专业知识变成可付费的软件服务。"
@@ -43,8 +49,8 @@ tracks:
       - title: "一人公司基础设施"
         description: "VPS、域名、CI/CD、监控——用最小成本构建可靠的生产环境，支撑多产品并行运营。"
         icon: "Workflow"
-      - title: "技术写作与影响力"
-        description: "通过博客和开源项目积累技术影响力，建立个人品牌，为独立开发打下客户基础。"
+      - title: "量化策略工程化"
+        description: "将 Covered Call 策略从 Streamlit 原型升级为自动化交易系统，集成实时风控与 Roll 决策引擎。同步推进 IIQE 持牌，探索跨境资产配置服务化。"
         icon: "Brain"
 ---
 

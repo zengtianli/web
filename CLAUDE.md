@@ -56,12 +56,32 @@ pnpm lint         # ESLint 检查
 - 页面级组件直接放 `components/` 根目录（navbar, footer, hero-section 等）
 - 路径别名 `@/*` 映射到项目根目录
 
+### 方向系统（Track）
+
+4 个职业方向：hydro / ai / devtools / indie。Cookie 持久化，middleware rewrite 注入 searchParams。
+- `lib/track.ts` — Track 类型、元数据、博客标签映射
+- `lib/track-theme.ts` — 方向主题色（TRACK_PAGE_BG）
+- `lib/track-server.ts` — 服务端读 track（从 searchParams）
+- `lib/track-content.ts` — content overlay 解析（resolveTrackContent）
+- `components/track-provider.tsx` — 客户端 context（activeDirection + clearTrack）
+- `components/track-clearer.tsx` — 首页清 cookie
+- `components/theme-color.tsx` — 浏览器地址栏颜色
+- `middleware.ts` — rewrite（非 redirect）+ `url.protocol = 'http'`（standalone SSL 修复）
+
 ### 样式
 
-- Tailwind CSS + CSS 变量实现明暗主题（class-based dark mode）
+- Apple 风格**纯亮色**主题，`forcedTheme="light"`，**不要暗色模式**
+- 页面背景：方向主题色铺满（hydro=#E3F0FF, ai=#F0E8FF, devtools=#DFFBE9, indie=#FFF3D6）
+- 卡片：liquid glass（`bg-white/50 backdrop-blur-xl border border-white/60 shadow-sm rounded-2xl`）
+- 文字：#1d1d1f（主）/ #86868b（次）/ #0071E3（链接），不用 opacity 做文字色
+- Navbar/地址栏：滚动背景和 theme-color 都跟方向色走
 - `cn()` 工具函数（`lib/utils.ts`）合并类名
 - 项目详情页有独立 CSS：`app/projects/[slug]/project-content.css`
 - 全局 Markdown 渲染样式在 `app/globals.css`
+
+### 导航
+
+5 项：关于我 / 作品 / 研究 / 博客 / 生活。联系方式在 footer。配置在 `lib/profile-config.ts` 的 `navigationConfig`。
 
 ### 简历系统
 

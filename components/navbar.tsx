@@ -7,51 +7,72 @@ import { Menu, X, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useMobile } from "@/hooks/use-mobile"
-
+import { useTrack } from "@/components/track-provider"
 import { navigationConfig, brandConfig } from "@/lib/profile-config"
-import { TrackSwitcher } from "@/components/track-switcher"
+import { TRACK_META, type Track } from "@/lib/track"
+
+const NAV_BG: Record<Track, string> = {
+  hydro:    'bg-[#E3F0FF]/80',
+  ai:       'bg-[#F0E8FF]/80',
+  devtools: 'bg-[#DFFBE9]/80',
+  indie:    'bg-[#FFF3D6]/80',
+}
+
+const TRACK_LINE_COLORS: Record<string, string> = {
+  hydro: 'bg-blue-400',
+  ai: 'bg-purple-400',
+  devtools: 'bg-emerald-400',
+  indie: 'bg-amber-400',
+}
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const isMobile = useMobile()
+  const { activeDirection } = useTrack()
+
+  const isHomepage = pathname === '/'
+  const showTrackLine = !isHomepage && activeDirection
+
+  // Brand text: 首页只显示名字，其他页面带方向
+  const brandText = isHomepage || !activeDirection
+    ? brandConfig.name
+    : `${brandConfig.name} · ${TRACK_META[activeDirection].label}`
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
-
     window.addEventListener("scroll", handleScroll)
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
     <header
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
-        isScrolled ? "bg-background/90 backdrop-blur-md shadow-md" : "bg-transparent",
+        isScrolled
+          ? `${activeDirection ? NAV_BG[activeDirection] : 'bg-[#fbfbfd]/80'} backdrop-blur-xl`
+          : "bg-transparent",
       )}
     >
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-orbitron font-bold text-accent" aria-label="返回首页">
-          {brandConfig.name}
+      <div className="container mx-auto px-6 md:px-8 py-4 flex items-center justify-between">
+        <Link href="/" className="text-lg font-semibold tracking-tight text-[#1d1d1f]" aria-label="返回首页">
+          {brandText}
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6" aria-label="主导航">
-          {navigationConfig.map((item, index) => (
+        <nav className="hidden md:flex items-center gap-8" aria-label="主导航">
+          {navigationConfig.map((item) => (
             <Link
               key={item.path}
               href={item.path}
               className={cn(
-                "relative py-2 text-sm font-medium transition-colors hover:text-accent",
+                "text-sm transition-colors duration-200",
                 pathname === item.path
-                  ? "text-accent after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-accent"
-                  : "text-foreground/70",
+                  ? "text-[#1d1d1f]"
+                  : "text-[#86868b] hover:text-[#1d1d1f]",
               )}
             >
               {item.name}
@@ -60,8 +81,8 @@ export default function Navbar() {
           <Link
             href="/search"
             className={cn(
-              "relative py-2 transition-colors hover:text-accent",
-              pathname === "/search" ? "text-accent" : "text-foreground/70",
+              "transition-colors duration-200",
+              pathname === "/search" ? "text-[#1d1d1f]" : "text-[#86868b] hover:text-[#1d1d1f]",
             )}
             aria-label="搜索"
           >
@@ -70,43 +91,38 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile Menu */}
-        <div className="md:hidden flex items-center">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+        <div className="md:hidden">
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "关闭菜单" : "打开菜单"}
             aria-expanded={isMenuOpen}
-            aria-controls="mobile-navigation"
+            className="text-[#86868b] hover:text-[#1d1d1f]"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>
 
-      {/* Track Switcher Bar - 独立一行 */}
-      <div className={cn(
-        "hidden md:flex justify-center py-1.5 transition-all duration-300",
-        isScrolled ? "bg-background/80 backdrop-blur-md border-t border-border/30" : "bg-transparent",
-      )}>
-        <TrackSwitcher />
-      </div>
+      {/* Track color line */}
+      {showTrackLine && (
+        <div className={cn("h-[2px] w-full transition-all duration-500", TRACK_LINE_COLORS[activeDirection] || 'bg-gray-200')} />
+      )}
 
       {/* Mobile Navigation */}
       {isMenuOpen && isMobile && (
-        <nav 
-          id="mobile-navigation"
-          className="fixed inset-0 top-16 bg-background z-40 flex flex-col items-center pt-8"
+        <nav
+          className={`fixed inset-0 top-16 ${activeDirection ? NAV_BG[activeDirection].replace('/80', '/95') : 'bg-[#fbfbfd]/95'} backdrop-blur-xl z-40 flex flex-col items-center pt-12`}
           aria-label="移动端导航"
         >
-          <TrackSwitcher className="mb-6" />
-          {navigationConfig.map((item, index) => (
+          {navigationConfig.map((item) => (
             <Link
               key={item.path}
               href={item.path}
               className={cn(
-                "w-full py-4 text-center text-lg font-medium transition-colors",
-                pathname === item.path ? "text-accent" : "text-foreground/70 hover:text-accent",
+                "w-full py-4 text-center text-lg transition-colors duration-200",
+                pathname === item.path ? "text-[#1d1d1f]" : "text-[#86868b] hover:text-[#1d1d1f]",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -115,10 +131,7 @@ export default function Navbar() {
           ))}
           <Link
             href="/search"
-            className={cn(
-              "w-full py-4 text-center text-lg font-medium transition-colors",
-              pathname === "/search" ? "text-accent" : "text-foreground/70 hover:text-accent",
-            )}
+            className="w-full py-4 text-center text-lg text-[#86868b] hover:text-[#1d1d1f] transition-colors duration-200"
             onClick={() => setIsMenuOpen(false)}
           >
             搜索

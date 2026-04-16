@@ -1,11 +1,12 @@
 import type React from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { TrackProvider } from "@/components/track-provider"
-import { Inter, Montserrat, Exo_2, Orbitron } from "next/font/google"
+import { Inter } from "next/font/google"
 import { siteConfig, openGraph, twitter } from "@/lib/seo-config"
 import type { Metadata } from "next"
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { ThemeColorMeta } from "@/components/theme-color"
 
 import "./globals.css"
 
@@ -15,23 +16,6 @@ const inter = Inter({
   display: 'swap', // ⚡ 防止字体阻塞渲染
 })
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: 'swap', // ⚡ 防止字体阻塞渲染
-})
-
-const exo2 = Exo_2({
-  subsets: ["latin"],
-  variable: "--font-exo2",
-  display: 'swap', // ⚡ 防止字体阻塞渲染
-})
-
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  variable: "--font-orbitron",
-  display: 'swap', // ⚡ 防止字体阻塞渲染
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -112,7 +96,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${montserrat.variable} ${exo2.variable} ${orbitron.variable} font-sans antialiased`}
+        className={`${inter.variable} font-sans antialiased`}
       >
         {/* Skip to main content link for accessibility */}
         <a 
@@ -121,8 +105,9 @@ export default function RootLayout({
         >
           跳转到主要内容
         </a>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" disableTransitionOnChange>
           <TrackProvider>
+            <ThemeColorMeta />
             <main id="main-content">{children}</main>
             <ScrollToTop />
           </TrackProvider>

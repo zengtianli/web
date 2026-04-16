@@ -4,6 +4,7 @@ import PageHeader from "@/components/page-header"
 import { BlogCard } from "@/components/card-components"
 import { getBlogPostsForTrack } from "@/lib/content"
 import { getServerTrack } from "@/lib/track-server"
+import { TRACK_PAGE_BG } from "@/lib/track-theme"
 
 export const metadata = {
   title: "技术博客 | 曾田力",
@@ -20,9 +21,9 @@ export default async function BlogPage({
   const posts = await getBlogPostsForTrack(track)
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className={`min-h-screen flex flex-col ${TRACK_PAGE_BG[track]}`}>
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-16 max-w-6xl">
+      <div className="flex-grow max-w-5xl mx-auto px-6 md:px-8 py-24 md:py-32">
         <PageHeader 
           title="技术博客" 
           description="分享水利工程、数据分析、机器学习等领域的技术经验和项目心得" 

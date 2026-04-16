@@ -1,22 +1,26 @@
 'use client'
 
 import { createContext, useContext, useState, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { type Track, DEFAULT_TRACK, TRACK_COOKIE, isValidTrack } from '@/lib/track'
 
 interface TrackContextValue {
   track: Track
+  /** null = 首页，无方向 */
+  activeDirection: Track | null
   setTrack: (t: Track) => void
+  clearTrack: () => void
 }
 
 const TrackContext = createContext<TrackContextValue>({
   track: DEFAULT_TRACK,
+  activeDirection: null,
   setTrack: () => {},
+  clearTrack: () => {},
 })
 
 /** 从 document.cookie 读取 track（纯客户端，避免服务端 cookies() 的 ByteString 崩溃） */
-function getInitialTrack(): Track {
-  if (typeof window === 'undefined') return DEFAULT_TRACK
+function getInitialTrack(): Track | null {
+  if (typeof window === 'undefined') return null
 
   // URL query 优先
   const params = new URLSearchParams(window.location.search)
@@ -28,23 +32,27 @@ function getInitialTrack(): Track {
   const fromCookie = match?.[1]
   if (fromCookie && isValidTrack(fromCookie)) return fromCookie
 
-  return DEFAULT_TRACK
+  return null
 }
 
 export function TrackProvider({ children }: { children: React.ReactNode }) {
   const [track, setTrackState] = useState<Track>(DEFAULT_TRACK)
-  const router = useRouter()
+  const [activeDirection, setActiveDirection] = useState<Track | null>(null)
 
   // 客户端初始化
   useEffect(() => {
     const initial = getInitialTrack()
-    setTrackState(initial)
-    document.body.setAttribute('data-track', initial)
+    if (initial) {
+      setTrackState(initial)
+      setActiveDirection(initial)
+      document.body.setAttribute('data-track', initial)
+    }
   }, [])
 
   const setTrack = useCallback(
     (t: Track) => {
       setTrackState(t)
+      setActiveDirection(t)
       // 写 cookie
       document.cookie = `${TRACK_COOKIE}=${t};path=/;max-age=${60 * 60 * 24 * 365};samesite=lax`
       // 立即更新 body data-track（CSS 变量即时生效）
@@ -57,14 +65,24 @@ export function TrackProvider({ children }: { children: React.ReactNode }) {
         url.searchParams.set('track', t)
       }
       window.history.replaceState({}, '', url.toString())
-      // 触发服务端组件重新渲染
-      router.refresh()
     },
-    [router]
+    []
   )
 
+  const clearTrack = useCallback(() => {
+    setTrackState(DEFAULT_TRACK)
+    setActiveDirection(null)
+    // 删 cookie
+    document.cookie = `${TRACK_COOKIE}=;path=/;max-age=0`
+    document.body.removeAttribute('data-track')
+    // 清 URL query
+    const url = new URL(window.location.href)
+    url.searchParams.delete('track')
+    window.history.replaceState({}, '', url.toString())
+  }, [])
+
   return (
-    <TrackContext.Provider value={{ track, setTrack }}>
+    <TrackContext.Provider value={{ track, setTrack, activeDirection, clearTrack }}>
       {children}
     </TrackContext.Provider>
   )

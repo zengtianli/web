@@ -1,38 +1,67 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import HeroSection from "@/components/hero-section"
-import { StrengthsSection } from "@/components/page-sections"
-import { LatestUpdates } from "@/components/card-components"
-import { TrackShowcase } from "@/components/track-showcase"
-import { getLatestUpdates } from "@/lib/content"
-import { getServerTrack } from "@/lib/track-server"
-import { getTrackHeroConfig, getTrackStrengths } from "@/lib/profile-config"
+import { DirectionCards } from "@/components/direction-card"
+import { TrackClearer } from "@/components/track-clearer"
+import { getAllProjects } from "@/lib/content"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 export const metadata = {
-  title: "曾田力 - 水利工程博士 | 数据驱动水利创新",
-  description: "曾田力，浙江大学水利工程博士，融合水利工程专业智慧与前沿信息技术，致力于通过数据分析、智能模型及软件系统研发，解决复杂水资源挑战。",
+  title: "曾田力 — 水利工程师 · AI 工程师 · 独立开发者",
+  description: "融合水利工程专业智慧与前沿信息技术，致力于通过数据分析、智能模型及软件系统研发，解决复杂水资源挑战。",
 }
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>
-}) {
-  const params = await searchParams
-  const track = await getServerTrack(params)
-  const heroResolved = getTrackHeroConfig(track)
-  const strengths = getTrackStrengths(track)
-  const latestUpdates = await getLatestUpdates()
+export default async function Home() {
+  const allProjects = await getAllProjects()
+  const featured = allProjects.filter(p => p.featured).slice(0, 4)
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen">
+      <TrackClearer />
       <Navbar />
-      <div className="flex-grow">
-        <HeroSection config={heroResolved} />
-        <StrengthsSection strengths={strengths} />
-        <TrackShowcase track={track} />
-        {track === 'hydro' && latestUpdates && <LatestUpdates data={latestUpdates} />}
-      </div>
+
+      {/* Hero */}
+      <HeroSection />
+
+      {/* Direction Cards */}
+      <section className="py-12 md:py-20 px-6 md:px-8">
+        <div className="max-w-5xl mx-auto">
+          <DirectionCards />
+        </div>
+      </section>
+
+      {/* Featured Work */}
+      {featured.length > 0 && (
+        <section className="py-24 md:py-32 px-6 md:px-8">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-semibold text-[#1d1d1f] mb-4">精选作品</h2>
+            <p className="text-[#86868b] mb-12">跨领域的代表性项目</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {featured.map((project) => (
+                <Link
+                  key={project.slug}
+                  href={`/projects/${project.slug}`}
+                  className="group block bg-white/50 backdrop-blur-xl border border-white/60 shadow-sm rounded-2xl p-6 md:p-8
+                    transition-all duration-300 hover:shadow-lg"
+                >
+                  <h3 className="text-lg font-semibold text-[#1d1d1f] mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-[#86868b] mb-4 line-clamp-2">
+                    {project.brief || project.description}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-[#0071e3] text-sm font-medium">
+                    查看详情
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <Footer />
     </main>
   )

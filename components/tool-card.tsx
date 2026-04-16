@@ -1,12 +1,8 @@
 /**
- * 工具卡片组件 - 简化版
- * 展示工具基本信息和链接，详情页另外处理
+ * 工具卡片组件 - Apple 风格
  */
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Github, ExternalLink, Star } from "lucide-react"
+import { Github, ExternalLink } from "lucide-react"
 
 interface Tool {
   id: string
@@ -15,7 +11,7 @@ interface Tool {
   techs: string[]
   github?: string
   gitee?: string
-  link?: string  // 内部链接
+  link?: string
 }
 
 interface ToolCardProps {
@@ -24,102 +20,41 @@ interface ToolCardProps {
 
 export default function ToolCard({ tool }: ToolCardProps) {
   return (
-    <Card className="w-full border-secondary bg-secondary/20 hover:shadow-lg transition-shadow duration-300">
-      <CardHeader>
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-          <div className="flex-1">
-            <CardTitle className="text-2xl mb-2">{tool.name}</CardTitle>
-            <CardDescription className="text-base leading-relaxed">
-              {tool.description}
-            </CardDescription>
-          </div>
-          
-          {/* 链接按钮 */}
-          <div className="flex gap-2">
-            {tool.link ? (
-              <Button 
-                variant="outline" 
-                size="sm"
-                asChild
-                className="hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
-              >
-                <a href={tool.link}>
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  打开工具
+    <div className="bg-white/50 backdrop-blur-xl border border-white/60 shadow-sm rounded-2xl p-6 md:p-8
+      transition-all duration-300 hover:shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+        <div className="flex-1">
+          <h3 className="text-xl font-semibold text-[#1d1d1f] mb-2">{tool.name}</h3>
+          <p className="text-sm text-[#86868b] leading-relaxed">{tool.description}</p>
+        </div>
+
+        <div className="flex gap-2 shrink-0">
+          {tool.link ? (
+            <a href={tool.link} className="flex items-center gap-1.5 text-sm text-[#0071e3] hover:text-[#0077ED] transition-colors border border-[#0071e3]/30 rounded-full px-4 py-1.5">
+              <ExternalLink className="h-3.5 w-3.5" />
+              打开
+            </a>
+          ) : (
+            <>
+              {tool.github && (
+                <a href={tool.github} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-[#0071e3] hover:text-[#0077ED] transition-colors border border-[#0071e3]/30 rounded-full px-4 py-1.5">
+                  <Github className="h-3.5 w-3.5" />
+                  GitHub
                 </a>
-              </Button>
-            ) : (
-              <>
-                {tool.github && (
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    asChild
-                    className="hover:bg-primary hover:text-primary-foreground transition-colors duration-150"
-                  >
-                    <a 
-                      href={tool.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      GitHub
-                    </a>
-                  </Button>
-                )}
-                {tool.gitee && (
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    asChild
-                    className="hover:bg-orange-500 hover:text-white transition-colors duration-150"
-                  >
-                    <a 
-                      href={tool.gitee} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Gitee
-                    </a>
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
+              )}
+            </>
+          )}
         </div>
+      </div>
 
-        {/* 技术标签 */}
-        <div className="flex flex-wrap gap-2 pt-2">
-          {tool.techs.map((tech) => (
-            <Badge key={tech} variant="secondary" className="text-xs">
-              {tech}
-            </Badge>
-          ))}
-        </div>
-      </CardHeader>
-
-      {/* 底部信息 */}
-      <CardContent className="pt-0">
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <div className="flex items-center gap-4">
-            {tool.link ? (
-              <span className="flex items-center gap-1">
-                <Star className="h-4 w-4" />
-                在线工具
-              </span>
-            ) : (
-              <>
-                <span className="flex items-center gap-1">
-                  <Star className="h-4 w-4" />
-                  开源项目
-                </span>
-                <span>MIT 许可证</span>
-              </>
-            )}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      <div className="flex flex-wrap gap-1.5">
+        {tool.techs.map((tech) => (
+          <span key={tech} className="text-xs text-[#86868b] border border-[#d2d2d7] rounded-full px-2.5 py-0.5">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }

@@ -19,10 +19,21 @@ export function isValidTrack(v: unknown): v is Track {
   return typeof v === 'string' && TRACKS.includes(v as Track)
 }
 
+/** 学术成果页按 track 的区块排序与高亮 */
+export const TRACK_RESEARCH_ORDER: Record<Track, {
+  sections: ('papers' | 'patents' | 'copyrights' | 'awards')[]
+  highlighted: ('papers' | 'patents' | 'copyrights' | 'awards')[]
+}> = {
+  hydro:    { sections: ['papers', 'patents', 'copyrights', 'awards'], highlighted: ['papers', 'patents', 'copyrights', 'awards'] },
+  ai:       { sections: ['papers', 'copyrights', 'patents', 'awards'], highlighted: ['papers'] },
+  devtools: { sections: ['copyrights', 'patents', 'papers', 'awards'], highlighted: ['copyrights'] },
+  indie:    { sections: ['patents', 'copyrights', 'awards', 'papers'], highlighted: ['patents', 'copyrights'] },
+}
+
 /** 博客 tag 到 track 的映射，用于按 track 过滤博客 */
 export const TRACK_BLOG_TAGS: Record<Track, string[]> = {
   hydro:    ['水利工程', '数字孪生', '智慧水利', '水资源', '生态流量', '水文'],
   ai:       ['AI', 'LLM', 'Claude', '提示工程', 'RAG', '机器学习', 'Agent'],
   devtools: ['开发工具', 'Neovim', 'CLI', 'Tauri', 'DevOps', '自动化'],
-  indie:    ['独立开发', '产品', 'SaaS', '创业', '全栈'],
+  indie:    ['独立开发', '产品', 'SaaS', '创业', '全栈', 'VPS', '投资', '期权', '量化'],
 }

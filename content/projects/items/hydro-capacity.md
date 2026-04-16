@@ -13,6 +13,9 @@ tracks:
   hydro:
     highlight: true
     featured: false
+  ai:
+    brief: "河道衰减模型的数值计算 + AI 辅助开发实践，从公式到产品的工程化路径。"
+    highlight: false
   devtools:
     brief: "Streamlit → Tauri 跨平台迁移实践，Python 计算引擎的桌面化封装。"
     highlight: false
