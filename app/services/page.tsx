@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import PageHeader from "@/components/page-header"
-import { ExternalLink, Activity, Server, Droplets, Code2, BookOpen, Shield, Globe } from "lucide-react"
+import { ExternalLink, Activity, Server, Droplets, Code2, BookOpen, Shield, Globe, TrendingUp } from "lucide-react"
 
 export const metadata = {
   title: "服务总览 | 曾田力",
@@ -36,16 +36,16 @@ const SERVICE_GROUPS: ServiceGroup[] = [
     icon: <Droplets className="h-5 w-5" />,
     color: "text-blue-600",
     services: [
-      { name: "Hydro Toolkit", subdomain: "hydro", description: "水利计算工具箱入口" },
-      { name: "年度水资源", subdomain: "hydro-annual", description: "年度水资源统计分析" },
-      { name: "库容分析", subdomain: "hydro-capacity", description: "水库库容曲线与调度" },
-      { name: "区域水资源", subdomain: "hydro-district", description: "行政区划水资源概况" },
-      { name: "水效评估", subdomain: "hydro-efficiency", description: "用水效率评价体系" },
-      { name: "水利地理编码", subdomain: "hydro-geocode", description: "水利设施地理编码检索" },
-      { name: "灌溉管理", subdomain: "hydro-irrigation", description: "灌区需水与灌溉制度" },
-      { name: "降雨分析", subdomain: "hydro-rainfall", description: "雨量频率与暴雨计算" },
-      { name: "水库监测", subdomain: "hydro-reservoir", description: "水库基础信息与监测" },
-      { name: "风险评估", subdomain: "hydro-risk", description: "洪水风险与预警分析" },
+      { name: "Hydro Toolkit", subdomain: "hydro", description: "水利计算工具集主平台，插件式集成多个计算模块" },
+      { name: "水资源年报", subdomain: "hydro-annual", description: "浙江省水资源年报查询，按地区年份筛选导出" },
+      { name: "纳污能力", subdomain: "hydro-capacity", description: "河流/水库纳污能力计算，支持分段与多方案对比" },
+      { name: "河区调度", subdomain: "hydro-district", description: "浙东河区调度模型，水平衡与分水枢纽计算" },
+      { name: "水效评估", subdomain: "hydro-efficiency", description: "工业集聚区水效评估（AHP+CRITIC+TOPSIS）" },
+      { name: "地理编码", subdomain: "hydro-geocode", description: "经纬度/地址互转与企业搜索（高德 API）" },
+      { name: "灌溉需水", subdomain: "hydro-irrigation", description: "灌溉需水量计算，上传数据计算并导出" },
+      { name: "降雨径流", subdomain: "hydro-rainfall", description: "概湖灌溉需水量计算（降雨径流 ETL 管线）" },
+      { name: "水库群调度", subdomain: "hydro-reservoir", description: "梯级水库群发电调度，参数配置与结果可视化" },
+      { name: "风险图数据", subdomain: "hydro-risk", description: "洪水风险图数据表填充（GeoJSON 三阶段 ETL）" },
     ],
   },
   {
@@ -53,12 +53,19 @@ const SERVICE_GROUPS: ServiceGroup[] = [
     icon: <Code2 className="h-5 w-5" />,
     color: "text-purple-600",
     services: [
-      { name: "Repo Dashboard", subdomain: "dashboard", description: "GitHub 仓库状态看板" },
-      { name: "CC 会话日志", subdomain: "cclog", description: "Claude Code 会话历史与知识检索" },
-      { name: "CC Chat", subdomain: "cc", description: "Claude Code 对话界面" },
-      { name: "Changelog", subdomain: "changelog", description: "配置生态变更日志" },
-      { name: "Auggie", subdomain: "auggie", description: "代码库语义搜索引擎" },
-      { name: "Dockit", subdomain: "dockit", description: "文档处理 API 服务" },
+      { name: "Repo Dashboard", subdomain: "dashboard", description: "项目控制台 — VPS 服务/任务/Git 提交总览" },
+      { name: "CC 会话日志", subdomain: "cclog", description: "CC 会话历史仪表盘，按项目/日期/关键词筛选" },
+      { name: "CC Changelog", subdomain: "changelog", description: "CC 自我进化系统变更日志，按阶段展示演进记录" },
+      { name: "Dockit", subdomain: "dockit", description: "文档处理工具箱 — Word/PPT/Excel 多格式处理" },
+      { name: "三省六部", subdomain: "board", description: "AI Agent 管理看板 — 模型切换与状态监控" },
+    ],
+  },
+  {
+    title: "投资工具",
+    icon: <TrendingUp className="h-5 w-5" />,
+    color: "text-green-600",
+    services: [
+      { name: "QQQ CC Dashboard", subdomain: "cc", description: "QQQ Covered Call 期权交易仪表盘" },
     ],
   },
   {
@@ -66,10 +73,8 @@ const SERVICE_GROUPS: ServiceGroup[] = [
     icon: <BookOpen className="h-5 w-5" />,
     color: "text-amber-600",
     services: [
-      { name: "文档站", subdomain: "docs", description: "技术文档与手册" },
-      { name: "有声书", subdomain: "audiobook", description: "Markdown 转有声书播放器" },
-      { name: "公示板", subdomain: "board", description: "水利公示与信息发布" },
-      { name: "图床", subdomain: "img", description: "图片托管服务 (Vercel)" },
+      { name: "知识库", subdomain: "docs", description: "Knowledge Dashboard — 文档/指南/知识检索" },
+      { name: "有声书", subdomain: "audiobook", description: "Markdown 转有声书，多音色选择与句级同步" },
     ],
   },
   {
