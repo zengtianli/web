@@ -315,6 +315,7 @@ export const navigationConfig = [
   { name: "研究", path: "/research" },
   { name: "博客", path: "/blog" },
   { name: "生活", path: "/life" },
+  { name: "服务", path: "/services" },
 ]
 
 // 品牌配置

@@ -3,6 +3,8 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import MarkdownRenderer from "@/components/markdown-renderer"
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/content"
+import { getServerTrack } from "@/lib/track-server"
+import { TRACK_PAGE_BG } from "@/lib/track-theme"
 import { Calendar, Clock, User, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -12,6 +14,7 @@ import type { Metadata } from "next"
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
 export async function generateStaticParams() {
@@ -42,8 +45,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params, searchParams }: BlogPostPageProps) {
   const { slug } = await params
+  const track = await getServerTrack(await searchParams)
   const post = await getBlogPostBySlug(slug)
 
   if (!post) {
@@ -60,7 +64,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className={`min-h-screen flex flex-col ${TRACK_PAGE_BG[track]}`}>
       <Navbar />
       <article className="flex-grow container mx-auto px-4 py-16 max-w-4xl">
         {/* 返回按钮 */}

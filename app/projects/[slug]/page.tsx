@@ -6,6 +6,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { getProjectBySlug, getAllProjects, ProjectContent } from "@/lib/content"
+import { getServerTrack } from "@/lib/track-server"
+import { TRACK_PAGE_BG } from "@/lib/track-theme"
 
 // 导入项目内容样式
 import "./project-content.css"
@@ -37,10 +39,11 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage({ params, searchParams }: { params: { slug: string }, searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   // Next.js 15中需要特殊处理params对象
   const safeParams = await Promise.resolve(params);
   const slug = safeParams.slug;
+  const track = await getServerTrack(await searchParams);
   const projectResult = await getProjectBySlug(slug);
 
   if (!projectResult) {
@@ -55,7 +58,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   const projectImage = project.thumbnail || project.image || "/placeholder.svg";
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className={`min-h-screen flex flex-col ${TRACK_PAGE_BG[track]}`}>
       <Navbar />
       <div className="flex-grow container mx-auto px-4 py-16 max-w-4xl">
         <Link href="/projects">

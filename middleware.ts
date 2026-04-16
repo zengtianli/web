@@ -40,7 +40,7 @@ export function middleware(request: NextRequest) {
 
   // Phase 2: Track cookie → URL searchParams 转发
   const { pathname, searchParams } = request.nextUrl
-  const isTrackFilteredPath = TRACK_FILTERED_PATHS.some(p => pathname === p)
+  const isTrackFilteredPath = TRACK_FILTERED_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'))
 
   if (isTrackFilteredPath && !searchParams.has('track') && safeCookieHeader) {
     const match = safeCookieHeader.match(new RegExp(`(?:^|;\\s*)${TRACK_COOKIE}=([^;]*)`))
