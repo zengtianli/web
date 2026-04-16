@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import PageHeader from "@/components/page-header"
-import { ExternalLink, Activity, Server, Droplets, Code2, BookOpen, Shield } from "lucide-react"
+import { ExternalLink, Activity, Server, Droplets, Code2, BookOpen, Shield, Globe } from "lucide-react"
 
 export const metadata = {
   title: "服务总览 | 曾田力",
@@ -12,7 +12,7 @@ interface Service {
   name: string
   subdomain: string
   description: string
-  icon?: string
+  url?: string // override for non-subdomain services
 }
 
 interface ServiceGroup {
@@ -23,6 +23,14 @@ interface ServiceGroup {
 }
 
 const SERVICE_GROUPS: ServiceGroup[] = [
+  {
+    title: "主站",
+    icon: <Globe className="h-5 w-5" />,
+    color: "text-[#1d1d1f]",
+    services: [
+      { name: "曾田力", subdomain: "tianlizeng.cloud", description: "个人网站 — 水利工程师 / AI 工程师 / 独立开发者", url: `https://tianlizeng.cloud` },
+    ],
+  },
   {
     title: "水利工具",
     icon: <Droplets className="h-5 w-5" />,
@@ -72,6 +80,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
       { name: "Uptime Kuma", subdomain: "status", description: "服务可用性监控" },
       { name: "n8n", subdomain: "n8n", description: "工作流自动化引擎" },
       { name: "Marzban", subdomain: "panel", description: "代理面板管理" },
+      { name: "Marzban 订阅", subdomain: "sub", description: "代理客户端订阅端点" },
       { name: "OAuth Proxy", subdomain: "proxy", description: "Cloudflare Access 认证代理" },
       { name: "Webhook", subdomain: "webhook", description: "GitHub Webhook 接收器" },
     ],
@@ -81,7 +90,7 @@ const SERVICE_GROUPS: ServiceGroup[] = [
 const DOMAIN = "tianlizeng.cloud"
 
 function ServiceCard({ service }: { service: Service }) {
-  const url = `https://${service.subdomain}.${DOMAIN}`
+  const url = service.url || `https://${service.subdomain}.${DOMAIN}`
   return (
     <a
       href={url}
