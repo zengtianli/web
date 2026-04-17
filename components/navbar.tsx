@@ -64,20 +64,24 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8" aria-label="主导航">
-          {navigationConfig.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={cn(
-                "text-sm transition-colors duration-200",
-                pathname === item.path
-                  ? "text-[#1d1d1f]"
-                  : "text-[#86868b] hover:text-[#1d1d1f]",
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigationConfig.map((item) => {
+            const isExternal = (item as any).external === true
+            const className = cn(
+              "text-sm transition-colors duration-200",
+              pathname === item.path
+                ? "text-[#1d1d1f]"
+                : "text-[#86868b] hover:text-[#1d1d1f]",
+            )
+            return isExternal ? (
+              <a key={item.path} href={item.path} target="_blank" rel="noopener" className={className}>
+                {item.name}
+              </a>
+            ) : (
+              <Link key={item.path} href={item.path} className={className}>
+                {item.name}
+              </Link>
+            )
+          })}
           <Link
             href="/search"
             className={cn(
@@ -116,19 +120,22 @@ export default function Navbar() {
           className={`fixed inset-0 top-16 ${activeDirection ? NAV_BG[activeDirection].replace('/80', '/95') : 'bg-[#fbfbfd]/95'} backdrop-blur-xl z-40 flex flex-col items-center pt-12`}
           aria-label="移动端导航"
         >
-          {navigationConfig.map((item) => (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={cn(
-                "w-full py-4 text-center text-lg transition-colors duration-200",
-                pathname === item.path ? "text-[#1d1d1f]" : "text-[#86868b] hover:text-[#1d1d1f]",
-              )}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigationConfig.map((item) => {
+            const isExternal = (item as any).external === true
+            const className = cn(
+              "w-full py-4 text-center text-lg transition-colors duration-200",
+              pathname === item.path ? "text-[#1d1d1f]" : "text-[#86868b] hover:text-[#1d1d1f]",
+            )
+            return isExternal ? (
+              <a key={item.path} href={item.path} target="_blank" rel="noopener" className={className} onClick={() => setIsMenuOpen(false)}>
+                {item.name}
+              </a>
+            ) : (
+              <Link key={item.path} href={item.path} className={className} onClick={() => setIsMenuOpen(false)}>
+                {item.name}
+              </Link>
+            )
+          })}
           <Link
             href="/search"
             className="w-full py-4 text-center text-lg text-[#86868b] hover:text-[#1d1d1f] transition-colors duration-200"
