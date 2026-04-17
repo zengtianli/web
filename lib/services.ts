@@ -61,7 +61,7 @@ export const SERVICE_GROUPS: ServiceGroupConfig[] = [
     icon: "trending-up",
     color: "text-green-600",
     services: [
-      { name: "QQQ CC Dashboard", subdomain: "cc", description: "QQQ Covered Call 期权交易仪表盘", port: 8521, accessType: "cf-access" },
+      { name: "QQQ CC Dashboard", subdomain: "cc-options", description: "QQQ Covered Call 期权交易仪表盘", port: 8521, accessType: "cf-access" },
     ],
   },
   {
