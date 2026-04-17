@@ -53,6 +53,7 @@ export const SERVICE_GROUPS: ServiceGroupConfig[] = [
       { name: "Dockit", subdomain: "dockit", description: "文档处理工具箱 — Word/PPT/Excel 多格式处理", port: 8503 },
       { name: "Stack", subdomain: "stack", description: "~/Dev 项目架构说明书", accessType: "cf-access" },
       { name: "CC Docs", subdomain: "cmds", description: "CC 命令 & 技能说明书", accessType: "cf-access" },
+      { name: "Journal", subdomain: "journal", description: "HANDOFF / 方案 / 复盘时间线", accessType: "cf-access" },
     ],
   },
   {
