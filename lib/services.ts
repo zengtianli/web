@@ -51,7 +51,6 @@ export const SERVICE_GROUPS: ServiceGroupConfig[] = [
       { name: "CC 会话日志", subdomain: "cclog", description: "CC 会话历史仪表盘，按项目/日期/关键词筛选", port: 8898 },
       { name: "CC Changelog", subdomain: "changelog", description: "CC 自我进化系统变更日志，按阶段展示演进记录" },
       { name: "Dockit", subdomain: "dockit", description: "文档处理工具箱 — Word/PPT/Excel 多格式处理", port: 8503 },
-      { name: "Auggie Index", subdomain: "auggie", description: "代码库向量索引状态可视化", port: 8522 },
       { name: "Stack", subdomain: "stack", description: "~/Dev 项目架构说明书", accessType: "cf-access" },
       { name: "CC Docs", subdomain: "cmds", description: "CC 命令 & 技能说明书", accessType: "cf-access" },
     ],
