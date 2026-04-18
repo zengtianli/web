@@ -54,6 +54,7 @@ export const SERVICE_GROUPS: ServiceGroupConfig[] = [
       { name: "Stack", subdomain: "stack", description: "~/Dev 项目架构说明书", accessType: "cf-access" },
       { name: "CC Docs", subdomain: "cmds", description: "CC 命令 & 技能说明书", accessType: "cf-access" },
       { name: "Journal", subdomain: "journal", description: "HANDOFF / 方案 / 复盘时间线", accessType: "cf-access" },
+      { name: "Playbooks", subdomain: "playbooks", description: "工作方法论 × 命令映射 — 标书/生态流量/再生水", accessType: "cf-access" },
     ],
   },
   {
