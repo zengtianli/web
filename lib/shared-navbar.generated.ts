@@ -348,6 +348,11 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
           "title": "投资",
           "items": [
             {
+              "label": "理财笔记",
+              "url": "https://assets.tianlizeng.cloud",
+              "key": "assets"
+            },
+            {
               "label": "QQQ CC Dashboard",
               "url": "https://cc-options.tianlizeng.cloud",
               "key": "cc-options",
@@ -425,4 +430,4 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
 
 export const SHARED_NO_CURRENT_HOSTS: string[] = ["hammerspoon.tianlizeng.cloud", "audiobook.tianlizeng.cloud", "auggie.tianlizeng.cloud", "proxy.tianlizeng.cloud"]
 
-export const SHARED_CURRENT_HOST_MAP: Record<string, string> = {"stack.tianlizeng.cloud": "home", "cmds.tianlizeng.cloud": "home", "dashboard.tianlizeng.cloud": "dev", "logs.tianlizeng.cloud": "content", "docs.tianlizeng.cloud": "content", "audiobook.tianlizeng.cloud": "content", "cclog.tianlizeng.cloud": "content", "playbooks.tianlizeng.cloud": "content", "cc-options.tianlizeng.cloud": "content", "status.tianlizeng.cloud": "infra", "n8n.tianlizeng.cloud": "infra", "panel.tianlizeng.cloud": "infra", "sub.tianlizeng.cloud": "infra", "webhook.tianlizeng.cloud": "infra"}
+export const SHARED_CURRENT_HOST_MAP: Record<string, string> = {"stack.tianlizeng.cloud": "home", "cmds.tianlizeng.cloud": "home", "dashboard.tianlizeng.cloud": "dev", "logs.tianlizeng.cloud": "content", "docs.tianlizeng.cloud": "content", "audiobook.tianlizeng.cloud": "content", "cclog.tianlizeng.cloud": "content", "playbooks.tianlizeng.cloud": "content", "cc-options.tianlizeng.cloud": "content", "assets.tianlizeng.cloud": "content", "status.tianlizeng.cloud": "infra", "n8n.tianlizeng.cloud": "infra", "panel.tianlizeng.cloud": "infra", "sub.tianlizeng.cloud": "infra", "webhook.tianlizeng.cloud": "infra"}

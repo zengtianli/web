@@ -61,6 +61,7 @@ export const SERVICE_GROUPS: ServiceGroupConfig[] = [
     icon: "trending-up",
     color: "text-green-600",
     services: [
+      { name: "理财笔记", subdomain: "assets", description: "国际资产配置公开笔记 — 换汇 / 投资 / 香港银行 / 策略分析" },
       { name: "QQQ CC Dashboard", subdomain: "cc-options", description: "QQQ Covered Call 期权交易仪表盘", port: 8521, accessType: "cf-access" },
     ],
   },
