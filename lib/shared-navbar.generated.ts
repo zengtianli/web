@@ -4,6 +4,7 @@
 
 export interface SharedNavLink { label: string; url: string; key: string; matchHost?: string; matchPath?: string }
 export interface SharedBrand { label: string; url: string; key: string }
+export interface SecondaryLink { label: string; path: string; key: string }
 
 export const SHARED_BRAND: SharedBrand = { label: "曾田力", url: "https://tianlizeng.cloud/", key: "home" }
 
@@ -13,6 +14,14 @@ export const SHARED_LINKS: SharedNavLink[] = [
   { label: "CC Docs", url: "https://cmds.tianlizeng.cloud", key: "cmds", matchHost: "cmds.tianlizeng.cloud" },
   { label: "Dashboard", url: "https://dashboard.tianlizeng.cloud", key: "dashboard", matchHost: "dashboard.tianlizeng.cloud" },
   { label: "Logs", url: "https://logs.tianlizeng.cloud", key: "logs", matchHost: "logs.tianlizeng.cloud" },
+]
+
+export const SECONDARY_LINKS: SecondaryLink[] = [
+  { label: "关于我", path: "/about", key: "about" },
+  { label: "作品", path: "/projects", key: "projects" },
+  { label: "研究", path: "/research", key: "research" },
+  { label: "博客", path: "/blog", key: "blog" },
+  { label: "生活", path: "/life", key: "life" },
 ]
 
 export const SHARED_NO_CURRENT_HOSTS: string[] = ["hammerspoon.tianlizeng.cloud", "audiobook.tianlizeng.cloud", "auggie.tianlizeng.cloud", "proxy.tianlizeng.cloud"]
