@@ -110,6 +110,7 @@ export default function RootLayout({
             <ThemeColorMeta />
             <main id="main-content">{children}</main>
             <ScrollToTop />
+            <ServiceWorkerRegister />
           </TrackProvider>
         </ThemeProvider>
         <GoogleAnalytics gaId="G-0SLC09HKNF" />
