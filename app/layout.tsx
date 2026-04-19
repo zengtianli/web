@@ -109,7 +109,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" disableTransitionOnChange>
           <TrackProvider>
             <ThemeColorMeta />
-            <main id="main-content" className="pt-11 md:pt-[88px]">{children}</main>
+            <main id="main-content" className="pt-11">{children}</main>
             <ScrollToTop />
             <ServiceWorkerRegister />
           </TrackProvider>
