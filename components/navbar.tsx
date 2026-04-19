@@ -44,7 +44,7 @@ export default function Navbar() {
       {showTrackLine && (
         <div
           className={cn(
-            "fixed top-11 inset-x-0 h-[2px] z-[9998] transition-all duration-500",
+            "fixed top-16 inset-x-0 h-[2px] z-[9998] transition-all duration-500",
             TRACK_LINE_COLORS[activeDirection] || "bg-gray-200",
           )}
         />

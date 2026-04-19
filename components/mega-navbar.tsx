@@ -6,7 +6,7 @@ import {
   MEGA_CATEGORIES,
   SHARED_NO_CURRENT_HOSTS,
   SHARED_CURRENT_HOST_MAP,
-  type MegaCategory,
+  type MegaGroup,
   type MegaItem,
 } from "@/lib/shared-navbar.generated"
 import { cn } from "@/lib/utils"
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils"
 type MegaNavbarProps = {
   /** Force a specific current category key (otherwise derived from window.location). */
   currentKey?: string
-  /** Extra content rendered at the right of the top bar (before hamburger), e.g. search icon. */
+  /** Extra content rendered at the right of the top bar. */
   rightSlot?: ReactNode
   /** Additional class for the outer stack wrapper. */
   className?: string
@@ -29,16 +29,26 @@ function resolveCurrentKey(host: string): string | null {
   return null
 }
 
-function MegaItemLink({ item }: { item: MegaItem }) {
+function ItemLink({ item, dark }: { item: MegaItem; dark?: boolean }) {
   return (
     <a
       href={item.url}
       role="menuitem"
-      className="flex items-center justify-between py-1.5 text-[13.5px] text-[#1f2328] hover:text-[#0071E3] transition-colors"
+      className={cn(
+        "inline-flex items-center gap-2 text-[14px] leading-[28px] font-normal transition-colors",
+        dark ? "text-[#C8CCD0] hover:text-white" : "text-[#333333] hover:text-[#D40000]",
+      )}
     >
       <span>{item.label}</span>
       {item.access === "cf-access" && (
-        <span className="ml-2 shrink-0 text-[9px] font-medium uppercase tracking-wider text-[#86868b] border border-black/15 rounded px-[5px] py-[2px]">
+        <span
+          className={cn(
+            "inline-flex items-center h-[18px] px-1.5 text-[10px] font-medium tracking-[0.05em] rounded-[3px] border",
+            dark
+              ? "text-[#C8CCD0] border-[#6B7177]"
+              : "text-[#6B7177] border-[#BFBFBF]",
+          )}
+        >
           CF
         </span>
       )}
@@ -46,23 +56,26 @@ function MegaItemLink({ item }: { item: MegaItem }) {
   )
 }
 
-function MegaPanelBody({ category }: { category: MegaCategory }) {
+function Group({ group, dark }: { group: MegaGroup; dark?: boolean }) {
   return (
-    <div className="max-w-[1500px] mx-auto px-5 py-7 md:pb-8 grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-7 md:gap-x-9">
-      {category.sections.map((sec) => (
-        <div key={sec.title}>
-          <h3 className="font-semibold text-[11px] leading-tight uppercase tracking-wider text-[#86868b] mb-2.5">
-            {sec.title}
-          </h3>
-          <ul className="list-none p-0 m-0">
-            {sec.items.map((it) => (
-              <li key={it.url}>
-                <MegaItemLink item={it} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className="mb-6 last:mb-0">
+      <h3
+        className={cn(
+          "m-0 mb-3",
+          dark
+            ? "text-[13px] font-semibold text-white uppercase tracking-[0.08em]"
+            : "text-[15px] font-semibold text-black",
+        )}
+      >
+        {group.title}
+      </h3>
+      <ul className="list-none p-0 m-0">
+        {group.items.map((it) => (
+          <li key={it.url}>
+            <ItemLink item={it} dark={dark} />
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -89,7 +102,7 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
 
   const scheduleHide = useCallback(() => {
     clearHide()
-    hideTimer.current = setTimeout(() => setActiveKey(null), 160)
+    hideTimer.current = setTimeout(() => setActiveKey(null), 150)
   }, [clearHide])
 
   const openPanel = useCallback(
@@ -120,30 +133,34 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
     }
   }, [])
 
+  const activeCat = MEGA_CATEGORIES.find((c) => c.key === activeKey) || null
+
   return (
     <div
       ref={stackRef}
-      data-mobile-open={mobileOpen ? "true" : "false"}
-      className={cn("fixed top-0 inset-x-0 z-[9999] font-medium text-[13px]", className)}
+      className={cn(
+        "fixed top-0 inset-x-0 z-[9999] font-normal text-[15px]",
+        "[font-family:-apple-system,BlinkMacSystemFont,'PingFang_SC','Helvetica_Neue',sans-serif]",
+        className,
+      )}
     >
+      {/* ===== Brand bar ===== */}
       <nav
-        className="h-11 flex items-center border-b border-black/[0.08]"
-        style={{
-          background: "rgba(255,255,255,0.85)",
-          WebkitBackdropFilter: "saturate(180%) blur(20px)",
-          backdropFilter: "saturate(180%) blur(20px)",
-        }}
+        className="h-16 bg-white border-b border-[#E5E5E5] flex items-center"
         aria-label="站群导航"
       >
-        <div className="max-w-[1500px] w-full mx-auto px-3 md:px-5 flex items-center gap-3 md:gap-5">
+        <div className="max-w-[1280px] w-full mx-auto px-6 flex items-center">
           <a
             href={SHARED_BRAND.url}
-            className="font-bold text-[#1f2328] hover:text-[#0071E3] transition-colors shrink-0"
+            className="text-[18px] font-medium text-black hover:text-[#D40000] transition-colors no-underline"
           >
             {SHARED_BRAND.label}
           </a>
-          <span className="hidden md:inline-block w-px h-[18px] bg-black/[0.12]" aria-hidden="true" />
-          <div className="hidden md:flex items-center gap-1 flex-1" role="menubar">
+          <span
+            aria-hidden="true"
+            className="hidden md:inline-block w-px h-8 bg-[#E5E5E5] mx-6"
+          />
+          <div className="hidden md:flex items-center gap-8 flex-1" role="menubar">
             {MEGA_CATEGORIES.map((cat) => {
               const isActive = activeKey === cat.key
               const isCurrent = resolvedCurrent === cat.key
@@ -162,16 +179,20 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
                     setActiveKey(isActive ? null : cat.key)
                   }}
                   className={cn(
-                    "px-2.5 py-1.5 rounded-md inline-flex items-center gap-1 transition-colors",
-                    isCurrent ? "text-[#1d1d1f] font-semibold" : "text-[#6b7280]",
-                    "hover:bg-black/[0.05] hover:text-[#1f2328]",
-                    isActive && "bg-black/[0.05] text-[#1f2328]",
+                    "bg-transparent border-0 font-inherit cursor-pointer py-2",
+                    "inline-flex items-center gap-1 transition-colors",
+                    "text-[15px]",
+                    isActive || isCurrent ? "text-black font-medium" : "text-[#333333] font-normal",
+                    "hover:text-black",
                   )}
                 >
                   <span>{cat.label}</span>
                   <span
                     aria-hidden="true"
-                    className={cn("text-[9px] opacity-55 transition-transform", isActive && "rotate-180")}
+                    className={cn(
+                      "text-[12px] opacity-60 transition-transform duration-[180ms] ease-out",
+                      isActive && "rotate-180",
+                    )}
                   >
                     ▾
                   </span>
@@ -179,10 +200,10 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
               )
             })}
           </div>
-          <div className="hidden md:flex items-center gap-1 ml-auto shrink-0">{rightSlot}</div>
+          <div className="hidden md:flex items-center gap-2 ml-auto shrink-0">{rightSlot}</div>
           <button
             type="button"
-            className="md:hidden ml-auto p-1.5 text-[#6b7280] hover:text-[#1f2328]"
+            className="md:hidden ml-auto p-2 text-[#333333] hover:text-black text-[20px]"
             aria-label={mobileOpen ? "关闭菜单" : "打开菜单"}
             aria-expanded={mobileOpen}
             onClick={() => {
@@ -195,7 +216,7 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
         </div>
       </nav>
 
-      {/* Desktop mega panels */}
+      {/* ===== Desktop mega panels (render all, toggle data-open) ===== */}
       {MEGA_CATEGORIES.map((cat) => {
         const isOpen = activeKey === cat.key
         return (
@@ -204,72 +225,97 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
             id={`mega-panel-${cat.key}`}
             role="menu"
             aria-label={cat.label}
-            hidden={!isOpen}
             onMouseEnter={clearHide}
             onMouseLeave={scheduleHide}
-            className="hidden md:block fixed top-11 inset-x-0 border-b border-black/[0.08] shadow-[0_14px_40px_rgba(0,0,0,0.08)] max-h-[calc(100vh-44px)] overflow-y-auto"
+            className={cn(
+              "hidden md:block fixed top-16 inset-x-0 bg-[#F5F5F5]",
+              "shadow-[0_8px_16px_-8px_rgba(0,0,0,0.08)]",
+              "transition-[opacity,transform] duration-[180ms] ease-out",
+              isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1 pointer-events-none",
+            )}
             style={{
-              background: "rgba(255,255,255,0.96)",
-              WebkitBackdropFilter: "saturate(180%) blur(24px)",
-              backdropFilter: "saturate(180%) blur(24px)",
+              minHeight: 320,
+              maxHeight: "calc(100vh - 64px)",
+              overflowY: "auto",
+              visibility: isOpen ? "visible" : "hidden",
             }}
           >
-            <MegaPanelBody category={cat} />
+            <div className="max-w-[1280px] w-full mx-auto flex relative min-h-[320px]">
+              {/* 浅灰区 · 3 列 */}
+              <div className="flex-[3] grid grid-cols-3 gap-0 py-10 px-12">
+                {cat.light_columns.map((colSections, ci) => (
+                  <div
+                    key={ci}
+                    className={cn(
+                      "px-6",
+                      ci === 0 && "pl-0",
+                      ci === 2 && "pr-0 border-r-0",
+                      ci !== 2 && "border-r border-[#D8D8D8]",
+                    )}
+                  >
+                    {colSections.map((sec) => (
+                      <Group key={sec.title} group={sec} />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              {/* 深色区 · 1 列 + 出血 */}
+              <div className="flex-1 bg-[#2B2F33] py-10 pl-10 pr-8 relative">
+                {cat.dark_column.map((sec) => (
+                  <Group key={sec.title} group={sec} dark />
+                ))}
+                {/* 深色出血到视口右边缘 */}
+                <div
+                  aria-hidden="true"
+                  className="absolute top-0 bottom-0 left-full bg-[#2B2F33] pointer-events-none"
+                  style={{ width: "100vw" }}
+                />
+              </div>
+            </div>
           </div>
         )
       })}
 
-      {/* Mobile full-screen accordion */}
+      {/* ===== Mobile full-screen accordion ===== */}
       {mobileOpen && (
         <div
-          className="md:hidden fixed top-11 inset-x-0 bottom-0 overflow-y-auto border-t border-black/[0.05]"
-          style={{
-            background: "rgba(255,255,255,0.98)",
-            WebkitBackdropFilter: "saturate(180%) blur(24px)",
-            backdropFilter: "saturate(180%) blur(24px)",
-          }}
+          className="md:hidden fixed top-16 inset-x-0 bottom-0 bg-white overflow-y-auto border-t border-[#E5E5E5] z-[10000]"
         >
           {MEGA_CATEGORIES.map((cat) => {
             const isOpen = activeKey === cat.key
             return (
-              <div key={cat.key} className="border-b border-black/[0.05]">
+              <div key={cat.key} className="border-b border-[#E5E5E5]">
                 <button
                   type="button"
                   onClick={() => setActiveKey(isOpen ? null : cat.key)}
-                  className="flex w-full items-center justify-between px-5 py-3.5 text-[15px] text-[#1f2328]"
+                  className="flex w-full items-center justify-between px-5 py-4 text-[16px] text-[#333333]"
                   aria-expanded={isOpen}
                 >
-                  <span className={cn("font-medium", resolvedCurrent === cat.key && "font-semibold")}>
+                  <span className={cn("font-normal", resolvedCurrent === cat.key && "text-black font-medium")}>
                     {cat.label}
                   </span>
-                  <span className={cn("text-[11px] opacity-55 transition-transform", isOpen && "rotate-180")}>
+                  <span className={cn("text-[12px] opacity-60 transition-transform", isOpen && "rotate-180")}>
                     ▾
                   </span>
                 </button>
                 {isOpen && (
-                  <div className="px-8 pb-3">
-                    {cat.sections.map((sec) => (
-                      <div key={sec.title} className="mb-4">
-                        <h3 className="font-semibold text-[11px] uppercase tracking-wider text-[#86868b] mb-1.5">
-                          {sec.title}
-                        </h3>
-                        <ul className="list-none p-0 m-0">
-                          {sec.items.map((it) => (
-                            <li key={it.url}>
-                              <MegaItemLink item={it} />
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <div className="bg-[#F5F5F5] px-5 pb-4 pt-2">
+                    {cat.light_columns.flat().map((sec) => (
+                      <Group key={`l-${sec.title}`} group={sec} />
                     ))}
+                    {cat.dark_column.length > 0 && (
+                      <div className="bg-[#2B2F33] -mx-5 mt-4 px-5 py-4">
+                        {cat.dark_column.map((sec) => (
+                          <Group key={`d-${sec.title}`} group={sec} dark />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
             )
           })}
-          <div className="px-5 py-6 text-center text-[13px] text-[#86868b]">
-            {rightSlot}
-          </div>
+          <div className="px-5 py-6 text-center text-[13px] text-[#86868b]">{rightSlot}</div>
         </div>
       )}
     </div>
