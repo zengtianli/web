@@ -11,9 +11,8 @@ export const SHARED_LINKS: SharedNavLink[] = [
   { label: "Services", url: "https://tianlizeng.cloud/services", key: "services", matchPath: "/services" },
   { label: "Stack", url: "https://stack.tianlizeng.cloud", key: "stack", matchHost: "stack.tianlizeng.cloud" },
   { label: "CC Docs", url: "https://cmds.tianlizeng.cloud", key: "cmds", matchHost: "cmds.tianlizeng.cloud" },
-  { label: "Changelog", url: "https://changelog.tianlizeng.cloud", key: "changelog", matchHost: "changelog.tianlizeng.cloud" },
   { label: "Dashboard", url: "https://dashboard.tianlizeng.cloud", key: "dashboard", matchHost: "dashboard.tianlizeng.cloud" },
-  { label: "Journal", url: "https://journal.tianlizeng.cloud", key: "journal", matchHost: "journal.tianlizeng.cloud" },
+  { label: "Logs", url: "https://logs.tianlizeng.cloud", key: "logs", matchHost: "logs.tianlizeng.cloud" },
 ]
 
 export const SHARED_NO_CURRENT_HOSTS: string[] = ["hammerspoon.tianlizeng.cloud", "audiobook.tianlizeng.cloud", "auggie.tianlizeng.cloud", "proxy.tianlizeng.cloud"]

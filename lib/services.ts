@@ -49,11 +49,10 @@ export const SERVICE_GROUPS: ServiceGroupConfig[] = [
     services: [
       { name: "Repo Dashboard", subdomain: "dashboard", description: "项目控制台 — VPS 服务/任务/Git 提交总览", port: 8520 },
       { name: "CC 会话日志", subdomain: "cclog", description: "CC 会话历史仪表盘，按项目/日期/关键词筛选", port: 8898 },
-      { name: "CC Changelog", subdomain: "changelog", description: "CC 自我进化系统变更日志，按阶段展示演进记录" },
+      { name: "Logs", subdomain: "logs", description: "HANDOFF / 方案 / 复盘 / CC 进化 — 统一时间线", accessType: "cf-access" },
       { name: "Dockit", subdomain: "dockit", description: "文档处理工具箱 — Word/PPT/Excel 多格式处理", port: 8503 },
       { name: "Stack", subdomain: "stack", description: "~/Dev 项目架构说明书", accessType: "cf-access" },
       { name: "CC Docs", subdomain: "cmds", description: "CC 命令 & 技能说明书", accessType: "cf-access" },
-      { name: "Journal", subdomain: "journal", description: "HANDOFF / 方案 / 复盘时间线", accessType: "cf-access" },
       { name: "Playbooks", subdomain: "playbooks", description: "工作方法论 × 命令映射 — 标书/生态流量/再生水", accessType: "cf-access" },
     ],
   },

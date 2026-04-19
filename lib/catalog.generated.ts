@@ -25,7 +25,7 @@ export interface CatalogEntry {
 
 export const CATALOG = ({
   "meta": {
-    "generated_at": "2026-04-19T10:38:56",
+    "generated_at": "2026-04-19T11:37:11",
     "sources": [
       "~/Dev/website/lib/services.ts",
       "~/Dev/configs/menus/sites/*.yaml",
@@ -238,16 +238,16 @@ export const CATALOG = ({
       "path": "~/Dev/cclog"
     },
     {
-      "id": "sub:changelog",
+      "id": "sub:logs",
       "type": "subdomain",
-      "name": "CC Changelog",
-      "subdomain": "changelog",
-      "url": "https://changelog.tianlizeng.cloud",
-      "access_type": "public",
+      "name": "Logs",
+      "subdomain": "logs",
+      "url": "https://logs.tianlizeng.cloud",
+      "access_type": "cf-access",
       "group": "开发与 AI",
-      "description": "CC 自我进化系统变更日志，按阶段展示演进记录",
-      "source": "cc-evolution",
-      "path": "~/Dev/cc-evolution"
+      "description": "HANDOFF / 方案 / 复盘 / CC 进化 — 统一时间线",
+      "source": "logs",
+      "path": "~/Dev/logs"
     },
     {
       "id": "sub:dockit",
@@ -349,18 +349,6 @@ export const CATALOG = ({
           "path": "#杂项"
         }
       ]
-    },
-    {
-      "id": "sub:journal",
-      "type": "subdomain",
-      "name": "Journal",
-      "subdomain": "journal",
-      "url": "https://journal.tianlizeng.cloud",
-      "access_type": "cf-access",
-      "group": "开发与 AI",
-      "description": "HANDOFF / 方案 / 复盘时间线",
-      "source": "journal",
-      "path": "~/Dev/journal"
     },
     {
       "id": "sub:playbooks",
