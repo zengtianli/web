@@ -3,11 +3,19 @@
 import { useState, useEffect, useCallback } from 'react'
 import {
   ExternalLink, Lock, Search, Activity, Server, RefreshCw,
-  Droplets, Code2, BookOpen, Shield, Globe, TrendingUp,
+  Droplets, Code2, BookOpen, Shield, Globe, TrendingUp, ChevronDown,
 } from 'lucide-react'
 import type { ServiceConfig, ServiceGroupConfig } from '@/lib/services'
+import { CATALOG, type CatalogSubPage } from '@/lib/catalog.generated'
 
 const DOMAIN = 'tianlizeng.cloud'
+
+// Lookup: subdomain → sub_pages from catalog.yaml (e.g. dashboard → 概览/Auggie/Hammerspoon)
+const SUB_PAGES_BY_SUB: Record<string, CatalogSubPage[]> = Object.fromEntries(
+  CATALOG.entries
+    .filter((e) => e.subdomain && e.sub_pages && e.sub_pages.length > 0)
+    .map((e) => [e.subdomain!, e.sub_pages!])
+)
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   globe: Globe,
@@ -47,35 +55,68 @@ function ServiceCard({
 }: {
   service: ServiceConfig; status?: ServiceStatus; loading: boolean
 }) {
+  const [expanded, setExpanded] = useState(false)
   const url = service.url || `https://${service.subdomain}.${DOMAIN}`
+  const subPages = SUB_PAGES_BY_SUB[service.subdomain] || []
+  const hasSubPages = subPages.length > 0
+
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex items-center gap-3 bg-white/50 backdrop-blur-xl border border-white/60
-        rounded-xl px-4 py-3 transition-all duration-200 hover:shadow-md hover:bg-white/70"
-    >
-      <StatusDot status={status} loading={loading} />
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-[#1d1d1f] truncate">{service.name}</span>
-          <span className="text-[10px] text-[#86868b] font-mono shrink-0">{service.subdomain}</span>
-          {service.accessType === 'cf-access' && (
-            <Lock className="h-3 w-3 text-[#86868b] shrink-0" title="Cloudflare Access" />
+    <div className="group bg-white/50 backdrop-blur-xl border border-white/60 rounded-xl
+      transition-all duration-200 hover:shadow-md hover:bg-white/70">
+      <div className="flex items-center gap-3 px-4 py-3">
+        <StatusDot status={status} loading={loading} />
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="min-w-0 flex-1"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-[#1d1d1f] truncate">{service.name}</span>
+            <span className="text-[10px] text-[#86868b] font-mono shrink-0">{service.subdomain}</span>
+            {service.accessType === 'cf-access' && (
+              <Lock className="h-3 w-3 text-[#86868b] shrink-0" title="Cloudflare Access" />
+            )}
+          </div>
+          <p className="text-xs text-[#86868b] mt-0.5 truncate">{service.description}</p>
+        </a>
+        <div className="flex items-center gap-2 shrink-0">
+          {status?.status === 'up' && status.responseTime != null && (
+            <span className="text-[10px] text-[#86868b] font-mono tabular-nums">
+              {status.responseTime}ms
+            </span>
+          )}
+          {hasSubPages ? (
+            <button
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExpanded((v) => !v) }}
+              className="p-1 -m-1 text-[#86868b] hover:text-[#1d1d1f] transition-colors"
+              title={`${subPages.length} 个子页面`}
+              aria-expanded={expanded}
+            >
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+            </button>
+          ) : (
+            <ExternalLink className="h-3.5 w-3.5 text-[#86868b] opacity-0 group-hover:opacity-100 transition-opacity" />
           )}
         </div>
-        <p className="text-xs text-[#86868b] mt-0.5 truncate">{service.description}</p>
       </div>
-      <div className="flex items-center gap-2 shrink-0">
-        {status?.status === 'up' && status.responseTime != null && (
-          <span className="text-[10px] text-[#86868b] font-mono tabular-nums">
-            {status.responseTime}ms
-          </span>
-        )}
-        <ExternalLink className="h-3.5 w-3.5 text-[#86868b] opacity-0 group-hover:opacity-100 transition-opacity" />
-      </div>
-    </a>
+      {hasSubPages && expanded && (
+        <ul className="border-t border-black/5 px-4 py-2 flex flex-wrap gap-x-4 gap-y-1">
+          {subPages.map((sp) => (
+            <li key={sp.path} className="text-xs">
+              <a
+                href={sp.path.startsWith('/') ? `${url}${sp.path}` : sp.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#0071e3] hover:underline"
+              >
+                {sp.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
 
