@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "python3 scripts/sync-menu.py && python3 scripts/sync-catalog.py",
     "dev": "next dev -p 3005",
+    "prebuild": "python3 scripts/sync-menu.py && python3 scripts/sync-catalog.py",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

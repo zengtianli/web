@@ -308,17 +308,10 @@ export function getTrackStrengths(track: Track): StrengthConfig[] {
   return strengthsTrackConfig[track]
 }
 
-// 导航配置
-export const navigationConfig = [
-  { name: "关于我", path: "/about" },
-  { name: "作品", path: "/projects" },
-  { name: "研究", path: "/research" },
-  { name: "博客", path: "/blog" },
-  { name: "生活", path: "/life" },
-  { name: "服务", path: "/services" },
-  { name: "Stack", path: "https://stack.tianlizeng.cloud", external: true },
-  { name: "CC Docs", path: "https://cmds.tianlizeng.cloud", external: true },
-]
+// 导航配置 — SSOT: ~/Dev/configs/menus/sites/website.yaml
+// 实际数组由 scripts/sync-menu.py 生成到 lib/menu.generated.ts，prebuild hook 触发
+import { navigationConfig as _navigationConfig } from "./menu.generated"
+export const navigationConfig = _navigationConfig
 
 // 品牌配置
 export const brandConfig = {

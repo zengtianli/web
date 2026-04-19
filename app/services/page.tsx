@@ -2,11 +2,12 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import PageHeader from "@/components/page-header"
 import ServiceDashboard from "@/components/service-dashboard"
+import LocalCatalog from "@/components/local-catalog"
 import { SERVICE_GROUPS } from "@/lib/services"
 
 export const metadata = {
   title: "服务总览 | 曾田力",
-  description: "所有在线服务与子域名一览——水利工具、开发平台、内容站点、基础设施监控。",
+  description: "所有在线服务与本地工具一览——水利工具、开发平台、内容站点、基础设施、CLI 工具库。",
 }
 
 export default function ServicesPage() {
@@ -21,6 +22,7 @@ export default function ServicesPage() {
           description={`${totalServices} 个在线服务，统一部署在 tianlizeng.cloud`}
         />
         <ServiceDashboard groups={SERVICE_GROUPS} />
+        <LocalCatalog />
       </div>
       <Footer />
     </main>
