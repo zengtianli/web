@@ -25,7 +25,7 @@ export interface CatalogEntry {
 
 export const CATALOG = ({
   "meta": {
-    "generated_at": "2026-04-19T17:50:55",
+    "generated_at": "2026-04-19T20:36:07",
     "sources": [
       "~/Dev/website/lib/services.ts",
       "~/Dev/configs/menus/sites/*.yaml",
@@ -361,6 +361,18 @@ export const CATALOG = ({
       "description": "工作方法论 × 命令映射 — 标书/生态流量/再生水",
       "source": "playbooks",
       "path": "~/Dev/playbooks"
+    },
+    {
+      "id": "sub:assets",
+      "type": "subdomain",
+      "name": "理财笔记",
+      "subdomain": "assets",
+      "url": "https://assets.tianlizeng.cloud",
+      "access_type": "public",
+      "group": "投资工具",
+      "description": "国际资产配置公开笔记 — 换汇 / 投资 / 香港银行 / 策略分析",
+      "source": "assets",
+      "path": "~/Dev/assets"
     },
     {
       "id": "sub:cc-options",
