@@ -25,7 +25,7 @@ export interface CatalogEntry {
 
 export const CATALOG = ({
   "meta": {
-    "generated_at": "2026-04-19T09:59:18",
+    "generated_at": "2026-04-19T10:01:08",
     "sources": [
       "~/Dev/website/lib/services.ts",
       "~/Dev/configs/menus/sites/*.yaml",

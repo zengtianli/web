@@ -7,6 +7,7 @@ import type { Metadata } from "next"
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { ThemeColorMeta } from "@/components/theme-color"
+import ServiceWorkerRegister from "@/components/sw-register"
 
 import "./globals.css"
 
