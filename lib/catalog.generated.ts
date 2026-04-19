@@ -25,7 +25,7 @@ export interface CatalogEntry {
 
 export const CATALOG = ({
   "meta": {
-    "generated_at": "2026-04-19T10:29:55",
+    "generated_at": "2026-04-19T10:38:56",
     "sources": [
       "~/Dev/website/lib/services.ts",
       "~/Dev/configs/menus/sites/*.yaml",
@@ -64,10 +64,6 @@ export const CATALOG = ({
         {
           "label": "生活",
           "path": "/life"
-        },
-        {
-          "label": "服务",
-          "path": "/services"
         }
       ]
     },

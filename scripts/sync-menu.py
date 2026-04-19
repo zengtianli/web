@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""website 主导航同步：sites/website.yaml → lib/menu.generated.ts
+"""website 主导航 + 顶行共享 navbar 同步。
 
-由 prebuild / predev hook 触发；也可手动跑：
   python3 scripts/sync-menu.py
 
-SSOT：~/Dev/configs/menus/sites/website.yaml
-消费者：lib/profile-config.ts re-exports navigationConfig from './menu.generated'
+数据流：
+  ~/Dev/configs/menus/sites/website.yaml  →  lib/menu.generated.ts (主站第二行 5 项)
+  ~/Dev/configs/menus/navbar.yaml         →  lib/shared-navbar.generated.ts (主站第一行)
+                                              （由 menus.py build-website-navbar 生成）
 """
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -18,15 +20,16 @@ except ImportError:
     sys.exit(2)
 
 REPO = Path(__file__).parent.parent
-YAML = Path.home() / "Dev" / "configs" / "menus" / "sites" / "website.yaml"
-OUT = REPO / "lib" / "menu.generated.ts"
+SITE_YAML = Path.home() / "Dev" / "configs" / "menus" / "sites" / "website.yaml"
+MENUS_TOOL = Path.home() / "Dev" / "devtools" / "lib" / "tools" / "menus.py"
+OUT_INTERNAL = REPO / "lib" / "menu.generated.ts"
 
 
-def main():
-    if not YAML.exists():
-        print(f"ERROR: {YAML} not found", file=sys.stderr)
+def gen_internal_nav():
+    if not SITE_YAML.exists():
+        print(f"ERROR: {SITE_YAML} not found", file=sys.stderr)
         sys.exit(1)
-    cfg = yaml.safe_load(YAML.read_text(encoding="utf-8")) or {}
+    cfg = yaml.safe_load(SITE_YAML.read_text(encoding="utf-8")) or {}
     items = cfg.get("items") or []
 
     lines = [
@@ -45,9 +48,30 @@ def main():
     lines.append("]")
     lines.append("")
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text("\n".join(lines), encoding="utf-8")
-    print(f"Wrote {OUT.relative_to(REPO)} ({len(items)} items)")
+    OUT_INTERNAL.parent.mkdir(parents=True, exist_ok=True)
+    OUT_INTERNAL.write_text("\n".join(lines), encoding="utf-8")
+    print(f"Wrote {OUT_INTERNAL.relative_to(REPO)} ({len(items)} items)")
+
+
+def gen_shared_navbar():
+    """Delegate to menus.py — single source of truth for the renderer."""
+    if not MENUS_TOOL.exists():
+        print(f"WARN: {MENUS_TOOL} not found, skipping shared-navbar generation", file=sys.stderr)
+        return
+    proc = subprocess.run(
+        [sys.executable, str(MENUS_TOOL), "build-website-navbar", "-w"],
+        capture_output=True, text=True, check=False,
+    )
+    if proc.returncode != 0:
+        print(f"ERROR: menus.py build-website-navbar failed:\n{proc.stderr}", file=sys.stderr)
+        sys.exit(1)
+    # echo the success line
+    sys.stdout.write(proc.stdout)
+
+
+def main():
+    gen_internal_nav()
+    gen_shared_navbar()
 
 
 if __name__ == "__main__":
