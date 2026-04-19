@@ -6,17 +6,15 @@ import {
   MEGA_CATEGORIES,
   SHARED_NO_CURRENT_HOSTS,
   SHARED_CURRENT_HOST_MAP,
+  type MegaCategory,
   type MegaGroup,
   type MegaItem,
 } from "@/lib/shared-navbar.generated"
 import { cn } from "@/lib/utils"
 
 type MegaNavbarProps = {
-  /** Force a specific current category key (otherwise derived from window.location). */
   currentKey?: string
-  /** Extra content rendered at the right of the top bar. */
   rightSlot?: ReactNode
-  /** Additional class for the outer stack wrapper. */
   className?: string
 }
 
@@ -29,26 +27,16 @@ function resolveCurrentKey(host: string): string | null {
   return null
 }
 
-function ItemLink({ item, dark }: { item: MegaItem; dark?: boolean }) {
+function ItemLink({ item }: { item: MegaItem }) {
   return (
     <a
       href={item.url}
       role="menuitem"
-      className={cn(
-        "inline-flex items-center gap-2 text-[14px] leading-[28px] font-normal transition-colors",
-        dark ? "text-[#C8CCD0] hover:text-white" : "text-[#333333] hover:text-[#D40000]",
-      )}
+      className="inline-flex items-center gap-2 text-[14px] leading-[28px] font-normal text-[#333333] hover:text-[#D40000] transition-colors no-underline"
     >
       <span>{item.label}</span>
       {item.access === "cf-access" && (
-        <span
-          className={cn(
-            "inline-flex items-center h-[18px] px-1.5 text-[10px] font-medium tracking-[0.05em] rounded-[3px] border",
-            dark
-              ? "text-[#C8CCD0] border-[#6B7177]"
-              : "text-[#6B7177] border-[#BFBFBF]",
-          )}
-        >
+        <span className="inline-flex items-center h-[18px] px-1.5 text-[10px] font-medium tracking-[0.05em] rounded-[3px] border text-[#6B7177] border-[#BFBFBF] shrink-0">
           CF
         </span>
       )}
@@ -56,26 +44,57 @@ function ItemLink({ item, dark }: { item: MegaItem; dark?: boolean }) {
   )
 }
 
-function Group({ group, dark }: { group: MegaGroup; dark?: boolean }) {
+function Group({ group }: { group: MegaGroup }) {
   return (
     <div className="mb-6 last:mb-0">
-      <h3
-        className={cn(
-          "m-0 mb-3",
-          dark
-            ? "text-[13px] font-semibold text-white uppercase tracking-[0.08em]"
-            : "text-[15px] font-semibold text-black",
-        )}
-      >
-        {group.title}
-      </h3>
+      <h3 className="m-0 mb-3 text-[15px] font-semibold text-[#111111]">{group.title}</h3>
       <ul className="list-none p-0 m-0">
         {group.items.map((it) => (
           <li key={it.url}>
-            <ItemLink item={it} dark={dark} />
+            <ItemLink item={it} />
           </li>
         ))}
       </ul>
+    </div>
+  )
+}
+
+function DesktopPanel({
+  category,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  category: MegaCategory
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+}) {
+  return (
+    <div
+      id={`mega-panel-${category.key}`}
+      role="menu"
+      aria-label={category.label}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className="hidden md:block fixed top-16 inset-x-0 bg-[#F5F5F5] shadow-[0_8px_16px_-8px_rgba(0,0,0,0.08)]"
+      style={{ maxHeight: "calc(100vh - 64px)", overflowY: "auto" }}
+    >
+      <div className="max-w-[1280px] w-full mx-auto px-12 py-10 grid grid-cols-4 gap-0 min-h-[320px]">
+        {category.columns.map((col, i) => (
+          <div
+            key={i}
+            className={cn(
+              "px-6 min-w-0",
+              i === 0 && "pl-0",
+              i === 3 && "pr-0 border-r-0",
+              i !== 3 && "border-r border-[#E0E0E0]",
+            )}
+          >
+            {col.map((g) => (
+              <Group key={g.title} group={g} />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
@@ -149,18 +168,18 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
         className="h-16 bg-white border-b border-[#E5E5E5] flex items-center"
         aria-label="站群导航"
       >
-        <div className="max-w-[1280px] w-full mx-auto px-6 flex items-center">
+        <div className="max-w-[1280px] w-full mx-auto px-6 flex items-center min-w-0">
           <a
             href={SHARED_BRAND.url}
-            className="text-[18px] font-medium text-black hover:text-[#D40000] transition-colors no-underline"
+            className="text-[18px] font-medium text-black hover:text-[#D40000] transition-colors no-underline shrink-0"
           >
             {SHARED_BRAND.label}
           </a>
           <span
             aria-hidden="true"
-            className="hidden md:inline-block w-px h-8 bg-[#E5E5E5] mx-6"
+            className="hidden md:inline-block w-px h-8 bg-[#E5E5E5] mx-6 shrink-0"
           />
-          <div className="hidden md:flex items-center gap-8 flex-1" role="menubar">
+          <div className="hidden md:flex items-center gap-8 flex-1 min-w-0" role="menubar">
             {MEGA_CATEGORIES.map((cat) => {
               const isActive = activeKey === cat.key
               const isCurrent = resolvedCurrent === cat.key
@@ -179,8 +198,8 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
                     setActiveKey(isActive ? null : cat.key)
                   }}
                   className={cn(
-                    "bg-transparent border-0 font-inherit cursor-pointer py-2",
-                    "inline-flex items-center gap-1 transition-colors",
+                    "bg-transparent border-0 cursor-pointer py-2",
+                    "inline-flex items-center gap-1 transition-colors whitespace-nowrap",
                     "text-[15px]",
                     isActive || isCurrent ? "text-black font-medium" : "text-[#333333] font-normal",
                     "hover:text-black",
@@ -216,71 +235,18 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
         </div>
       </nav>
 
-      {/* ===== Desktop mega panels (render all, toggle data-open) ===== */}
-      {MEGA_CATEGORIES.map((cat) => {
-        const isOpen = activeKey === cat.key
-        return (
-          <div
-            key={cat.key}
-            id={`mega-panel-${cat.key}`}
-            role="menu"
-            aria-label={cat.label}
-            onMouseEnter={clearHide}
-            onMouseLeave={scheduleHide}
-            className={cn(
-              "hidden md:block fixed top-16 inset-x-0 bg-[#F5F5F5]",
-              "shadow-[0_8px_16px_-8px_rgba(0,0,0,0.08)]",
-              "transition-[opacity,transform] duration-[180ms] ease-out",
-              isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1 pointer-events-none",
-            )}
-            style={{
-              minHeight: 320,
-              maxHeight: "calc(100vh - 64px)",
-              overflowY: "auto",
-              visibility: isOpen ? "visible" : "hidden",
-            }}
-          >
-            <div className="max-w-[1280px] w-full mx-auto flex relative min-h-[320px]">
-              {/* 浅灰区 · 3 列 */}
-              <div className="flex-[3] grid grid-cols-3 gap-0 py-10 px-12">
-                {cat.light_columns.map((colSections, ci) => (
-                  <div
-                    key={ci}
-                    className={cn(
-                      "px-6",
-                      ci === 0 && "pl-0",
-                      ci === 2 && "pr-0 border-r-0",
-                      ci !== 2 && "border-r border-[#D8D8D8]",
-                    )}
-                  >
-                    {colSections.map((sec) => (
-                      <Group key={sec.title} group={sec} />
-                    ))}
-                  </div>
-                ))}
-              </div>
-              {/* 深色区 · 1 列 + 出血 */}
-              <div className="flex-1 bg-[#2B2F33] py-10 pl-10 pr-8 relative">
-                {cat.dark_column.map((sec) => (
-                  <Group key={sec.title} group={sec} dark />
-                ))}
-                {/* 深色出血到视口右边缘 */}
-                <div
-                  aria-hidden="true"
-                  className="absolute top-0 bottom-0 left-full bg-[#2B2F33] pointer-events-none"
-                  style={{ width: "100vw" }}
-                />
-              </div>
-            </div>
-          </div>
-        )
-      })}
+      {/* ===== Desktop mega panel: 只渲染 active 的，closed 时 DOM 不含内容 ===== */}
+      {activeCat && (
+        <DesktopPanel
+          category={activeCat}
+          onMouseEnter={clearHide}
+          onMouseLeave={scheduleHide}
+        />
+      )}
 
-      {/* ===== Mobile full-screen accordion ===== */}
+      {/* ===== Mobile full-screen accordion (仅 mobileOpen 时渲染) ===== */}
       {mobileOpen && (
-        <div
-          className="md:hidden fixed top-16 inset-x-0 bottom-0 bg-white overflow-y-auto border-t border-[#E5E5E5] z-[10000]"
-        >
+        <div className="md:hidden fixed top-16 inset-x-0 bottom-0 bg-white overflow-y-auto border-t border-[#E5E5E5] z-[10000]">
           {MEGA_CATEGORIES.map((cat) => {
             const isOpen = activeKey === cat.key
             return (
@@ -300,16 +266,9 @@ export default function MegaNavbar({ currentKey, rightSlot, className }: MegaNav
                 </button>
                 {isOpen && (
                   <div className="bg-[#F5F5F5] px-5 pb-4 pt-2">
-                    {cat.light_columns.flat().map((sec) => (
-                      <Group key={`l-${sec.title}`} group={sec} />
+                    {cat.columns.flat().map((sec) => (
+                      <Group key={sec.title} group={sec} />
                     ))}
-                    {cat.dark_column.length > 0 && (
-                      <div className="bg-[#2B2F33] -mx-5 mt-4 px-5 py-4">
-                        {cat.dark_column.map((sec) => (
-                          <Group key={`d-${sec.title}`} group={sec} dark />
-                        ))}
-                      </div>
-                    )}
                   </div>
                 )}
               </div>

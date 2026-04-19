@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* R7.2 · 防横滚兜底（mega panel 安全网）*/
+html, body { overflow-x: hidden; }
+
 @layer base {
   /* ===== Light theme ===== */
   :root {
