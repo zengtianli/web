@@ -308,7 +308,7 @@ export function getTrackStrengths(track: Track): StrengthConfig[] {
   return strengthsTrackConfig[track]
 }
 
-// 导航配置 — SSOT: ~/Dev/configs/menus/sites/website.yaml
+// 导航配置 — SSOT: ~/Dev/tools/configs/menus/sites/website.yaml
 // 实际数组由 scripts/sync-menu.py 生成到 lib/menu.generated.ts，prebuild hook 触发
 import { navigationConfig as _navigationConfig } from "./menu.generated"
 export const navigationConfig = _navigationConfig

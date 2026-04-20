@@ -11,7 +11,7 @@ published: true
 
 我有 44 个 CLI 脚本分布在 4 个仓库（doctools/devtools/mactools/clashx），涵盖文档处理、开发效率、系统管理、网络代理。它们很好用，但有个问题：**记不住命令**。
 
-`python3 ~/Dev/doctools/scripts/document/md2word.py --template standard --input foo.md`——谁能记住这个？
+`python3 ~/Dev/tools/doctools/scripts/document/md2word.py --template standard --input foo.md`——谁能记住这个？
 
 Raycast 解决了这个问题：⌘+Space → 输入关键词 → 回车执行。
 
@@ -26,7 +26,7 @@ Raycast 解决了这个问题：⌘+Space → 输入关键词 → 回车执行�
 # @raycast.icon 📄
 # @raycast.mode compact
 
-python3 ~/Dev/doctools/scripts/document/md2word.py "$@"
+python3 ~/Dev/tools/doctools/scripts/document/md2word.py "$@"
 ```
 
 关键设计：
