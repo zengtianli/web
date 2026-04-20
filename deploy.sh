@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-VPS="root@104.218.100.67"
+source ~/Dev/devtools/lib/vps_config.sh
 REMOTE_DIR="/opt/website"
 
 echo "🧹 Cleaning previous build..."

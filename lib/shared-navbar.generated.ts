@@ -76,10 +76,9 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
               "key": "dashboard"
             },
             {
-              "label": "Logs",
-              "url": "https://logs.tianlizeng.cloud",
-              "key": "logs",
-              "access": "cf-access"
+              "label": "Auggie",
+              "url": "https://dashboard.tianlizeng.cloud/auggie",
+              "key": "auggie"
             },
             {
               "label": "搜索",
@@ -255,21 +254,6 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
               "label": "clashx",
               "url": "https://github.com/zengtianli/clashx",
               "key": "clashx"
-            },
-            {
-              "label": "hydro-apps",
-              "url": "https://github.com/zengtianli/hydro-apps",
-              "key": "hydro-apps"
-            },
-            {
-              "label": "hydro-qgis",
-              "url": "https://github.com/zengtianli/hydro-qgis",
-              "key": "hydro-qgis"
-            },
-            {
-              "label": "downloads-organizer",
-              "url": "https://github.com/zengtianli/downloads-organizer",
-              "key": "downloads-organizer"
             }
           ]
         }
@@ -279,11 +263,6 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
           "title": "Raycast / 配置",
           "items": [
             {
-              "label": "dockit-raycast",
-              "url": "https://github.com/zengtianli/dockit-raycast",
-              "key": "dockit-raycast"
-            },
-            {
               "label": "raycast",
               "url": "https://github.com/zengtianli/raycast",
               "key": "raycast"
@@ -292,11 +271,6 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
               "label": "configs",
               "url": "https://github.com/zengtianli/configs",
               "key": "configs"
-            },
-            {
-              "label": "dotfiles",
-              "url": "https://github.com/zengtianli/dotfiles",
-              "key": "dotfiles"
             }
           ]
         }

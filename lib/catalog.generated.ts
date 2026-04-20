@@ -385,7 +385,7 @@ export const CATALOG = ({
       "description": "QQQ Covered Call 期权交易仪表盘",
       "port": 8521,
       "source": "international-assets",
-      "path": "~/Dev/international-assets"
+      "path": "~/Dev/content/investment"
     },
     {
       "id": "sub:docs",
