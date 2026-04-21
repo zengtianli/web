@@ -25,9 +25,9 @@ export interface CatalogEntry {
 
 export const CATALOG = ({
   "meta": {
-    "generated_at": "2026-04-19T20:36:07",
+    "generated_at": "2026-04-21T10:37:59",
     "sources": [
-      "~/Dev/website/lib/services.ts",
+      "~/Dev/stations/website/lib/services.ts",
       "~/Dev/tools/configs/menus/sites/*.yaml",
       "~/Dev/tools/configs/menus/navbar.yaml"
     ]
@@ -69,133 +69,113 @@ export const CATALOG = ({
     },
     {
       "id": "sub:hydro",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "Hydro Toolkit",
       "subdomain": "hydro",
       "url": "https://hydro.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "水利计算工具集主平台，插件式集成多个计算模块",
-      "port": 8510,
-      "source": "hydro-toolkit",
-      "path": "~/Dev/hydro-toolkit"
+      "port": 8510
     },
     {
       "id": "sub:hydro-annual",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "水资源年报",
       "subdomain": "hydro-annual",
       "url": "https://hydro-annual.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "浙江省水资源年报查询，按地区年份筛选导出",
-      "port": 8514,
-      "source": "hydro-annual",
-      "path": "~/Dev/hydro-annual"
+      "port": 8514
     },
     {
       "id": "sub:hydro-capacity",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "纳污能力",
       "subdomain": "hydro-capacity",
       "url": "https://hydro-capacity.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "河流/水库纳污能力计算，支持分段与多方案对比",
-      "port": 8511,
-      "source": "hydro-capacity",
-      "path": "~/Dev/hydro-capacity"
+      "port": 8511
     },
     {
       "id": "sub:hydro-district",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "河区调度",
       "subdomain": "hydro-district",
       "url": "https://hydro-district.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "浙东河区调度模型，水平衡与分水枢纽计算",
-      "port": 8516,
-      "source": "hydro-district",
-      "path": "~/Dev/hydro-district"
+      "port": 8516
     },
     {
       "id": "sub:hydro-efficiency",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "水效评估",
       "subdomain": "hydro-efficiency",
       "url": "https://hydro-efficiency.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "工业集聚区水效评估（AHP+CRITIC+TOPSIS）",
-      "port": 8513,
-      "source": "hydro-efficiency",
-      "path": "~/Dev/hydro-efficiency"
+      "port": 8513
     },
     {
       "id": "sub:hydro-geocode",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "地理编码",
       "subdomain": "hydro-geocode",
       "url": "https://hydro-geocode.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "经纬度/地址互转与企业搜索（高德 API）",
-      "port": 8517,
-      "source": "hydro-geocode",
-      "path": "~/Dev/hydro-geocode"
+      "port": 8517
     },
     {
       "id": "sub:hydro-irrigation",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "灌溉需水",
       "subdomain": "hydro-irrigation",
       "url": "https://hydro-irrigation.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "灌溉需水量计算，上传数据计算并导出",
-      "port": 8515,
-      "source": "hydro-irrigation",
-      "path": "~/Dev/hydro-irrigation"
+      "port": 8515
     },
     {
       "id": "sub:hydro-rainfall",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "降雨径流",
       "subdomain": "hydro-rainfall",
       "url": "https://hydro-rainfall.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "概湖灌溉需水量计算（降雨径流 ETL 管线）",
-      "port": 8518,
-      "source": "hydro-rainfall",
-      "path": "~/Dev/hydro-rainfall"
+      "port": 8518
     },
     {
       "id": "sub:hydro-reservoir",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "水库群调度",
       "subdomain": "hydro-reservoir",
       "url": "https://hydro-reservoir.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "梯级水库群发电调度，参数配置与结果可视化",
-      "port": 8512,
-      "source": "hydro-reservoir",
-      "path": "~/Dev/hydro-reservoir"
+      "port": 8512
     },
     {
       "id": "sub:hydro-risk",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "风险图数据",
       "subdomain": "hydro-risk",
       "url": "https://hydro-risk.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
       "description": "洪水风险图数据表填充（GeoJSON 三阶段 ETL）",
-      "port": 8519,
-      "source": "hydro-risk",
-      "path": "~/Dev/hydro-risk"
+      "port": 8519
     },
     {
       "id": "sub:dashboard",
@@ -376,16 +356,14 @@ export const CATALOG = ({
     },
     {
       "id": "sub:cc-options",
-      "type": "subdomain",
+      "type": "vps-only",
       "name": "QQQ CC Dashboard",
       "subdomain": "cc-options",
       "url": "https://cc-options.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "投资工具",
       "description": "QQQ Covered Call 期权交易仪表盘",
-      "port": 8521,
-      "source": "international-assets",
-      "path": "~/Dev/content/investment"
+      "port": 8521
     },
     {
       "id": "sub:docs",
@@ -484,7 +462,7 @@ export const CATALOG = ({
       "id": "local:cc-configs",
       "type": "tool-lib",
       "name": "cc-configs",
-      "path": "~/Dev/tools/cc-configs",
+      "path": "~/Dev/cc-configs",
       "links": [
         {
           "label": "GitHub",
@@ -508,7 +486,7 @@ export const CATALOG = ({
       "id": "local:doctools",
       "type": "tool-lib",
       "name": "doctools",
-      "path": "~/Dev/tools/doctools",
+      "path": "~/Dev/doctools",
       "links": [
         {
           "label": "GitHub",
@@ -520,7 +498,7 @@ export const CATALOG = ({
       "id": "local:mactools",
       "type": "tool-lib",
       "name": "mactools",
-      "path": "~/Dev/tools/mactools",
+      "path": "~/Dev/mactools",
       "links": [
         {
           "label": "GitHub",
@@ -532,7 +510,7 @@ export const CATALOG = ({
       "id": "local:clashx",
       "type": "tool-lib",
       "name": "clashx",
-      "path": "~/Dev/tools/clashx",
+      "path": "~/Dev/clashx",
       "links": [
         {
           "label": "GitHub",
@@ -541,58 +519,10 @@ export const CATALOG = ({
       ]
     },
     {
-      "id": "local:hydro-apps",
-      "type": "tool-lib",
-      "name": "hydro-apps",
-      "path": "~/Dev/hydro-apps",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/hydro-apps"
-        }
-      ]
-    },
-    {
-      "id": "local:hydro-qgis",
-      "type": "tool-lib",
-      "name": "hydro-qgis",
-      "path": "~/Dev/hydro-qgis",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/hydro-qgis"
-        }
-      ]
-    },
-    {
-      "id": "local:downloads-organizer",
-      "type": "tool-lib",
-      "name": "downloads-organizer",
-      "path": "~/Dev/downloads-organizer",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/downloads-organizer"
-        }
-      ]
-    },
-    {
-      "id": "local:dockit-raycast",
-      "type": "raycast-wrapper",
-      "name": "dockit-raycast",
-      "path": "~/Dev/raycast/dockit-ext",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/dockit-raycast"
-        }
-      ]
-    },
-    {
       "id": "local:raycast",
       "type": "raycast-wrapper",
       "name": "raycast",
-      "path": "~/Dev/tools/raycast",
+      "path": "~/Dev/raycast",
       "links": [
         {
           "label": "GitHub",
@@ -604,7 +534,7 @@ export const CATALOG = ({
       "id": "local:configs",
       "type": "config-repo",
       "name": "configs",
-      "path": "~/Dev/tools/configs",
+      "path": "~/Dev/configs",
       "links": [
         {
           "label": "GitHub",
@@ -613,46 +543,10 @@ export const CATALOG = ({
       ]
     },
     {
-      "id": "local:dotfiles",
-      "type": "config-repo",
-      "name": "dotfiles",
-      "path": "~/Dev/tools/configs/_dotfiles",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/dotfiles"
-        }
-      ]
-    },
-    {
-      "id": "local:essays",
-      "type": "knowledge",
-      "name": "essays",
-      "path": "~/Dev/essays",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/essays"
-        }
-      ]
-    },
-    {
-      "id": "local:learn",
-      "type": "knowledge",
-      "name": "learn",
-      "path": "~/Dev/learn",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/learn"
-        }
-      ]
-    },
-    {
       "id": "local:vps",
       "type": "knowledge",
       "name": "vps",
-      "path": "~/Dev/tools/vps",
+      "path": "~/Dev/vps",
       "links": [
         {
           "label": "GitHub",
@@ -661,58 +555,10 @@ export const CATALOG = ({
       ]
     },
     {
-      "id": "local:resume",
-      "type": "knowledge",
-      "name": "resume",
-      "path": "~/Dev/resume",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/resume"
-        }
-      ]
-    },
-    {
-      "id": "local:llm-finetune",
-      "type": "app-candidate",
-      "name": "llm-finetune",
-      "path": "~/Dev/llm-finetune",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/llm-finetune"
-        }
-      ]
-    },
-    {
-      "id": "local:mindmap",
-      "type": "app-candidate",
-      "name": "mindmap",
-      "path": "~/Dev/mindmap",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/mindmap"
-        }
-      ]
-    },
-    {
-      "id": "local:cockpit",
-      "type": "app-candidate",
-      "name": "cockpit",
-      "path": "~/Dev/cockpit",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/cockpit"
-        }
-      ]
-    },
-    {
       "id": "local:scripts",
       "type": "archived",
       "name": "scripts",
-      "path": "~/Dev/tools/scripts",
+      "path": "~/Dev/scripts",
       "links": [
         {
           "label": "GitHub",
@@ -721,34 +567,10 @@ export const CATALOG = ({
       ]
     },
     {
-      "id": "local:scripts-archive",
-      "type": "archived",
-      "name": "scripts-archive",
-      "path": "~/Dev/scripts-archive",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/scripts-archive"
-        }
-      ]
-    },
-    {
-      "id": "local:analysis-hermes-vs-mine",
-      "type": "archived",
-      "name": "analysis-hermes-vs-mine",
-      "path": "~/Dev/analysis-hermes-vs-mine",
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/zengtianli/analysis-hermes-vs-mine"
-        }
-      ]
-    },
-    {
       "id": "local:hammerspoon",
       "type": "dormant",
       "name": "hammerspoon",
-      "path": "~/Dev/tools/hammerspoon",
+      "path": "~/Dev/hammerspoon",
       "links": [
         {
           "label": "GitHub",
