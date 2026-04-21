@@ -20,6 +20,14 @@ rsync -avz --delete .next/static/ "$VPS:$REMOTE_DIR/.next/static/" || true
 rsync -avz --delete public/ "$VPS:$REMOTE_DIR/public/" || true
 rsync -avz data/ "$VPS:$REMOTE_DIR/data/" || true
 
+# Next.js standalone trace 在 pnpm + Next 15 下经常漏 next 自己的运行时依赖
+# (styled-jsx / @swc/helpers 等)。standalone/node_modules 只有 3 个顶层 dirs。
+# 简单粗暴 fix: 把本地完整 node_modules (含 .pnpm symlink 结构) sync 过去，
+# 覆盖 standalone 不全的 node_modules。约 153MB 增量 sync。
+# (2026-04-21 事故：deploy 后 502，Cannot find module 'styled-jsx/package.json')
+echo "📦 Syncing full node_modules (covers standalone trace miss)..."
+rsync -avz node_modules/ "$VPS:$REMOTE_DIR/node_modules/" >/dev/null
+
 echo "🔄 Restarting service..."
 ssh "$VPS" "systemctl restart website"
 
