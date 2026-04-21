@@ -16,7 +16,7 @@ export const SHARED_BRAND: SharedBrand = {"label": "曾田力", "url": "https://
 export const MEGA_CATEGORIES: MegaCategory[] = [
   {
     "key": "home",
-    "label": "主站",
+    "label": "🏠 主站",
     "columns": [
       [
         {
@@ -94,7 +94,7 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
   },
   {
     "key": "hydro",
-    "label": "水利",
+    "label": "💧 水利",
     "columns": [
       [
         {
@@ -178,7 +178,7 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
   },
   {
     "key": "dev",
-    "label": "开发",
+    "label": "🛠 开发",
     "columns": [
       [
         {
@@ -280,7 +280,7 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
   },
   {
     "key": "content",
-    "label": "内容",
+    "label": "📚 内容",
     "columns": [
       [
         {
@@ -341,7 +341,7 @@ export const MEGA_CATEGORIES: MegaCategory[] = [
   },
   {
     "key": "infra",
-    "label": "基础设施",
+    "label": "⚙️ 基础设施",
     "columns": [
       [
         {
