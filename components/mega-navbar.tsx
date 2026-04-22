@@ -1,3 +1,23 @@
+// AUTO-GENERATED — do not edit.
+// Source of truth: ~/Dev/devtools/lib/react/mega-navbar.tsx
+// Sync via:        python3 ~/Dev/devtools/lib/tools/menus.py build-react-mega-navbar -w
+// Audited by:      /menus-audit (react-mega-navbar-drift)
+
+// mega-navbar.tsx — SSOT for the shared mega menu React component.
+//
+// Consumed by:
+//   ~/Dev/stations/website/components/mega-navbar.tsx   (AUTO-GENERATED copy)
+//   ~/Dev/stations/ops-console/components/mega-navbar.tsx (AUTO-GENERATED copy)
+//
+// Each site's copy is a byte-for-byte clone produced by:
+//   python3 ~/Dev/devtools/lib/tools/menus.py build-react-mega-navbar -w
+//
+// Imports resolve per-site (each site has its own @/* tsconfig alias):
+//   @/lib/shared-navbar.generated  — navbar data generated from menus/navbar.yaml
+//   @/lib/utils                    — cn() helper (clsx + tailwind-merge)
+//
+// Edit this file; never edit the site copies directly — they will be overwritten.
+
 "use client"
 
 import { useState, useEffect, useRef, useCallback, type ReactNode } from "react"
