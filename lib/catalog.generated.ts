@@ -25,7 +25,7 @@ export interface CatalogEntry {
 
 export const CATALOG = ({
   "meta": {
-    "generated_at": "2026-04-21T10:37:59",
+    "generated_at": "2026-04-22T10:02:03",
     "sources": [
       "~/Dev/stations/website/lib/services.ts",
       "~/Dev/tools/configs/menus/sites/*.yaml",
@@ -41,6 +41,7 @@ export const CATALOG = ({
       "url": "https://tianlizeng.cloud",
       "access_type": "public",
       "group": "主站",
+      "group_id": "main",
       "description": "个人网站 — 水利工程师 / AI 工程师 / 独立开发者",
       "source": "website",
       "path": "~/Dev/website",
@@ -75,6 +76,7 @@ export const CATALOG = ({
       "url": "https://hydro.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "水利计算工具集主平台，插件式集成多个计算模块",
       "port": 8510
     },
@@ -86,6 +88,7 @@ export const CATALOG = ({
       "url": "https://hydro-annual.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "浙江省水资源年报查询，按地区年份筛选导出",
       "port": 8514
     },
@@ -97,6 +100,7 @@ export const CATALOG = ({
       "url": "https://hydro-capacity.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "河流/水库纳污能力计算，支持分段与多方案对比",
       "port": 8511
     },
@@ -108,6 +112,7 @@ export const CATALOG = ({
       "url": "https://hydro-district.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "浙东河区调度模型，水平衡与分水枢纽计算",
       "port": 8516
     },
@@ -119,6 +124,7 @@ export const CATALOG = ({
       "url": "https://hydro-efficiency.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "工业集聚区水效评估（AHP+CRITIC+TOPSIS）",
       "port": 8513
     },
@@ -130,6 +136,7 @@ export const CATALOG = ({
       "url": "https://hydro-geocode.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "经纬度/地址互转与企业搜索（高德 API）",
       "port": 8517
     },
@@ -141,6 +148,7 @@ export const CATALOG = ({
       "url": "https://hydro-irrigation.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "灌溉需水量计算，上传数据计算并导出",
       "port": 8515
     },
@@ -152,6 +160,7 @@ export const CATALOG = ({
       "url": "https://hydro-rainfall.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "概湖灌溉需水量计算（降雨径流 ETL 管线）",
       "port": 8518
     },
@@ -163,6 +172,7 @@ export const CATALOG = ({
       "url": "https://hydro-reservoir.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "梯级水库群发电调度，参数配置与结果可视化",
       "port": 8512
     },
@@ -174,6 +184,7 @@ export const CATALOG = ({
       "url": "https://hydro-risk.tianlizeng.cloud",
       "access_type": "public",
       "group": "水利工具",
+      "group_id": "hydro-tools",
       "description": "洪水风险图数据表填充（GeoJSON 三阶段 ETL）",
       "port": 8519
     },
@@ -185,6 +196,7 @@ export const CATALOG = ({
       "url": "https://dashboard.tianlizeng.cloud",
       "access_type": "public",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "项目控制台 — VPS 服务/任务/Git 提交总览",
       "port": 8520,
       "source": "ops-console",
@@ -212,6 +224,7 @@ export const CATALOG = ({
       "url": "https://cclog.tianlizeng.cloud",
       "access_type": "public",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "CC 会话历史仪表盘，按项目/日期/关键词筛选",
       "port": 8898,
       "source": "cclog",
@@ -225,6 +238,7 @@ export const CATALOG = ({
       "url": "https://logs.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "HANDOFF / 方案 / 复盘 / CC 进化 — 统一时间线",
       "source": "logs",
       "path": "~/Dev/logs"
@@ -237,6 +251,7 @@ export const CATALOG = ({
       "url": "https://dockit.tianlizeng.cloud",
       "access_type": "public",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "文档处理工具箱 — Word/PPT/Excel 多格式处理",
       "port": 8503,
       "source": "dockit",
@@ -250,6 +265,7 @@ export const CATALOG = ({
       "url": "https://stack.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "~/Dev 项目架构说明书",
       "source": "stack",
       "path": "~/Dev/stack",
@@ -300,6 +316,7 @@ export const CATALOG = ({
       "url": "https://cmds.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "CC 命令 & 技能说明书",
       "source": "cmds",
       "path": "~/Dev/cmds",
@@ -338,6 +355,7 @@ export const CATALOG = ({
       "url": "https://playbooks.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "开发与 AI",
+      "group_id": "dev-ai",
       "description": "工作方法论 × 命令映射 — 标书/生态流量/再生水",
       "source": "playbooks",
       "path": "~/Dev/playbooks"
@@ -350,6 +368,7 @@ export const CATALOG = ({
       "url": "https://assets.tianlizeng.cloud",
       "access_type": "public",
       "group": "投资工具",
+      "group_id": "invest-tools",
       "description": "国际资产配置公开笔记 — 换汇 / 投资 / 香港银行 / 策略分析",
       "source": "assets",
       "path": "~/Dev/assets"
@@ -362,6 +381,7 @@ export const CATALOG = ({
       "url": "https://cc-options.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "投资工具",
+      "group_id": "invest-tools",
       "description": "QQQ Covered Call 期权交易仪表盘",
       "port": 8521
     },
@@ -373,6 +393,7 @@ export const CATALOG = ({
       "url": "https://docs.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "内容与媒体",
+      "group_id": "content-media",
       "description": "Knowledge Dashboard — 文档/指南/知识检索",
       "source": "docs",
       "path": "~/Dev/docs"
@@ -385,6 +406,7 @@ export const CATALOG = ({
       "url": "https://audiobook.tianlizeng.cloud",
       "access_type": "public",
       "group": "内容与媒体",
+      "group_id": "content-media",
       "description": "Markdown 转有声书，多音色选择与句级同步",
       "port": 9200,
       "source": "audiobook",
@@ -398,6 +420,7 @@ export const CATALOG = ({
       "url": "https://status.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "基础设施",
+      "group_id": "infra",
       "description": "服务可用性监控",
       "port": 3001
     },
@@ -409,6 +432,7 @@ export const CATALOG = ({
       "url": "https://n8n.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "基础设施",
+      "group_id": "infra",
       "description": "工作流自动化引擎",
       "port": 5678
     },
@@ -420,6 +444,7 @@ export const CATALOG = ({
       "url": "https://panel.tianlizeng.cloud",
       "access_type": "public",
       "group": "基础设施",
+      "group_id": "infra",
       "description": "代理面板管理",
       "port": 8000
     },
@@ -431,6 +456,7 @@ export const CATALOG = ({
       "url": "https://sub.tianlizeng.cloud",
       "access_type": "public",
       "group": "基础设施",
+      "group_id": "infra",
       "description": "代理客户端订阅端点",
       "port": 8000
     },
@@ -442,6 +468,7 @@ export const CATALOG = ({
       "url": "https://proxy.tianlizeng.cloud",
       "access_type": "cf-access",
       "group": "基础设施",
+      "group_id": "infra",
       "description": "Cloudflare Access 认证代理",
       "port": 9100,
       "source": "oauth-proxy",
@@ -455,6 +482,7 @@ export const CATALOG = ({
       "url": "https://webhook.tianlizeng.cloud",
       "access_type": "public",
       "group": "基础设施",
+      "group_id": "infra",
       "description": "GitHub Webhook 接收器",
       "port": 9000
     },
