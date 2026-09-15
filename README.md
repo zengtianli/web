@@ -1,5 +1,7 @@
 # 个人作品集网站
 
+**中文** | [English](README_EN.md)
+
 > 曾田力的个人作品集网站，展示水利工程领域的研究成果和项目经验
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.2.4-black?style=flat-square&logo=next.js)](https://nextjs.org/)
